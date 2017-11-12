@@ -1,6 +1,6 @@
 <?php
 
-namespace Maknz\Slack;
+namespace Nexy\Slack;
 
 use InvalidArgumentException;
 
@@ -206,7 +206,7 @@ class AttachmentAction
             return $this;
         }
 
-        throw new InvalidArgumentException('The action confirmation must be an instance of Maknz\Slack\ActionConfirmation or a keyed array');
+        throw new InvalidArgumentException('The action confirmation must be an instance of Nexy\Slack\ActionConfirmation or a keyed array');
     }
 
     /**
