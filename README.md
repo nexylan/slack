@@ -1,13 +1,35 @@
 # Slack for PHP
 
-[![Build Status](https://travis-ci.org/maknz/slack.svg?branch=master)](https://travis-ci.org/maknz/slack)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/maknz/slack/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/maknz/slack/?branch=master)
-[![StyleCI](https://styleci.io/repos/19448330/shield)](https://styleci.io/repos/19448330)
+A simple PHP package for sending messages to [Slack](https://slack.com)
+with [incoming webhooks](https://my.slack.com/services/new/incoming-webhook),
+focused on ease-of-use and elegant syntax.
 
-A simple PHP package for sending messages to [Slack](https://slack.com) with [incoming webhooks](https://my.slack.com/services/new/incoming-webhook), focussed on ease-of-use and elegant syntax. **Note: this package is no longer being actively maintained.**
+[![Latest Stable Version](https://poser.pugx.org/nexylan/slack/v/stable)](https://packagist.org/packages/nexylan/slack)
+[![Latest Unstable Version](https://poser.pugx.org/nexylan/slack/v/unstable)](https://packagist.org/packages/nexylan/slack)
+[![License](https://poser.pugx.org/nexylan/slack/license)](https://packagist.org/packages/nexylan/slack)
+[![Dependency Status](https://www.versioneye.com/php/nexylan:slack/badge.svg)](https://www.versioneye.com/php/nexylan:slack)
+[![Reference Status](https://www.versioneye.com/php/nexylan:slack/reference_badge.svg)](https://www.versioneye.com/php/nexylan:slack/references)
+
+[![Total Downloads](https://poser.pugx.org/nexylan/slack/downloads)](https://packagist.org/packages/nexylan/slack)
+[![Monthly Downloads](https://poser.pugx.org/nexylan/slack/d/monthly)](https://packagist.org/packages/nexylan/slack)
+[![Daily Downloads](https://poser.pugx.org/nexylan/slack/d/daily)](https://packagist.org/packages/nexylan/slack)
+
+[![Build Status](https://travis-ci.org/nexylan/slack.svg?branch=master)](https://travis-ci.org/nexylan/slack)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nexylan/slack/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nexylan/slack/?branch=master)
+[![Code Climate](https://codeclimate.com/github/nexylan/slack/badges/gpa.svg)](https://codeclimate.com/github/nexylan/slack)
+[![Coverage Status](https://coveralls.io/repos/nexylan/slack/badge.svg?branch=master)](https://coveralls.io/r/nexylan/slack?branch=master)
 
 * Laravel integration: [Slack for Laravel](https://github.com/maknz/slack-laravel)
-* Symfony integration: [NexySlackBundle](https://github.com/nexylan/NexySlackBundle)
+(not maintained, feel free to propose your own here!)
+* Symfony integration: [Slack bundle](https://github.com/nexylan/slack-bundle)
+
+This repository started from a fork of  the popular [maknz/slack](https://github.com/maknz/slack) library,
+which [is not maintained anymrore](https://github.com/maknz/slack/commit/89ff7b2).
+
+The 1.x branch and all the related releases are an exact copy of the original repository
+and are under the [BSD 2-clause "Simplified" License](https://github.com/maknz/slack/blob/master/LICENSE.md).
+
+The next releases will be under the MIT license. See the current [LICENSE](LICENSE) file for more details.
 
 ## Requirements
 
@@ -18,10 +40,11 @@ A simple PHP package for sending messages to [Slack](https://slack.com) with [in
 You can install the package using the [Composer](https://getcomposer.org/) package manager. You can install it by running this command in your project root:
 
 ```sh
-composer require maknz/slack
+composer require nexylan/slack
 ```
 
-Then [create an incoming webhook](https://my.slack.com/services/new/incoming-webhook) on your Slack account for the package to use. You'll need the webhook URL to instantiate the client (or for the configuration file if using Laravel).
+Then [create an incoming webhook](https://my.slack.com/services/new/incoming-webhook) on your Slack account for the package to use.
+You'll need the webhook URL to instantiate the client (or for the configuration file if using Laravel).
 
 ## Basic Usage
 
@@ -29,7 +52,7 @@ Then [create an incoming webhook](https://my.slack.com/services/new/incoming-web
 
 ```php
 // Instantiate without defaults
-$client = new Maknz\Slack\Client('https://hooks.slack.com/...');
+$client = new Nexy\Slack\Client('https://hooks.slack.com/...');
 
 // Instantiate with defaults, so all messages created
 // will be sent from 'Cyril' and to the #accounting channel
@@ -40,7 +63,7 @@ $settings = [
 	'link_names' => true
 ];
 
-$client = new Maknz\Slack\Client('https://hooks.slack.com/...', $settings);
+$client = new Nexy\Slack\Client('https://hooks.slack.com/...', $settings);
 ```
 
 #### Settings

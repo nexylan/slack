@@ -1,6 +1,6 @@
 <?php
 
-namespace Maknz\Slack;
+namespace Nexy\Slack;
 
 use GuzzleHttp\Client as Guzzle;
 use RuntimeException;
@@ -132,7 +132,7 @@ class Client
      *
      * @param string $name The name of the method
      * @param array $arguments The method arguments
-     * @return \Maknz\Slack\Message
+     * @return \Nexy\Slack\Message
      */
     public function __call($name, $arguments)
     {
@@ -337,7 +337,7 @@ class Client
     /**
      * Create a new message with defaults.
      *
-     * @return \Maknz\Slack\Message
+     * @return \Nexy\Slack\Message
      */
     public function createMessage()
     {
@@ -359,7 +359,7 @@ class Client
     /**
      * Send a message.
      *
-     * @param \Maknz\Slack\Message $message
+     * @param \Nexy\Slack\Message $message
      * @return void
      */
     public function sendMessage(Message $message)
@@ -378,7 +378,7 @@ class Client
     /**
      * Prepares the payload to be sent to the webhook.
      *
-     * @param \Maknz\Slack\Message $message The message to send
+     * @param \Nexy\Slack\Message $message The message to send
      * @return array
      */
     public function preparePayload(Message $message)
@@ -405,7 +405,7 @@ class Client
     /**
      * Get the attachments in array form.
      *
-     * @param \Maknz\Slack\Message $message
+     * @param \Nexy\Slack\Message $message
      * @return array
      */
     protected function getAttachmentsAsArrays(Message $message)

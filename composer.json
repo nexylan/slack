@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Maknz\\Slack\\": "src/"
+            "Nexy\\Slack\\": "src/"
         }
     },
     "minimum-stability": "stable",

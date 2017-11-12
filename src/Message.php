@@ -1,6 +1,6 @@
 <?php
 
-namespace Maknz\Slack;
+namespace Nexy\Slack;
 
 use InvalidArgumentException;
 
@@ -10,7 +10,7 @@ class Message
      * Reference to the Slack client responsible for sending
      * the message.
      *
-     * @var \Maknz\Slack\Client
+     * @var \Nexy\Slack\Client
      */
     protected $client;
 
@@ -85,7 +85,7 @@ class Message
     /**
      * Instantiate a new Message.
      *
-     * @param \Maknz\Slack\Client $client
+     * @param \Nexy\Slack\Client $client
      * @return void
      */
     public function __construct(Client $client)
