@@ -21,6 +21,8 @@ matrix:
   include:
     - php: 5.5
       env: COMPOSER_FLAGS="--prefer-lowest"
+    - php: 7.2
+      env: LINT="1"
   allow_failures:
     - php: nightly
     - env: SYMFONY_VERSION=dev-master
@@ -35,12 +37,14 @@ before_install:
   - composer global require satooshi/php-coveralls:@stable --no-update
 
 install:
+  - wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar --output-document php-cs-fixer.phar
   - composer global update --prefer-dist --no-interaction
   - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 script:
-  - composer validate
-  - phpunit --coverage-clover build/logs/clover.xml
+  - if [ "$LINT" = "1" ]; then composer validate; fi;
+  - if [ "$LINT" = "1" ]; then php php-cs-fixer.phar fix --verbose --dry-run; fi;
+  - if [ "$LINT" != "1" ]; then phpunit --coverage-clover build/logs/clover.xml; fi;
 
 after_script:
-  - coveralls -v
+  - if [ "$LINT" != "1" ]; coveralls -v; fi;
