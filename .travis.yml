@@ -1,18 +1,47 @@
+branches:
+  only:
+    - master
+
 language: php
 
 php:
   - 5.5
   - 5.6
   - 7.0
-  - 7.1.0a1
-  - hhvm
-  
-matrix:
-  allow_failures:
-    - php: 7.1.0a1
+  - 7.1
+  - 7.2
+  - nightly
 
-before_script:
-  - composer install --prefer-source --no-interaction
+env:
+  global:
+    - PATH="$HOME/.composer/vendor/bin:$PATH"
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 5.5
+      env: COMPOSER_FLAGS="--prefer-lowest"
+  allow_failures:
+    - php: nightly
+    - env: SYMFONY_VERSION=dev-master
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+before_install:
+  - composer global require satooshi/php-coveralls:@stable --no-update
+  - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update; fi;
+
+install:
+  - composer global update --prefer-dist --no-interaction
+  - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 script:
-  - phpunit
+  - composer validate
+  - phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - coveralls -v
