@@ -2,7 +2,7 @@
 
 use Nexy\Slack\Client;
 
-class ClientUnitTest extends PHPUnit_Framework_TestCase
+class ClientUnitTest extends PHPUnit\Framework\TestCase
 {
     public function testInstantiationWithNoDefaults()
     {

@@ -1,9 +1,9 @@
 <?php
 
-use Nexy\Slack\Message;
 use Nexy\Slack\Attachment;
+use Nexy\Slack\Message;
 
-class MessageUnitTest extends PHPUnit_Framework_TestCase
+class MessageUnitTest extends PHPUnit\Framework\TestCase
 {
     public function testInstantiation()
     {
@@ -71,17 +71,17 @@ class MessageUnitTest extends PHPUnit_Framework_TestCase
 
         $attachments = $message->getAttachments();
 
-        $this->assertEquals(1, count($attachments));
+        $this->assertSame(1, \count($attachments));
 
         $obj = $attachments[0];
 
-        $this->assertEquals($attachmentArray['fallback'], $obj->getFallback());
+        $this->assertSame($attachmentArray['fallback'], $obj->getFallback());
 
-        $this->assertEquals($attachmentArray['text'], $obj->getText());
+        $this->assertSame($attachmentArray['text'], $obj->getText());
 
-        $this->assertEquals($attachmentArray['pretext'], $obj->getPretext());
+        $this->assertSame($attachmentArray['pretext'], $obj->getPretext());
 
-        $this->assertEquals($attachmentArray['color'], $obj->getColor());
+        $this->assertSame($attachmentArray['color'], $obj->getColor());
     }
 
     public function testAttachWithObject()
@@ -97,11 +97,11 @@ class MessageUnitTest extends PHPUnit_Framework_TestCase
 
         $attachments = $message->getAttachments();
 
-        $this->assertEquals(1, count($attachments));
+        $this->assertSame(1, \count($attachments));
 
         $remoteObj = $attachments[0];
 
-        $this->assertEquals($obj, $remoteObj);
+        $this->assertSame($obj, $remoteObj);
     }
 
     public function testMultipleAttachments()
@@ -122,15 +122,15 @@ class MessageUnitTest extends PHPUnit_Framework_TestCase
 
         $attachments = $message->getAttachments();
 
-        $this->assertEquals(2, count($attachments));
+        $this->assertSame(2, \count($attachments));
 
         $remote1 = $attachments[0];
 
         $remote2 = $attachments[1];
 
-        $this->assertEquals($obj1, $remote1);
+        $this->assertSame($obj1, $remote1);
 
-        $this->assertEquals($obj2, $remote2);
+        $this->assertSame($obj2, $remote2);
     }
 
     public function testSetAttachmentsWipesExistingAttachments()
@@ -149,13 +149,13 @@ class MessageUnitTest extends PHPUnit_Framework_TestCase
 
         $message->attach($obj1)->attach($obj2);
 
-        $this->assertEquals(2, count($message->getAttachments()));
+        $this->assertSame(2, \count($message->getAttachments()));
 
         $message->setAttachments([['fallback' => 'a', 'text' => 'b']]);
 
-        $this->assertEquals(1, count($message->getAttachments()));
+        $this->assertSame(1, \count($message->getAttachments()));
 
-        $this->assertEquals('a', $message->getAttachments()[0]->getFallback());
+        $this->assertSame('a', $message->getAttachments()[0]->getFallback());
     }
 
     public function testSetIconToEmoji()
@@ -164,9 +164,9 @@ class MessageUnitTest extends PHPUnit_Framework_TestCase
 
         $message->setIcon(':ghost:');
 
-        $this->assertEquals(Message::ICON_TYPE_EMOJI, $message->getIconType());
+        $this->assertSame(Message::ICON_TYPE_EMOJI, $message->getIconType());
 
-        $this->assertEquals(':ghost:', $message->getIcon());
+        $this->assertSame(':ghost:', $message->getIcon());
     }
 
     public function testSetIconToUrl()
@@ -175,9 +175,9 @@ class MessageUnitTest extends PHPUnit_Framework_TestCase
 
         $message->setIcon('http://www.fake.com/someimage.png');
 
-        $this->assertEquals(Message::ICON_TYPE_URL, $message->getIconType());
+        $this->assertSame(Message::ICON_TYPE_URL, $message->getIconType());
 
-        $this->assertEquals('http://www.fake.com/someimage.png', $message->getIcon());
+        $this->assertSame('http://www.fake.com/someimage.png', $message->getIcon());
     }
 
     protected function getMessage()

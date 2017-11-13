@@ -4,11 +4,11 @@ use Nexy\Slack\Attachment;
 use Nexy\Slack\AttachmentAction;
 use Nexy\Slack\AttachmentField;
 
-class AttachmentUnitTest extends PHPUnit_Framework_TestCase
+class AttachmentUnitTest extends PHPUnit\Framework\TestCase
 {
     public function testAttachmentCreationFromArray()
     {
-        $now = new DateTime;
+        $now = new DateTime();
 
         $a = new Attachment([
             'fallback' => 'Fallback',
@@ -21,23 +21,23 @@ class AttachmentUnitTest extends PHPUnit_Framework_TestCase
             'mrkdwn_in' => ['pretext', 'text', 'fields'],
         ]);
 
-        $this->assertEquals('Fallback', $a->getFallback());
+        $this->assertSame('Fallback', $a->getFallback());
 
-        $this->assertEquals('Text', $a->getText());
+        $this->assertSame('Text', $a->getText());
 
-        $this->assertEquals('Pretext', $a->getPretext());
+        $this->assertSame('Pretext', $a->getPretext());
 
-        $this->assertEquals('bad', $a->getColor());
+        $this->assertSame('bad', $a->getColor());
 
-        $this->assertEquals([], $a->getFields());
+        $this->assertSame([], $a->getFields());
 
-        $this->assertEquals(['pretext', 'text', 'fields'], $a->getMarkdownFields());
+        $this->assertSame(['pretext', 'text', 'fields'], $a->getMarkdownFields());
 
-        $this->assertEquals('Footer', $a->getFooter());
+        $this->assertSame('Footer', $a->getFooter());
 
-        $this->assertEquals('https://platform.slack-edge.com/img/default_application_icon.png', $a->getFooterIcon());
+        $this->assertSame('https://platform.slack-edge.com/img/default_application_icon.png', $a->getFooterIcon());
 
-        $this->assertEquals($now, $a->getTimestamp());
+        $this->assertSame($now, $a->getTimestamp());
     }
 
     public function testAttachmentCreationFromArrayWithFields()
@@ -68,7 +68,7 @@ class AttachmentUnitTest extends PHPUnit_Framework_TestCase
 
     public function testAttachmentToArray()
     {
-        $now = new DateTime;
+        $now = new DateTime();
 
         $in = [
             'fallback' => 'Fallback',
@@ -215,7 +215,7 @@ class AttachmentUnitTest extends PHPUnit_Framework_TestCase
 
         $actions = $a->getActions();
 
-        $this->assertSame(1, count($actions));
+        $this->assertSame(1, \count($actions));
 
         $this->assertSame('Text 1', $actions[0]->getText());
     }
@@ -245,7 +245,7 @@ class AttachmentUnitTest extends PHPUnit_Framework_TestCase
 
         $actions = $a->getActions();
 
-        $this->assertSame(1, count($actions));
+        $this->assertSame(1, \count($actions));
 
         $this->assertSame($ac, $actions[0]);
     }
@@ -265,7 +265,7 @@ class AttachmentUnitTest extends PHPUnit_Framework_TestCase
 
         $fields = $a->getFields();
 
-        $this->assertSame(1, count($fields));
+        $this->assertSame(1, \count($fields));
 
         $this->assertSame('Title 1', $fields[0]->getTitle());
     }
@@ -287,7 +287,7 @@ class AttachmentUnitTest extends PHPUnit_Framework_TestCase
 
         $fields = $a->getFields();
 
-        $this->assertSame(1, count($fields));
+        $this->assertSame(1, \count($fields));
 
         $this->assertSame($f, $fields[0]);
     }
@@ -309,10 +309,10 @@ class AttachmentUnitTest extends PHPUnit_Framework_TestCase
           'short' => true,
         ]);
 
-        $this->assertSame(2, count($a->getFields()));
+        $this->assertSame(2, \count($a->getFields()));
 
         $a->setFields([]);
 
-        $this->assertSame(0, count($a->getFields()));
+        $this->assertSame(0, \count($a->getFields()));
     }
 }

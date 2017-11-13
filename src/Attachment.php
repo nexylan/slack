@@ -131,7 +131,6 @@ class Attachment
      * Instantiate a new Attachment.
      *
      * @param array $attributes
-     * @return void
      */
     public function __construct(array $attributes)
     {
@@ -218,6 +217,7 @@ class Attachment
      * Set the fallback text.
      *
      * @param string $fallback
+     *
      * @return $this
      */
     public function setFallback($fallback)
@@ -241,6 +241,7 @@ class Attachment
      * Set the optional text to appear within the attachment.
      *
      * @param string $text
+     *
      * @return $this
      */
     public function setText($text)
@@ -264,6 +265,7 @@ class Attachment
      * Set the optional image to appear within the attachment.
      *
      * @param string $image_url
+     *
      * @return $this
      */
     public function setImageUrl($image_url)
@@ -287,6 +289,7 @@ class Attachment
      * Set the optional thumbnail to appear within the attachment.
      *
      * @param string $thumb_url
+     *
      * @return $this
      */
     public function setThumbUrl($thumb_url)
@@ -310,6 +313,7 @@ class Attachment
      * Set the text that should appear above the formatted data.
      *
      * @param string $pretext
+     *
      * @return $this
      */
     public function setPretext($pretext)
@@ -333,6 +337,7 @@ class Attachment
      * Set the color to use for the attachment.
      *
      * @param string $color
+     *
      * @return $this
      */
     public function setColor($color)
@@ -356,6 +361,7 @@ class Attachment
      * Set the footer text to use for the attachment.
      *
      * @param string $footer
+     *
      * @return $this
      */
     public function setFooter($footer)
@@ -379,6 +385,7 @@ class Attachment
      * Set the footer icon to use for the attachment.
      *
      * @param string $footerIcon
+     *
      * @return $this
      */
     public function setFooterIcon($footerIcon)
@@ -402,6 +409,7 @@ class Attachment
      * Set the timestamp to use for the attachment.
      *
      * @param \DateTime $timestamp
+     *
      * @return $this
      */
     public function setTimestamp($timestamp)
@@ -425,6 +433,7 @@ class Attachment
      * Set the title to use for the attachment.
      *
      * @param string $title
+     *
      * @return $this
      */
     public function setTitle($title)
@@ -448,6 +457,7 @@ class Attachment
      * Set the title link to use for the attachment.
      *
      * @param string $title_link
+     *
      * @return $this
      */
     public function setTitleLink($title_link)
@@ -471,6 +481,7 @@ class Attachment
      * Set the author name to use for the attachment.
      *
      * @param string $author_name
+     *
      * @return $this
      */
     public function setAuthorName($author_name)
@@ -494,6 +505,7 @@ class Attachment
      * Set the auhtor link to use for the attachment.
      *
      * @param string $author_link
+     *
      * @return $this
      */
     public function setAuthorLink($author_link)
@@ -517,6 +529,7 @@ class Attachment
      * Set the author icon to use for the attachment.
      *
      * @param string $author_icon
+     *
      * @return $this
      */
     public function setAuthorIcon($author_icon)
@@ -540,6 +553,7 @@ class Attachment
      * Set the fields for the attachment.
      *
      * @param array $fields
+     *
      * @return $this
      */
     public function setFields(array $fields)
@@ -557,6 +571,7 @@ class Attachment
      * Add a field to the attachment.
      *
      * @param mixed $field
+     *
      * @return $this
      */
     public function addField($field)
@@ -565,7 +580,7 @@ class Attachment
             $this->fields[] = $field;
 
             return $this;
-        } elseif (is_array($field)) {
+        } elseif (\is_array($field)) {
             $this->fields[] = new AttachmentField($field);
 
             return $this;
@@ -614,6 +629,7 @@ class Attachment
      * Markdown-like language.
      *
      * @param array $fields
+     *
      * @return $this
      */
     public function setMarkdownFields(array $fields)
@@ -637,6 +653,7 @@ class Attachment
      * Set the collection of actions (buttons) to include in the attachment.
      *
      * @param array $actions
+     *
      * @return Attachment
      */
     public function setActions($actions)
@@ -654,6 +671,7 @@ class Attachment
      * Add an action to the attachment.
      *
      * @param mixed $action
+     *
      * @return $this
      */
     public function addAction($action)
@@ -662,7 +680,7 @@ class Attachment
             $this->actions[] = $action;
 
             return $this;
-        } elseif (is_array($action)) {
+        } elseif (\is_array($action)) {
             $this->actions[] = new AttachmentAction($action);
 
             return $this;
