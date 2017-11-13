@@ -30,7 +30,6 @@ class AttachmentField
      * Instantiate a new AttachmentField.
      *
      * @param array $attributes
-     * @return void
      */
     public function __construct(array $attributes)
     {
@@ -61,6 +60,7 @@ class AttachmentField
      * Set the title of the field.
      *
      * @param string $title
+     *
      * @return $this
      */
     public function setTitle($title)
@@ -84,6 +84,7 @@ class AttachmentField
      * Set the value of the field.
      *
      * @param string $value
+     *
      * @return $this
      */
     public function setValue($value)
@@ -109,6 +110,7 @@ class AttachmentField
      * side-by-side with other fields.
      *
      * @param string $value
+     *
      * @return $this
      */
     public function setShort($value)

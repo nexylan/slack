@@ -84,8 +84,7 @@ class Client
      * Instantiate a new Client.
      *
      * @param string $endpoint
-     * @param array $attributes
-     * @return void
+     * @param array  $attributes
      */
     public function __construct($endpoint, array $attributes = [], Guzzle $guzzle = null)
     {
@@ -123,20 +122,21 @@ class Client
             $this->setMarkdownInAttachments($attributes['markdown_in_attachments']);
         }
 
-        $this->guzzle = $guzzle ?: new Guzzle;
+        $this->guzzle = $guzzle ?: new Guzzle();
     }
 
     /**
      * Pass any unhandled methods through to a new Message
      * instance.
      *
-     * @param string $name The name of the method
-     * @param array $arguments The method arguments
+     * @param string $name      The name of the method
+     * @param array  $arguments The method arguments
+     *
      * @return \Nexy\Slack\Message
      */
     public function __call($name, $arguments)
     {
-        return call_user_func_array([$this->createMessage(), $name], $arguments);
+        return \call_user_func_array([$this->createMessage(), $name], $arguments);
     }
 
     /**
@@ -153,7 +153,6 @@ class Client
      * Set the Slack endpoint.
      *
      * @param string $endpoint
-     * @return void
      */
     public function setEndpoint($endpoint)
     {
@@ -174,7 +173,6 @@ class Client
      * Set the default channel messages will be created for.
      *
      * @param string $channel
-     * @return void
      */
     public function setDefaultChannel($channel)
     {
@@ -195,7 +193,6 @@ class Client
      * Set the default username messages will be created for.
      *
      * @param string $username
-     * @return void
      */
     public function setDefaultUsername($username)
     {
@@ -216,7 +213,6 @@ class Client
      * Set the default icon messages will be created with.
      *
      * @param string $icon
-     * @return void
      */
     public function setDefaultIcon($icon)
     {
@@ -239,7 +235,6 @@ class Client
      * will be converted into links.
      *
      * @param bool $value
-     * @return void
      */
     public function setLinkNames($value)
     {
@@ -260,7 +255,6 @@ class Client
      * Set whether text links should be unfurled.
      *
      * @param bool $value
-     * @return void
      */
     public function setUnfurlLinks($value)
     {
@@ -281,7 +275,6 @@ class Client
      * Set whether media links should be unfurled.
      *
      * @param bool $value
-     * @return void
      */
     public function setUnfurlMedia($value)
     {
@@ -304,7 +297,6 @@ class Client
      * Slack's Markdown-like language.
      *
      * @param bool $value
-     * @return void
      */
     public function setAllowMarkdown($value)
     {
@@ -327,7 +319,6 @@ class Client
      * in Slack's Markdown-like language.
      *
      * @param array $fields
-     * @return void
      */
     public function setMarkdownInAttachments(array $fields)
     {
@@ -360,16 +351,15 @@ class Client
      * Send a message.
      *
      * @param \Nexy\Slack\Message $message
-     * @return void
      */
     public function sendMessage(Message $message)
     {
         $payload = $this->preparePayload($message);
 
-        $encoded = json_encode($payload, JSON_UNESCAPED_UNICODE);
+        $encoded = \json_encode($payload, JSON_UNESCAPED_UNICODE);
 
-        if ($encoded === false) {
-            throw new RuntimeException(sprintf('JSON encoding error %s: %s', json_last_error(), json_last_error_msg()));
+        if (false === $encoded) {
+            throw new RuntimeException(\sprintf('JSON encoding error %s: %s', \json_last_error(), \json_last_error_msg()));
         }
 
         $this->guzzle->post($this->endpoint, ['body' => $encoded]);
@@ -379,6 +369,7 @@ class Client
      * Prepares the payload to be sent to the webhook.
      *
      * @param \Nexy\Slack\Message $message The message to send
+     *
      * @return array
      */
     public function preparePayload(Message $message)
@@ -406,6 +397,7 @@ class Client
      * Get the attachments in array form.
      *
      * @param \Nexy\Slack\Message $message
+     *
      * @return array
      */
     protected function getAttachmentsAsArrays(Message $message)

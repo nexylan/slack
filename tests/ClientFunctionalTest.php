@@ -1,9 +1,9 @@
 <?php
 
-use Nexy\Slack\Client;
 use Nexy\Slack\Attachment;
+use Nexy\Slack\Client;
 
-class ClientFunctionalTest extends PHPUnit_Framework_TestCase
+class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 {
     public function testPlainMessage()
     {
@@ -24,12 +24,12 @@ class ClientFunctionalTest extends PHPUnit_Framework_TestCase
 
         $payload = $client->preparePayload($message);
 
-        $this->assertEquals($expectedHttpData, $payload);
+        $this->assertSame($expectedHttpData, $payload);
     }
 
     public function testMessageWithAttachments()
     {
-        $now = new DateTime;
+        $now = new DateTime();
 
         $attachmentInput = [
             'fallback' => 'Some fallback text',
@@ -96,12 +96,12 @@ class ClientFunctionalTest extends PHPUnit_Framework_TestCase
             'attachments' => [$attachmentOutput],
         ];
 
-        $this->assertEquals($expectedHttpData, $payload);
+        $this->assertSame($expectedHttpData, $payload);
     }
 
     public function testMessageWithAttachmentsAndFields()
     {
-        $now = new DateTime;
+        $now = new DateTime();
 
         $attachmentInput = [
             'fallback' => 'Some fallback text',
@@ -189,12 +189,12 @@ class ClientFunctionalTest extends PHPUnit_Framework_TestCase
             'attachments' => [$attachmentOutput],
         ];
 
-        $this->assertEquals($expectedHttpData, $payload);
+        $this->assertSame($expectedHttpData, $payload);
     }
 
     public function testMessageWithAttachmentsAndActions()
     {
-        $now = new DateTime;
+        $now = new DateTime();
 
         $attachmentInput = [
             'fallback' => 'Some fallback text',
@@ -314,18 +314,19 @@ class ClientFunctionalTest extends PHPUnit_Framework_TestCase
             'attachments' => [$attachmentOutput],
         ];
 
-        $this->assertEquals($expectedHttpData, $payload);
+        $this->assertSame($expectedHttpData, $payload);
     }
 
     public function testBadEncodingThrowsException()
     {
         $client = $this->getNetworkStubbedClient();
 
-        $this->setExpectedException(RuntimeException::class, 'JSON encoding error');
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('JSON encoding error');
 
         // Force encoding to ISO-8859-1 so we know we're providing malformed
         // encoding to json_encode
-        $client->send(mb_convert_encoding('æøå', 'ISO-8859-1', 'UTF-8'));
+        $client->send(\mb_convert_encoding('æøå', 'ISO-8859-1', 'UTF-8'));
     }
 
     protected function getNetworkStubbedClient()

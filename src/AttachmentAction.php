@@ -58,7 +58,6 @@ class AttachmentAction
      * Instantiate a new AttachmentAction.
      *
      * @param array $attributes
-     * @return void
      */
     public function __construct(array $attributes)
     {
@@ -97,6 +96,7 @@ class AttachmentAction
 
     /**
      * @param string $name
+     *
      * @return AttachmentAction
      */
     public function setName($name)
@@ -116,6 +116,7 @@ class AttachmentAction
 
     /**
      * @param string $text
+     *
      * @return AttachmentAction
      */
     public function setText($text)
@@ -135,6 +136,7 @@ class AttachmentAction
 
     /**
      * @param string $style
+     *
      * @return AttachmentAction
      */
     public function setStyle($style)
@@ -154,6 +156,7 @@ class AttachmentAction
 
     /**
      * @param string $type
+     *
      * @return AttachmentAction
      */
     public function setType($type)
@@ -173,6 +176,7 @@ class AttachmentAction
 
     /**
      * @param string $value
+     *
      * @return AttachmentAction
      */
     public function setValue($value)
@@ -192,6 +196,7 @@ class AttachmentAction
 
     /**
      * @param ActionConfirmation|array $confirm
+     *
      * @return AttachmentAction
      */
     public function setConfirm($confirm)
@@ -200,7 +205,7 @@ class AttachmentAction
             $this->confirm = $confirm;
 
             return $this;
-        } elseif (is_array($confirm)) {
+        } elseif (\is_array($confirm)) {
             $this->confirm = new ActionConfirmation($confirm);
 
             return $this;
