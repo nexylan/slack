@@ -8,9 +8,9 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
     public function testPlainMessage()
     {
         $expectedHttpData = [
-            'username' => 'Archer',
-            'channel' => '@regan',
             'text' => 'Message',
+            'channel' => '@regan',
+            'username' => 'Archer',
             'link_names' => 0,
             'unfurl_links' => false,
             'unfurl_media' => true,
@@ -76,19 +76,19 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'mrkdwn_in' => ['pretext', 'text'],
             'image_url' => 'http://fake.host/image.png',
             'thumb_url' => 'http://fake.host/image.png',
-            'fields' => [],
             'title' => null,
             'title_link' => null,
             'author_name' => 'Joe Bloggs',
             'author_link' => 'http://fake.host/',
             'author_icon' => 'http://fake.host/image.png',
+            'fields' => [],
             'actions' => [],
         ];
 
         $expectedHttpData = [
-            'username' => 'Test',
-            'channel' => '#general',
             'text' => 'Message',
+            'channel' => '#general',
+            'username' => 'Test',
             'link_names' => 0,
             'unfurl_links' => false,
             'unfurl_media' => true,
@@ -179,9 +179,9 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $payload = $client->preparePayload($message);
 
         $expectedHttpData = [
-            'username' => 'Test',
-            'channel' => '#general',
             'text' => 'Message',
+            'channel' => '#general',
+            'username' => 'Test',
             'link_names' => 0,
             'unfurl_links' => false,
             'unfurl_media' => true,
@@ -304,9 +304,9 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $payload = $client->preparePayload($message);
 
         $expectedHttpData = [
-            'username' => 'Test',
-            'channel' => '#general',
             'text' => 'Message',
+            'channel' => '#general',
+            'username' => 'Test',
             'link_names' => 0,
             'unfurl_links' => false,
             'unfurl_media' => true,
