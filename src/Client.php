@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nexy\Slack;
 
 use GuzzleHttp\Client as Guzzle;
@@ -154,7 +156,7 @@ class Client
      *
      * @param string $endpoint
      */
-    public function setEndpoint($endpoint)
+    public function setEndpoint($endpoint): void
     {
         $this->endpoint = $endpoint;
     }
@@ -174,7 +176,7 @@ class Client
      *
      * @param string $channel
      */
-    public function setDefaultChannel($channel)
+    public function setDefaultChannel($channel): void
     {
         $this->channel = $channel;
     }
@@ -194,7 +196,7 @@ class Client
      *
      * @param string $username
      */
-    public function setDefaultUsername($username)
+    public function setDefaultUsername($username): void
     {
         $this->username = $username;
     }
@@ -214,7 +216,7 @@ class Client
      *
      * @param string $icon
      */
-    public function setDefaultIcon($icon)
+    public function setDefaultIcon($icon): void
     {
         $this->icon = $icon;
     }
@@ -236,7 +238,7 @@ class Client
      *
      * @param bool $value
      */
-    public function setLinkNames($value)
+    public function setLinkNames($value): void
     {
         $this->link_names = (bool) $value;
     }
@@ -256,7 +258,7 @@ class Client
      *
      * @param bool $value
      */
-    public function setUnfurlLinks($value)
+    public function setUnfurlLinks($value): void
     {
         $this->unfurl_links = (bool) $value;
     }
@@ -276,7 +278,7 @@ class Client
      *
      * @param bool $value
      */
-    public function setUnfurlMedia($value)
+    public function setUnfurlMedia($value): void
     {
         $this->unfurl_media = (bool) $value;
     }
@@ -298,7 +300,7 @@ class Client
      *
      * @param bool $value
      */
-    public function setAllowMarkdown($value)
+    public function setAllowMarkdown($value): void
     {
         $this->allow_markdown = (bool) $value;
     }
@@ -320,7 +322,7 @@ class Client
      *
      * @param array $fields
      */
-    public function setMarkdownInAttachments(array $fields)
+    public function setMarkdownInAttachments(array $fields): void
     {
         $this->markdown_in_attachments = $fields;
     }
@@ -352,7 +354,7 @@ class Client
      *
      * @param \Nexy\Slack\Message $message
      */
-    public function sendMessage(Message $message)
+    public function sendMessage(Message $message): void
     {
         $payload = $this->preparePayload($message);
 

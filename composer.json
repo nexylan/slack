@@ -10,12 +10,12 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0",
+        "php": "^7.1",
         "guzzlehttp/guzzle": "~6.0|~5.0|~4.0",
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "mockery/mockery": "0.9.*"
+        "mockery/mockery": "^1.0"
     },
     "suggest": {
         "maknz/slack-laravel": "Required for Laravel support",

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
 use Nexy\Slack\Client;
 
 class ClientUnitTest extends PHPUnit\Framework\TestCase
 {
-    public function testInstantiationWithNoDefaults()
+    public function testInstantiationWithNoDefaults(): void
     {
         $client = new Client('http://fake.endpoint');
 
@@ -13,7 +14,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('http://fake.endpoint', $client->getEndpoint());
     }
 
-    public function testInstantiationWithDefaults()
+    public function testInstantiationWithDefaults(): void
     {
         $defaults = [
             'channel' => '#random',
@@ -45,7 +46,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame($defaults['markdown_in_attachments'], $client->getMarkdownInAttachments());
     }
 
-    public function testCreateMessage()
+    public function testCreateMessage(): void
     {
         $defaults = [
             'channel' => '#random',
@@ -66,7 +67,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame($client->getDefaultIcon(), $message->getIcon());
     }
 
-    public function testWildcardCallToMessage()
+    public function testWildcardCallToMessage(): void
     {
         $client = new Client('http://fake.endpoint');
 
