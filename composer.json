@@ -1,18 +1,23 @@
 {
-    "name": "maknz/slack",
+    "name": "nexylan/slack",
     "description": "A simple PHP package for sending messages to Slack, with a focus on ease of use and elegant syntax.",
-    "keywords": ["laravel", "slack"],
-    "license": "BSD-2-Clause",
+    "type": "library",
+    "keywords": ["slack"],
+    "license": "MIT",
     "authors": [
         {
             "name": "maknz",
             "email": "github@mak.geek.nz"
+        },
+        {
+            "name": "Sullivan SENECHAL",
+            "email": "soullivaneuh@gmail.com"
         }
     ],
     "require": {
         "php": "^7.1",
-        "guzzlehttp/guzzle": "~6.0|~5.0|~4.0",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^6.0 || ^5.0 || ^4.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.0"
@@ -26,7 +31,9 @@
             "Nexy\\Slack\\": "src/"
         }
     },
-    "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "2.x-dev"
