@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
 use Nexy\Slack\Attachment;
 use Nexy\Slack\AttachmentAction;
 use Nexy\Slack\AttachmentField;
 
 class AttachmentUnitTest extends PHPUnit\Framework\TestCase
 {
-    public function testAttachmentCreationFromArray()
+    public function testAttachmentCreationFromArray(): void
     {
         $now = new DateTime();
 
@@ -40,7 +41,7 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame($now, $a->getTimestamp());
     }
 
-    public function testAttachmentCreationFromArrayWithFields()
+    public function testAttachmentCreationFromArrayWithFields(): void
     {
         $a = new Attachment([
             'fallback' => 'Fallback',
@@ -66,7 +67,7 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('Title 2', $fields[1]->getTitle());
     }
 
-    public function testAttachmentToArray()
+    public function testAttachmentToArray(): void
     {
         $now = new DateTime();
 
@@ -192,7 +193,7 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame($out, $a->toArray());
     }
 
-    public function testAddActionAsArray()
+    public function testAddActionAsArray(): void
     {
         $a = new Attachment([
             'fallback' => 'Fallback',
@@ -220,7 +221,7 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('Text 1', $actions[0]->getText());
     }
 
-    public function testAddActionAsObject()
+    public function testAddActionAsObject(): void
     {
         $a = new Attachment([
             'fallback' => 'Fallback',
@@ -250,7 +251,7 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame($ac, $actions[0]);
     }
 
-    public function testAddFieldAsArray()
+    public function testAddFieldAsArray(): void
     {
         $a = new Attachment([
             'fallback' => 'Fallback',
@@ -270,7 +271,7 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('Title 1', $fields[0]->getTitle());
     }
 
-    public function testAddFieldAsObject()
+    public function testAddFieldAsObject(): void
     {
         $a = new Attachment([
           'fallback' => 'Fallback',
@@ -292,7 +293,7 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame($f, $fields[0]);
     }
 
-    public function testSetFields()
+    public function testSetFields(): void
     {
         $a = new Attachment([
           'fallback' => 'Fallback',

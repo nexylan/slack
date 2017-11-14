@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
 use Nexy\Slack\Attachment;
 use Nexy\Slack\Client;
 
 class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 {
-    public function testPlainMessage()
+    public function testPlainMessage(): void
     {
         $expectedHttpData = [
             'text' => 'Message',
@@ -27,7 +28,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $this->assertSame($expectedHttpData, $payload);
     }
 
-    public function testMessageWithAttachments()
+    public function testMessageWithAttachments(): void
     {
         $now = new DateTime();
 
@@ -99,7 +100,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $this->assertSame($expectedHttpData, $payload);
     }
 
-    public function testMessageWithAttachmentsAndFields()
+    public function testMessageWithAttachmentsAndFields(): void
     {
         $now = new DateTime();
 
@@ -192,7 +193,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $this->assertSame($expectedHttpData, $payload);
     }
 
-    public function testMessageWithAttachmentsAndActions()
+    public function testMessageWithAttachmentsAndActions(): void
     {
         $now = new DateTime();
 
@@ -317,7 +318,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $this->assertSame($expectedHttpData, $payload);
     }
 
-    public function testBadEncodingThrowsException()
+    public function testBadEncodingThrowsException(): void
     {
         $client = $this->getNetworkStubbedClient();
 

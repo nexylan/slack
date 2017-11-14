@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
 use Nexy\Slack\Attachment;
 use Nexy\Slack\Message;
 
 class MessageUnitTest extends PHPUnit\Framework\TestCase
 {
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $this->assertInstanceOf('Nexy\Slack\Message', $this->getMessage());
     }
 
-    public function testSetText()
+    public function testSetText(): void
     {
         $message = $this->getMessage();
 
@@ -19,7 +20,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('Hello world', $message->getText());
     }
 
-    public function testSetChannelWithTo()
+    public function testSetChannelWithTo(): void
     {
         $message = $this->getMessage();
 
@@ -28,7 +29,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('#php', $message->getChannel());
     }
 
-    public function testSetChannelWithSetter()
+    public function testSetChannelWithSetter(): void
     {
         $message = $this->getMessage();
 
@@ -37,7 +38,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('#php', $message->getChannel());
     }
 
-    public function testSetUsernameWithFrom()
+    public function testSetUsernameWithFrom(): void
     {
         $message = $this->getMessage();
 
@@ -46,7 +47,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('Archer', $message->getUsername());
     }
 
-    public function testSetUsernameWithSetter()
+    public function testSetUsernameWithSetter(): void
     {
         $message = $this->getMessage();
 
@@ -55,7 +56,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('Archer', $message->getUsername());
     }
 
-    public function testAttachWithArray()
+    public function testAttachWithArray(): void
     {
         $message = $this->getMessage();
 
@@ -84,7 +85,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame($attachmentArray['color'], $obj->getColor());
     }
 
-    public function testAttachWithObject()
+    public function testAttachWithObject(): void
     {
         $message = $this->getMessage();
 
@@ -104,7 +105,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame($obj, $remoteObj);
     }
 
-    public function testMultipleAttachments()
+    public function testMultipleAttachments(): void
     {
         $message = $this->getMessage();
 
@@ -133,7 +134,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame($obj2, $remote2);
     }
 
-    public function testSetAttachmentsWipesExistingAttachments()
+    public function testSetAttachmentsWipesExistingAttachments(): void
     {
         $message = $this->getMessage();
 
@@ -158,7 +159,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('a', $message->getAttachments()[0]->getFallback());
     }
 
-    public function testSetIconToEmoji()
+    public function testSetIconToEmoji(): void
     {
         $message = $this->getMessage();
 
@@ -169,7 +170,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame(':ghost:', $message->getIcon());
     }
 
-    public function testSetIconToUrl()
+    public function testSetIconToUrl(): void
     {
         $message = $this->getMessage();
 
