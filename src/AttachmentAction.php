@@ -17,42 +17,42 @@ class AttachmentAction
      *
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * The required label for the action.
      *
      * @var string
      */
-    protected $text;
+    private $text;
 
     /**
      * Button style.
      *
      * @var string
      */
-    protected $style;
+    private $style;
 
     /**
      * The required type of the action.
      *
      * @var string
      */
-    protected $type = self::TYPE_BUTTON;
+    private $type = self::TYPE_BUTTON;
 
     /**
      * Optional value. It will be sent to your Action URL.
      *
      * @var string
      */
-    protected $value;
+    private $value;
 
     /**
      * Confirmation field.
      *
      * @var ActionConfirmation
      */
-    protected $confirm;
+    private $confirm;
 
     /**
      * Instantiate a new AttachmentAction.

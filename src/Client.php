@@ -13,28 +13,28 @@ class Client
      *
      * @var string
      */
-    protected $endpoint;
+    private $endpoint;
 
     /**
      * The default channel to send messages to.
      *
      * @var string
      */
-    protected $channel;
+    private $channel;
 
     /**
      * The default username to send messages as.
      *
      * @var string
      */
-    protected $username;
+    private $username;
 
     /**
      * The default icon to send messages with.
      *
      * @var string
      */
-    protected $icon;
+    private $icon;
 
     /**
      * Whether to link names like @regan or leave
@@ -42,21 +42,21 @@ class Client
      *
      * @var bool
      */
-    protected $link_names = false;
+    private $link_names = false;
 
     /**
      * Whether Slack should unfurl text-based URLs.
      *
      * @var bool
      */
-    protected $unfurl_links = false;
+    private $unfurl_links = false;
 
     /**
      * Whether Slack should unfurl media URLs.
      *
      * @var bool
      */
-    protected $unfurl_media = true;
+    private $unfurl_media = true;
 
     /**
      * Whether message text should be formatted with Slack's
@@ -64,7 +64,7 @@ class Client
      *
      * @var bool
      */
-    protected $allow_markdown = true;
+    private $allow_markdown = true;
 
     /**
      * The attachment fields which should be formatted with
@@ -72,14 +72,14 @@ class Client
      *
      * @var array
      */
-    protected $markdown_in_attachments = [];
+    private $markdown_in_attachments = [];
 
     /**
      * The Guzzle HTTP client instance.
      *
      * @var \GuzzleHttp\Client
      */
-    protected $guzzle;
+    private $guzzle;
 
     /**
      * Instantiate a new Client.
@@ -401,7 +401,7 @@ class Client
      *
      * @return array
      */
-    protected function getAttachmentsAsArrays(Message $message)
+    private function getAttachmentsAsArrays(Message $message)
     {
         $attachments = [];
 

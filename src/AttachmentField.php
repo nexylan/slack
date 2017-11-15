@@ -11,14 +11,14 @@ class AttachmentField
      *
      * @var string
      */
-    protected $title;
+    private $title;
 
     /**
      * The required value of the field.
      *
      * @var string
      */
-    protected $value;
+    private $value;
 
     /**
      * Whether the value is short enough to fit side by side with
@@ -26,7 +26,7 @@ class AttachmentField
      *
      * @var bool
      */
-    protected $short = false;
+    private $short = false;
 
     /**
      * Instantiate a new AttachmentField.
