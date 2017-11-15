@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nexy\Slack;
 
 use GuzzleHttp\Client as Guzzle;
-use RuntimeException;
 
 class Client
 {
@@ -361,7 +360,7 @@ class Client
         $encoded = \json_encode($payload, JSON_UNESCAPED_UNICODE);
 
         if (false === $encoded) {
-            throw new RuntimeException(\sprintf('JSON encoding error %s: %s', \json_last_error(), \json_last_error_msg()));
+            throw new \RuntimeException(\sprintf('JSON encoding error %s: %s', \json_last_error(), \json_last_error_msg()));
         }
 
         $this->guzzle->post($this->endpoint, ['body' => $encoded]);

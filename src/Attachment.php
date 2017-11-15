@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nexy\Slack;
 
-use InvalidArgumentException;
-
 class Attachment
 {
     /**
@@ -588,7 +586,7 @@ class Attachment
             return $this;
         }
 
-        throw new InvalidArgumentException('The attachment field must be an instance of Nexy\Slack\AttachmentField or a keyed array');
+        throw new \InvalidArgumentException('The attachment field must be an instance of Nexy\Slack\AttachmentField or a keyed array');
     }
 
     /**
@@ -688,7 +686,7 @@ class Attachment
             return $this;
         }
 
-        throw new InvalidArgumentException('The attachment action must be an instance of Nexy\Slack\AttachmentAction or a keyed array');
+        throw new \InvalidArgumentException('The attachment action must be an instance of Nexy\Slack\AttachmentAction or a keyed array');
     }
 
     /**

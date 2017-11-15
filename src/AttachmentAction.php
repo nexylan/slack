@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nexy\Slack;
 
-use InvalidArgumentException;
-
 class AttachmentAction
 {
     const TYPE_BUTTON = 'button';
@@ -213,7 +211,7 @@ class AttachmentAction
             return $this;
         }
 
-        throw new InvalidArgumentException('The action confirmation must be an instance of Nexy\Slack\ActionConfirmation or a keyed array');
+        throw new \InvalidArgumentException('The action confirmation must be an instance of Nexy\Slack\ActionConfirmation or a keyed array');
     }
 
     /**
