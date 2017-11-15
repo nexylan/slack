@@ -11,28 +11,28 @@ class ActionConfirmation
      *
      * @var string
      */
-    protected $title;
+    private $title;
 
     /**
      * The required description.
      *
      * @var string
      */
-    protected $text;
+    private $text;
 
     /**
      * The text label for the OK button.
      *
      * @var string
      */
-    protected $okText;
+    private $okText;
 
     /**
      * The text label for the Cancel button.
      *
      * @var string
      */
-    protected $dismissText;
+    private $dismissText;
 
     /**
      * Instantiate a new ActionConfirmation.

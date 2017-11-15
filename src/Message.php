@@ -14,42 +14,42 @@ class Message
      *
      * @var \Nexy\Slack\Client
      */
-    protected $client;
+    private $client;
 
     /**
      * The text to send with the message.
      *
      * @var string
      */
-    protected $text;
+    private $text;
 
     /**
      * The channel the message should be sent to.
      *
      * @var string
      */
-    protected $channel;
+    private $channel;
 
     /**
      * The username the message should be sent as.
      *
      * @var string
      */
-    protected $username;
+    private $username;
 
     /**
      * The URL to the icon to use.
      *
      * @var string
      */
-    protected $icon;
+    private $icon;
 
     /**
      * The type of icon we are using.
      *
      * @var enum
      */
-    protected $iconType;
+    private $iconType;
 
     /**
      * Whether the message text should be interpreted in Slack's
@@ -57,7 +57,7 @@ class Message
      *
      * @var bool
      */
-    protected $allow_markdown = true;
+    private $allow_markdown = true;
 
     /**
      * The attachment fields which should be formatted with
@@ -65,14 +65,14 @@ class Message
      *
      * @var array
      */
-    protected $markdown_in_attachments = [];
+    private $markdown_in_attachments = [];
 
     /**
      * An array of attachments to send.
      *
      * @var array
      */
-    protected $attachments = [];
+    private $attachments = [];
 
     /**
      * @var string

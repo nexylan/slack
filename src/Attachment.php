@@ -11,105 +11,105 @@ class Attachment
      *
      * @var string
      */
-    protected $fallback;
+    private $fallback;
 
     /**
      * Optional text that should appear within the attachment.
      *
      * @var string
      */
-    protected $text;
+    private $text;
 
     /**
      * Optional image that should appear within the attachment.
      *
      * @var string
      */
-    protected $image_url;
+    private $image_url;
 
     /**
      * Optional thumbnail that should appear within the attachment.
      *
      * @var string
      */
-    protected $thumb_url;
+    private $thumb_url;
 
     /**
      * Optional text that should appear above the formatted data.
      *
      * @var string
      */
-    protected $pretext;
+    private $pretext;
 
     /**
      * Optional title for the attachment.
      *
      * @var string
      */
-    protected $title;
+    private $title;
 
     /**
      * Optional title link for the attachment.
      *
      * @var string
      */
-    protected $title_link;
+    private $title_link;
 
     /**
      * Optional author name for the attachment.
      *
      * @var string
      */
-    protected $author_name;
+    private $author_name;
 
     /**
      * Optional author link for the attachment.
      *
      * @var string
      */
-    protected $author_link;
+    private $author_link;
 
     /**
      * Optional author icon for the attachment.
      *
      * @var string
      */
-    protected $author_icon;
+    private $author_icon;
 
     /**
      * The color to use for the attachment.
      *
      * @var string
      */
-    protected $color = 'good';
+    private $color = 'good';
 
     /**
      * The text to use for the attachment footer.
      *
      * @var string
      */
-    protected $footer;
+    private $footer;
 
     /**
      * The icon to use for the attachment footer.
      *
      * @var string
      */
-    protected $footer_icon;
+    private $footer_icon;
 
     /**
      * The timestamp to use for the attachment.
      *
      * @var \DateTime
      */
-    protected $timestamp;
+    private $timestamp;
 
     /**
      * The fields of the attachment.
      *
      * @var array
      */
-    protected $fields = [];
+    private $fields = [];
 
     /**
      * The fields of the attachment that Slack should interpret
@@ -117,7 +117,7 @@ class Attachment
      *
      * @var array
      */
-    protected $markdown_fields = [];
+    private $markdown_fields = [];
 
     /**
      * A collection of actions (buttons) to include in the attachment.
@@ -125,7 +125,7 @@ class Attachment
      *
      * @var array
      */
-    protected $actions = [];
+    private $actions = [];
 
     /**
      * Instantiate a new Attachment.
@@ -726,7 +726,7 @@ class Attachment
      *
      * @return array
      */
-    protected function getFieldsAsArrays()
+    private function getFieldsAsArrays()
     {
         $fields = [];
 
@@ -743,7 +743,7 @@ class Attachment
      *
      * @return array
      */
-    protected function getActionsAsArrays()
+    private function getActionsAsArrays()
     {
         $actions = [];
 
