@@ -91,7 +91,7 @@ final class Client
      *
      * @return \Nexy\Slack\Message
      */
-    public function __call($name, $arguments)
+    public function __call($name, $arguments): Message
     {
         return \call_user_func_array([$this->createMessage(), $name], $arguments);
     }
@@ -101,7 +101,7 @@ final class Client
      *
      * @return \Nexy\Slack\Message
      */
-    public function createMessage()
+    public function createMessage(): Message
     {
         return (new Message($this))
             ->setChannel($this->options['channel'])
@@ -139,7 +139,7 @@ final class Client
      *
      * @return array
      */
-    private function preparePayload(Message $message)
+    private function preparePayload(Message $message): array
     {
         $payload = [
             'text' => $message->getText(),
@@ -167,7 +167,7 @@ final class Client
      *
      * @return array
      */
-    private function getAttachmentsAsArrays(Message $message)
+    private function getAttachmentsAsArrays(Message $message): array
     {
         $attachments = [];
 

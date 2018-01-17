@@ -119,7 +119,7 @@ final class Message
      *
      * @return $this
      */
-    public function setText($text)
+    public function setText($text): self
     {
         $this->text = $text;
 
@@ -141,7 +141,7 @@ final class Message
      *
      * @return $this
      */
-    public function setChannel($channel)
+    public function setChannel($channel): self
     {
         $this->channel = $channel;
 
@@ -163,7 +163,7 @@ final class Message
      *
      * @return $this
      */
-    public function setUsername($username)
+    public function setUsername($username): self
     {
         $this->username = $username;
 
@@ -185,7 +185,7 @@ final class Message
      *
      * @return $this
      */
-    public function setIcon($icon)
+    public function setIcon($icon): self
     {
         if (null === $icon) {
             $this->icon = $this->iconType = null;
@@ -228,19 +228,19 @@ final class Message
      *
      * @return Message
      */
-    public function setAllowMarkdown($value)
+    public function setAllowMarkdown($value): self
     {
         $this->allowMarkdown = (bool) $value;
 
         return $this;
     }
 
-    public function enableMarkdown()
+    public function enableMarkdown(): self
     {
         return $this->setAllowMarkdown(true);
     }
 
-    public function disableMarkdown()
+    public function disableMarkdown(): self
     {
         return $this->setAllowMarkdown(false);
     }
@@ -261,7 +261,7 @@ final class Message
      *
      * @return Message
      */
-    public function setMarkdownInAttachments(array $fields)
+    public function setMarkdownInAttachments(array $fields): self
     {
         $this->markdownInAttachments = $fields;
 
@@ -275,7 +275,7 @@ final class Message
      *
      * @return $this
      */
-    public function from($username)
+    public function from($username): self
     {
         return $this->setUsername($username);
     }
@@ -287,7 +287,7 @@ final class Message
      *
      * @return $this
      */
-    public function to($channel)
+    public function to($channel): self
     {
         return $this->setChannel($channel);
     }
@@ -299,7 +299,7 @@ final class Message
      *
      * @return $this
      */
-    public function withIcon($icon)
+    public function withIcon($icon): self
     {
         return $this->setIcon($icon);
     }
@@ -311,7 +311,7 @@ final class Message
      *
      * @return $this
      */
-    public function attach(Attachment $attachment)
+    public function attach(Attachment $attachment): self
     {
         $this->attachments[] = $attachment;
 
@@ -333,7 +333,7 @@ final class Message
      *
      * @return $this
      */
-    public function setAttachments(array $attachments)
+    public function setAttachments(array $attachments): self
     {
         $this->clearAttachments();
 
@@ -349,7 +349,7 @@ final class Message
      *
      * @return $this
      */
-    public function clearAttachments()
+    public function clearAttachments(): self
     {
         $this->attachments = [];
 
@@ -363,7 +363,7 @@ final class Message
      *
      * @return Message
      */
-    public function send(?string $text = null)
+    public function send(?string $text = null): self
     {
         if ($text) {
             $this->setText($text);
