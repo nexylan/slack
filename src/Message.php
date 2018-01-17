@@ -18,7 +18,7 @@ use InvalidArgumentException;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-class Message
+final class Message
 {
     /**
      * Reference to the Slack client responsible for sending

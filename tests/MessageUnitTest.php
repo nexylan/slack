@@ -12,6 +12,7 @@ declare(strict_types=1);
  */
 
 use Nexy\Slack\Attachment;
+use Nexy\Slack\Client;
 use Nexy\Slack\Message;
 
 class MessageUnitTest extends PHPUnit\Framework\TestCase
@@ -193,6 +194,6 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
 
     protected function getMessage()
     {
-        return new Message(Mockery::mock('Nexy\Slack\Client'));
+        return new Message(new Client('http://fake.com', [], new \Http\Mock\Client()));
     }
 }
