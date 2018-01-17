@@ -67,43 +67,16 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('Archer', $message->getUsername());
     }
 
-    public function testAttachWithArray(): void
-    {
-        $message = $this->getMessage();
-
-        $attachmentArray = [
-            'fallback' => 'Fallback text for IRC',
-            'text' => 'Attachment text',
-            'pretext' => 'Attachment pretext',
-            'color' => 'bad',
-            'fields' => [],
-        ];
-
-        $message->attach($attachmentArray);
-
-        $attachments = $message->getAttachments();
-
-        $this->assertSame(1, \count($attachments));
-
-        $obj = $attachments[0];
-
-        $this->assertSame($attachmentArray['fallback'], $obj->getFallback());
-
-        $this->assertSame($attachmentArray['text'], $obj->getText());
-
-        $this->assertSame($attachmentArray['pretext'], $obj->getPretext());
-
-        $this->assertSame($attachmentArray['color'], $obj->getColor());
-    }
-
     public function testAttachWithObject(): void
     {
         $message = $this->getMessage();
 
-        $obj = new Attachment([
-            'fallback' => 'Fallback text for IRC',
-            'text' => 'Text',
-        ]);
+        $obj = (new Attachment())
+            ->setFallback('Fallback text for IRC')
+            ->setText('Attachment text')
+            ->setPretext('Attachment pretext')
+            ->setColor('bad')
+        ;
 
         $message->attach($obj);
 
@@ -120,15 +93,15 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
     {
         $message = $this->getMessage();
 
-        $obj1 = new Attachment([
-            'fallback' => 'Fallback text for IRC',
-            'text' => 'Text',
-        ]);
+        $obj1 = (new Attachment())
+            ->setFallback('Fallback text for IRC')
+            ->setText('Text')
+        ;
 
-        $obj2 = new Attachment([
-            'fallback' => 'Fallback text for IRC',
-            'text' => 'Text',
-        ]);
+        $obj2 = (new Attachment())
+            ->setFallback('Fallback text for IRC')
+            ->setText('Text')
+        ;
 
         $message->attach($obj1)->attach($obj2);
 
@@ -149,21 +122,24 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
     {
         $message = $this->getMessage();
 
-        $obj1 = new Attachment([
-            'fallback' => 'Fallback text for IRC',
-            'text' => 'Text',
-        ]);
+        $obj1 = (new Attachment())
+            ->setFallback('Fallback text for IRC')
+            ->setText('Text')
+        ;
 
-        $obj2 = new Attachment([
-            'fallback' => 'Fallback text for IRC',
-            'text' => 'Text',
-        ]);
+        $obj2 = (new Attachment())
+            ->setFallback('Fallback text for IRC')
+            ->setText('Text')
+        ;
 
         $message->attach($obj1)->attach($obj2);
 
         $this->assertSame(2, \count($message->getAttachments()));
 
-        $message->setAttachments([['fallback' => 'a', 'text' => 'b']]);
+        $message->setAttachments([(new Attachment())
+            ->setFallback('a')
+            ->setText('b'),
+        ]);
 
         $this->assertSame(1, \count($message->getAttachments()));
 

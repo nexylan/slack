@@ -43,7 +43,7 @@ final class AttachmentAction
      *
      * @var string
      */
-    private $style;
+    private $style = self::STYLE_DEFAULT;
 
     /**
      * The required type of the action.
@@ -55,93 +55,47 @@ final class AttachmentAction
     /**
      * Optional value. It will be sent to your Action URL.
      *
-     * @var string
+     * @var string|null
      */
     private $value;
 
     /**
      * Confirmation field.
      *
-     * @var ActionConfirmation
+     * @var ActionConfirmation|null
      */
     private $confirm;
 
     /**
-     * Instantiate a new AttachmentAction.
-     *
-     * @param array $attributes
+     * @param string $name
+     * @param string $text
      */
-    public function __construct(array $attributes)
+    public function __construct(string $name, string $text)
     {
-        if (isset($attributes['name'])) {
-            $this->setName($attributes['name']);
-        }
-
-        if (isset($attributes['text'])) {
-            $this->setText($attributes['text']);
-        }
-
-        if (isset($attributes['style'])) {
-            $this->setStyle($attributes['style']);
-        }
-
-        if (isset($attributes['type'])) {
-            $this->setType($attributes['type']);
-        }
-
-        if (isset($attributes['value'])) {
-            $this->setValue($attributes['value']);
-        }
-
-        if (isset($attributes['confirm'])) {
-            $this->setConfirm($attributes['confirm']);
-        }
+        $this->name = $name;
+        $this->text = $text;
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
-     *
-     * @return AttachmentAction
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
     /**
-     * @param string $text
-     *
-     * @return AttachmentAction
-     */
-    public function setText($text)
-    {
-        $this->text = $text;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
-    public function getStyle()
+    public function getStyle(): string
     {
         return $this->style;
     }
@@ -151,7 +105,7 @@ final class AttachmentAction
      *
      * @return AttachmentAction
      */
-    public function setStyle($style)
+    public function setStyle(string $style)
     {
         $this->style = $style;
 
@@ -161,7 +115,7 @@ final class AttachmentAction
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -171,7 +125,7 @@ final class AttachmentAction
      *
      * @return AttachmentAction
      */
-    public function setType($type)
+    public function setType(string $type)
     {
         $this->type = $type;
 
@@ -179,9 +133,9 @@ final class AttachmentAction
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
@@ -191,7 +145,7 @@ final class AttachmentAction
      *
      * @return AttachmentAction
      */
-    public function setValue($value)
+    public function setValue(?string $value)
     {
         $this->value = $value;
 
@@ -199,31 +153,23 @@ final class AttachmentAction
     }
 
     /**
-     * @return ActionConfirmation
+     * @return ActionConfirmation|null
      */
-    public function getConfirm()
+    public function getConfirm(): ?ActionConfirmation
     {
         return $this->confirm;
     }
 
     /**
-     * @param ActionConfirmation|array $confirm
+     * @param ActionConfirmation $confirm
      *
-     * @return AttachmentAction
+     * @return AttachmentAction|null
      */
-    public function setConfirm($confirm)
+    public function setConfirm(?ActionConfirmation $confirm)
     {
-        if ($confirm instanceof ActionConfirmation) {
-            $this->confirm = $confirm;
+        $this->confirm = $confirm;
 
-            return $this;
-        } elseif (\is_array($confirm)) {
-            $this->confirm = new ActionConfirmation($confirm);
-
-            return $this;
-        }
-
-        throw new \InvalidArgumentException('The action confirmation must be an instance of Nexy\Slack\ActionConfirmation or a keyed array');
+        return $this;
     }
 
     /**
@@ -234,12 +180,12 @@ final class AttachmentAction
     public function toArray()
     {
         return [
-            'name' => $this->getName(),
-            'text' => $this->getText(),
-            'style' => $this->getStyle(),
-            'type' => $this->getType(),
-            'value' => $this->getValue(),
-            'confirm' => $this->getConfirm()->toArray(),
+            'name' => $this->name,
+            'text' => $this->text,
+            'style' => $this->style,
+            'type' => $this->type,
+            'value' => $this->value,
+            'confirm' => $this->confirm ? $this->confirm->toArray() : null,
         ];
     }
 }

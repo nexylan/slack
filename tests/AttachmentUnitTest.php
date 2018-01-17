@@ -11,6 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use Nexy\Slack\ActionConfirmation;
 use Nexy\Slack\Attachment;
 use Nexy\Slack\AttachmentAction;
 use Nexy\Slack\AttachmentField;
@@ -21,16 +22,16 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
     {
         $now = new DateTime();
 
-        $a = new Attachment([
-            'fallback' => 'Fallback',
-            'text' => 'Text',
-            'pretext' => 'Pretext',
-            'color' => 'bad',
-            'footer' => 'Footer',
-            'footer_icon' => 'https://platform.slack-edge.com/img/default_application_icon.png',
-            'timestamp' => $now,
-            'mrkdwn_in' => ['pretext', 'text', 'fields'],
-        ]);
+        $a = (new Attachment())
+            ->setFallback('Fallback')
+            ->setText('Text')
+            ->setPretext('Pretext')
+            ->setColor('bad')
+            ->setFooter('Footer')
+            ->setFooterIcon('https://platform.slack-edge.com/img/default_application_icon.png')
+            ->setTimestamp($now)
+            ->setMarkdownFields(['pretext', 'text', 'fields'])
+        ;
 
         $this->assertSame('Fallback', $a->getFallback());
 
@@ -53,22 +54,14 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
 
     public function testAttachmentCreationFromArrayWithFields(): void
     {
-        $a = new Attachment([
-            'fallback' => 'Fallback',
-            'text' => 'Text',
-            'fields' => [
-              [
-                'title' => 'Title 1',
-                'value' => 'Value 1',
-                'short' => false,
-              ],
-              [
-                'title' => 'Title 2',
-                'value' => 'Value 1',
-                'short' => false,
-              ],
-            ],
-        ]);
+        $a = (new Attachment())
+            ->setFallback('Fallback')
+            ->setText('Text')
+            ->setFields([
+                new AttachmentField('Title 1', 'Value 1'),
+                new AttachmentField('Title 2', 'Value 1'),
+            ])
+        ;
 
         $fields = $a->getFields();
 
@@ -81,63 +74,49 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
     {
         $now = new DateTime();
 
-        $in = [
-            'fallback' => 'Fallback',
-            'text' => 'Text',
-            'pretext' => 'Pretext',
-            'color' => 'bad',
-            'footer' => 'Footer',
-            'footer_icon' => 'https://platform.slack-edge.com/img/default_application_icon.png',
-            'timestamp' => $now,
-            'mrkdwn_in' => ['pretext', 'text'],
-            'image_url' => 'http://fake.host/image.png',
-            'thumb_url' => 'http://fake.host/image.png',
-            'title' => 'A title',
-            'title_link' => 'http://fake.host/',
-            'author_name' => 'Joe Bloggs',
-            'author_link' => 'http://fake.host/',
-            'author_icon' => 'http://fake.host/image.png',
-            'fields' => [
-              [
-                'title' => 'Title 1',
-                'value' => 'Value 1',
-                'short' => false,
-              ],
-              [
-                'title' => 'Title 2',
-                'value' => 'Value 1',
-                'short' => false,
-              ],
-            ],
-            'actions' => [
+        $a = (new Attachment())
+            ->setFallback('Fallback')
+            ->setText('Text')
+            ->setPretext('Pretext')
+            ->setColor('bad')
+            ->setFooter('Footer')
+            ->setFooterIcon('https://platform.slack-edge.com/img/default_application_icon.png')
+            ->setTimestamp($now)
+            ->setMarkdownFields(['pretext', 'text'])
+            ->setImageUrl('http://fake.host/image.png')
+            ->setThumbUrl('http://fake.host/image.png')
+            ->setTitle('A title')
+            ->setTitleLink('http://fake.host/')
+            ->setAuthorName('Joe Bloggs')
+            ->setAuthorLink('http://fake.host/')
+            ->setAuthorIcon('http://fake.host/image.png')
+            ->setFields(
                 [
-                    'name' => 'Name 1',
-                    'text' => 'Text 1',
-                    'style' => 'default',
-                    'type' => 'button',
-                    'value' => 'Value 1',
-                    'confirm' => [
-                        'title' => 'Title 1',
-                        'text' => 'Text 1',
-                        'ok_text' => 'OK Text 1',
-                        'dismiss_text' => 'Dismiss Text 1',
-                    ],
-                ],
+                    new AttachmentField('Title 1', 'Value 1'),
+                    new AttachmentField('Title 2', 'Value 1'),
+                ]
+            )
+            ->setActions(
                 [
-                    'name' => 'Name 2',
-                    'text' => 'Text 2',
-                    'style' => 'default',
-                    'type' => 'button',
-                    'value' => 'Value 2',
-                    'confirm' => [
-                        'title' => 'Title 2',
-                        'text' => 'Text 2',
-                        'ok_text' => 'OK Text 2',
-                        'dismiss_text' => 'Dismiss Text 2',
-                    ],
-                ],
-            ],
-        ];
+                    (new AttachmentAction('Name 1', 'Text 1'))
+                        ->setStyle('default')
+                        ->setType('button')
+                        ->setValue('Value 1')
+                        ->setConfirm((new ActionConfirmation('Title 1', 'Text 1'))
+                            ->setOkText('OK Text 1')
+                            ->setDismissText('Dismiss Text 1')
+                        ),
+                    (new AttachmentAction('Name 2', 'Text 2'))
+                        ->setStyle('default')
+                        ->setType('button')
+                        ->setValue('Value 2')
+                        ->setConfirm((new ActionConfirmation('Title 2', 'Text 2'))
+                            ->setOkText('OK Text 2')
+                            ->setDismissText('Dismiss Text 2')
+                        ),
+                ]
+            )
+        ;
 
         // Sublte difference with timestamp
         $out = [
@@ -198,31 +177,24 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
             ],
         ];
 
-        $a = new Attachment($in);
-
         $this->assertSame($out, $a->toArray());
     }
 
-    public function testAddActionAsArray(): void
+    public function testAddActionAsObject(): void
     {
-        $a = new Attachment([
-            'fallback' => 'Fallback',
-            'text' => 'Text',
-        ]);
+        $a = (new Attachment())
+            ->setFallback('Fallback')
+            ->setText('Text')
+        ;
 
-        $a->addAction([
-            'name' => 'Name 1',
-            'text' => 'Text 1',
-            'style' => 'default',
-            'type' => 'button',
-            'value' => 'Value 1',
-            'confirm' => [
-                'title' => 'Title 1',
-                'text' => 'Text 1',
-                'ok_text' => 'OK Text 1',
-                'dismiss_text' => 'Dismiss Text 1',
-            ],
-        ]);
+        $a->addAction((new AttachmentAction('Name 1', 'Text 1'))
+            ->setStyle('default')
+            ->setValue('Value 1')
+            ->setConfirm((new ActionConfirmation('Title 1', 'Text 1'))
+                ->setOkText('OK Text 1')
+                ->setDismissText('Dismiss Text 1')
+            )
+        );
 
         $actions = $a->getActions();
 
@@ -231,68 +203,14 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('Text 1', $actions[0]->getText());
     }
 
-    public function testAddActionAsObject(): void
-    {
-        $a = new Attachment([
-            'fallback' => 'Fallback',
-            'text' => 'Text',
-        ]);
-
-        $ac = new AttachmentAction([
-            'name' => 'Name 1',
-            'text' => 'Text 1',
-            'style' => 'default',
-            'type' => 'button',
-            'value' => 'Value 1',
-            'confirm' => [
-                'title' => 'Title 1',
-                'text' => 'Text 1',
-                'ok_text' => 'OK Text 1',
-                'dismiss_text' => 'Dismiss Text 1',
-            ],
-        ]);
-
-        $a->addAction($ac);
-
-        $actions = $a->getActions();
-
-        $this->assertSame(1, \count($actions));
-
-        $this->assertSame($ac, $actions[0]);
-    }
-
-    public function testAddFieldAsArray(): void
-    {
-        $a = new Attachment([
-            'fallback' => 'Fallback',
-            'text' => 'Text',
-        ]);
-
-        $a->addField([
-            'title' => 'Title 1',
-            'value' => 'Value 1',
-            'short' => true,
-        ]);
-
-        $fields = $a->getFields();
-
-        $this->assertSame(1, \count($fields));
-
-        $this->assertSame('Title 1', $fields[0]->getTitle());
-    }
-
     public function testAddFieldAsObject(): void
     {
-        $a = new Attachment([
-          'fallback' => 'Fallback',
-          'text' => 'Text',
-        ]);
+        $a = (new Attachment())
+            ->setFallback('Fallback')
+            ->setText('Text')
+        ;
 
-        $f = new AttachmentField([
-          'title' => 'Title 1',
-          'value' => 'Value 1',
-          'short' => true,
-        ]);
+        $f = new AttachmentField('Title 1', 'Value 1', true);
 
         $a->addField($f);
 
@@ -305,20 +223,15 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
 
     public function testSetFields(): void
     {
-        $a = new Attachment([
-          'fallback' => 'Fallback',
-          'text' => 'Text',
-        ]);
+        $a = (new Attachment())
+            ->setFallback('Fallback')
+            ->setText('Text')
+        ;
 
-        $a->addField([
-          'title' => 'Title 1',
-          'value' => 'Value 1',
-          'short' => true,
-        ])->addField([
-          'title' => 'Title 2',
-          'value' => 'Value 2',
-          'short' => true,
-        ]);
+        $a
+            ->addField(new AttachmentField('Title 1', 'Value 1', true))
+            ->addField(new AttachmentField('Title 2', 'Value 2', true))
+        ;
 
         $this->assertSame(2, \count($a->getFields()));
 
