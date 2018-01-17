@@ -139,7 +139,7 @@ final class Client
      *
      * @return array
      */
-    public function preparePayload(Message $message)
+    private function preparePayload(Message $message)
     {
         $payload = [
             'text' => $message->getText(),

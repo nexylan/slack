@@ -16,6 +16,13 @@ use Nexy\Slack\Client;
 
 class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 {
+    private $mockHttpClient;
+
+    protected function setUp()
+    {
+        $this->mockHttpClient = new \Http\Mock\Client();
+    }
+
     public function testPlainMessage(): void
     {
         $expectedHttpData = [
@@ -29,13 +36,16 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'attachments' => [],
         ];
 
-        $client = new Client('http://fake.endpoint', [], new \Http\Mock\Client());
+        $client = new Client('http://fake.endpoint', [], $this->mockHttpClient);
 
         $message = $client->to('@regan')->from('Archer')->setText('Message');
 
-        $payload = $client->preparePayload($message);
+        $client->sendMessage($message);
 
-        $this->assertSame($expectedHttpData, $payload);
+        $this->assertSame(
+            $expectedHttpData,
+            \json_decode($this->mockHttpClient->getLastRequest()->getBody()->getContents(), true)
+        );
     }
 
     public function testMessageWithAttachments(): void
@@ -65,7 +75,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $client = new Client('http://fake.endpoint', [
             'username' => 'Test',
             'channel' => '#general',
-        ], new \Http\Mock\Client());
+        ], $this->mockHttpClient);
 
         $message = $client->createMessage()->setText('Message');
 
@@ -73,7 +83,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 
         $message->attach($attachment);
 
-        $payload = $client->preparePayload($message);
+        $client->sendMessage($message);
 
         // Subtle difference with timestamp
         $attachmentOutput = [
@@ -107,7 +117,10 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'attachments' => [$attachmentOutput],
         ];
 
-        $this->assertSame($expectedHttpData, $payload);
+        $this->assertSame(
+            $expectedHttpData,
+            \json_decode($this->mockHttpClient->getLastRequest()->getBody()->getContents(), true)
+        );
     }
 
     public function testMessageWithAttachmentsAndFields(): void
@@ -179,7 +192,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $client = new Client('http://fake.endpoint', [
             'username' => 'Test',
             'channel' => '#general',
-        ], new \Http\Mock\Client());
+        ], $this->mockHttpClient);
 
         $message = $client->createMessage()->setText('Message');
 
@@ -187,7 +200,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 
         $message->attach($attachment);
 
-        $payload = $client->preparePayload($message);
+        $client->sendMessage($message);
 
         $expectedHttpData = [
             'text' => 'Message',
@@ -200,7 +213,10 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'attachments' => [$attachmentOutput],
         ];
 
-        $this->assertSame($expectedHttpData, $payload);
+        $this->assertSame(
+            $expectedHttpData,
+            \json_decode($this->mockHttpClient->getLastRequest()->getBody()->getContents(), true)
+        );
     }
 
     public function testMessageWithAttachmentsAndActions(): void
@@ -304,7 +320,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $client = new Client('http://fake.endpoint', [
             'username' => 'Test',
             'channel' => '#general',
-        ], new \Http\Mock\Client());
+        ], $this->mockHttpClient);
 
         $message = $client->createMessage()->setText('Message');
 
@@ -312,7 +328,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 
         $message->attach($attachment);
 
-        $payload = $client->preparePayload($message);
+        $client->sendMessage($message);
 
         $expectedHttpData = [
             'text' => 'Message',
@@ -325,6 +341,9 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'attachments' => [$attachmentOutput],
         ];
 
-        $this->assertSame($expectedHttpData, $payload);
+        $this->assertSame(
+            $expectedHttpData,
+            \json_decode($this->mockHttpClient->getLastRequest()->getBody()->getContents(), true)
+        );
     }
 }
