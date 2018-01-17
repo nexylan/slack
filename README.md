@@ -7,8 +7,6 @@ focused on ease-of-use and elegant syntax.
 [![Latest Stable Version](https://poser.pugx.org/nexylan/slack/v/stable)](https://packagist.org/packages/nexylan/slack)
 [![Latest Unstable Version](https://poser.pugx.org/nexylan/slack/v/unstable)](https://packagist.org/packages/nexylan/slack)
 [![License](https://poser.pugx.org/nexylan/slack/license)](https://packagist.org/packages/nexylan/slack)
-[![Dependency Status](https://www.versioneye.com/php/nexylan:slack/badge.svg)](https://www.versioneye.com/php/nexylan:slack)
-[![Reference Status](https://www.versioneye.com/php/nexylan:slack/reference_badge.svg)](https://www.versioneye.com/php/nexylan:slack/references)
 
 [![Total Downloads](https://poser.pugx.org/nexylan/slack/downloads)](https://packagist.org/packages/nexylan/slack)
 [![Monthly Downloads](https://poser.pugx.org/nexylan/slack/d/monthly)](https://packagist.org/packages/nexylan/slack)
@@ -19,12 +17,10 @@ focused on ease-of-use and elegant syntax.
 [![Code Climate](https://codeclimate.com/github/nexylan/slack/badges/gpa.svg)](https://codeclimate.com/github/nexylan/slack)
 [![Coverage Status](https://coveralls.io/repos/nexylan/slack/badge.svg?branch=master)](https://coveralls.io/r/nexylan/slack?branch=master)
 
-* Laravel integration: [Slack for Laravel](https://github.com/maknz/slack-laravel)
-(not maintained, feel free to propose your own here!)
 * Symfony integration: [Slack bundle](https://github.com/nexylan/slack-bundle)
 
-This repository started from a fork of  the popular [maknz/slack](https://github.com/maknz/slack) library,
-which [is not maintained anymrore](https://github.com/maknz/slack/commit/89ff7b2).
+This repository started from a fork of the popular [maknz/slack](https://github.com/maknz/slack) library,
+which [is not maintained anymore](https://github.com/maknz/slack/commit/89ff7b2).
 
 The 1.x branch and all the related releases are an exact copy of the original repository
 and are under the [BSD 2-clause "Simplified" License](https://github.com/maknz/slack/blob/master/LICENSE.md).
@@ -33,7 +29,7 @@ The next releases will be under the MIT license. See the current [LICENSE](LICEN
 
 ## Requirements
 
-* PHP 5.5, 5.6, 7.0 or HHVM
+* PHP 7.1+
 
 ## Installation
 

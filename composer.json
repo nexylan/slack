@@ -2,7 +2,7 @@
     "name": "nexylan/slack",
     "description": "A simple PHP package for sending messages to Slack, with a focus on ease of use and elegant syntax.",
     "type": "library",
-    "keywords": ["slack"],
+    "keywords": ["slack", "webhook"],
     "license": "MIT",
     "authors": [
         {
@@ -29,7 +29,6 @@
         "guzzlehttp/psr7": "^1.4"
     },
     "suggest": {
-        "maknz/slack-laravel": "Required for Laravel support",
         "nexylan/slack-bundle": "Required for Symfony bundle support"
     },
     "autoload": {
