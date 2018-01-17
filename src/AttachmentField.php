@@ -81,7 +81,7 @@ final class AttachmentField
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'title' => $this->title,

@@ -154,7 +154,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setFallback(string $fallback)
+    public function setFallback(string $fallback): self
     {
         $this->fallback = $fallback;
 
@@ -176,7 +176,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setText(string $text)
+    public function setText(string $text): self
     {
         $this->text = $text;
 
@@ -198,7 +198,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setImageUrl(?string $imageUrl)
+    public function setImageUrl(?string $imageUrl): self
     {
         $this->imageUrl = $imageUrl;
 
@@ -220,7 +220,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setThumbUrl(?string $thumbUrl)
+    public function setThumbUrl(?string $thumbUrl): self
     {
         $this->thumbUrl = $thumbUrl;
 
@@ -242,7 +242,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setPretext(?string $pretext)
+    public function setPretext(?string $pretext): self
     {
         $this->pretext = $pretext;
 
@@ -264,7 +264,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setColor(?string $color)
+    public function setColor(?string $color): self
     {
         $this->color = $color;
 
@@ -286,7 +286,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setFooter(?string $footer)
+    public function setFooter(?string $footer): self
     {
         $this->footer = $footer;
 
@@ -308,7 +308,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setFooterIcon(?string $footerIcon)
+    public function setFooterIcon(?string $footerIcon): self
     {
         $this->footerIcon = $footerIcon;
 
@@ -330,7 +330,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setTimestamp(?\DateTime $timestamp)
+    public function setTimestamp(?\DateTime $timestamp): self
     {
         $this->timestamp = $timestamp;
 
@@ -352,7 +352,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setTitle(?string $title)
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -374,7 +374,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setTitleLink(?string $titleLink)
+    public function setTitleLink(?string $titleLink): self
     {
         $this->titleLink = $titleLink;
 
@@ -396,7 +396,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setAuthorName(?string $authorName)
+    public function setAuthorName(?string $authorName): self
     {
         $this->authorName = $authorName;
 
@@ -418,7 +418,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setAuthorLink(?string $authorLink)
+    public function setAuthorLink(?string $authorLink): self
     {
         $this->authorLink = $authorLink;
 
@@ -440,7 +440,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setAuthorIcon(?string $authorIcon)
+    public function setAuthorIcon(?string $authorIcon): self
     {
         $this->authorIcon = $authorIcon;
 
@@ -462,7 +462,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setFields(array $fields)
+    public function setFields(array $fields): self
     {
         $this->clearFields();
 
@@ -480,7 +480,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function addField(AttachmentField $field)
+    public function addField(AttachmentField $field): self
     {
         $this->fields[] = $field;
 
@@ -492,7 +492,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function clearFields()
+    public function clearFields(): self
     {
         $this->fields = [];
 
@@ -515,7 +515,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setMarkdownFields(array $fields)
+    public function setMarkdownFields(array $fields): self
     {
         $this->markdownFields = $fields;
 
@@ -537,7 +537,7 @@ final class Attachment
      *
      * @return Attachment
      */
-    public function setActions($actions)
+    public function setActions($actions): self
     {
         $this->clearActions();
 
@@ -555,7 +555,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function addAction(AttachmentAction $action)
+    public function addAction(AttachmentAction $action): self
     {
         $this->actions[] = $action;
 
@@ -567,7 +567,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function clearActions()
+    public function clearActions(): self
     {
         $this->actions = [];
 
@@ -579,7 +579,7 @@ final class Attachment
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $data = [
             'fallback' => $this->fallback,
@@ -611,7 +611,7 @@ final class Attachment
      *
      * @return array
      */
-    private function getFieldsAsArrays()
+    private function getFieldsAsArrays(): array
     {
         $fields = [];
 
@@ -628,7 +628,7 @@ final class Attachment
      *
      * @return array
      */
-    private function getActionsAsArrays()
+    private function getActionsAsArrays(): array
     {
         $actions = [];
 

@@ -105,7 +105,7 @@ final class AttachmentAction
      *
      * @return AttachmentAction
      */
-    public function setStyle(string $style)
+    public function setStyle(string $style): self
     {
         $this->style = $style;
 
@@ -125,7 +125,7 @@ final class AttachmentAction
      *
      * @return AttachmentAction
      */
-    public function setType(string $type)
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -145,7 +145,7 @@ final class AttachmentAction
      *
      * @return AttachmentAction
      */
-    public function setValue(?string $value)
+    public function setValue(?string $value): self
     {
         $this->value = $value;
 
@@ -165,7 +165,7 @@ final class AttachmentAction
      *
      * @return AttachmentAction|null
      */
-    public function setConfirm(?ActionConfirmation $confirm)
+    public function setConfirm(?ActionConfirmation $confirm): self
     {
         $this->confirm = $confirm;
 
@@ -177,7 +177,7 @@ final class AttachmentAction
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'name' => $this->name,

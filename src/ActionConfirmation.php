@@ -85,7 +85,7 @@ final class ActionConfirmation
      *
      * @return ActionConfirmation
      */
-    public function setOkText(?string $okText)
+    public function setOkText(?string $okText): self
     {
         $this->okText = $okText;
 
@@ -105,7 +105,7 @@ final class ActionConfirmation
      *
      * @return ActionConfirmation
      */
-    public function setDismissText(?string $dismissText)
+    public function setDismissText(?string $dismissText): self
     {
         $this->dismissText = $dismissText;
 
@@ -117,7 +117,7 @@ final class ActionConfirmation
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'title' => $this->title,
