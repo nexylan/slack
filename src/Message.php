@@ -66,7 +66,7 @@ class Message
      *
      * @var bool
      */
-    private $allow_markdown = true;
+    private $allowMarkdown = true;
 
     /**
      * The attachment fields which should be formatted with
@@ -74,7 +74,7 @@ class Message
      *
      * @var array
      */
-    private $markdown_in_attachments = [];
+    private $markdownInAttachments = [];
 
     /**
      * An array of attachments to send.
@@ -229,7 +229,7 @@ class Message
      */
     public function getAllowMarkdown()
     {
-        return $this->allow_markdown;
+        return $this->allowMarkdown;
     }
 
     /**
@@ -240,7 +240,7 @@ class Message
      */
     public function setAllowMarkdown($value)
     {
-        $this->allow_markdown = (bool) $value;
+        $this->allowMarkdown = (bool) $value;
 
         return $this;
     }
@@ -273,7 +273,7 @@ class Message
      */
     public function getMarkdownInAttachments()
     {
-        return $this->markdown_in_attachments;
+        return $this->markdownInAttachments;
     }
 
     /**
@@ -284,7 +284,7 @@ class Message
      */
     public function setMarkdownInAttachments(array $fields)
     {
-        $this->markdown_in_attachments = $fields;
+        $this->markdownInAttachments = $fields;
 
         return $this;
     }

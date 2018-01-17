@@ -34,14 +34,14 @@ class Attachment
      *
      * @var string
      */
-    private $image_url;
+    private $imageUrl;
 
     /**
      * Optional thumbnail that should appear within the attachment.
      *
      * @var string
      */
-    private $thumb_url;
+    private $thumbUrl;
 
     /**
      * Optional text that should appear above the formatted data.
@@ -62,28 +62,28 @@ class Attachment
      *
      * @var string
      */
-    private $title_link;
+    private $titleLink;
 
     /**
      * Optional author name for the attachment.
      *
      * @var string
      */
-    private $author_name;
+    private $authorName;
 
     /**
      * Optional author link for the attachment.
      *
      * @var string
      */
-    private $author_link;
+    private $authorLink;
 
     /**
      * Optional author icon for the attachment.
      *
      * @var string
      */
-    private $author_icon;
+    private $authorIcon;
 
     /**
      * The color to use for the attachment.
@@ -104,7 +104,7 @@ class Attachment
      *
      * @var string
      */
-    private $footer_icon;
+    private $footerIcon;
 
     /**
      * The timestamp to use for the attachment.
@@ -126,7 +126,7 @@ class Attachment
      *
      * @var array
      */
-    private $markdown_fields = [];
+    private $markdownFields = [];
 
     /**
      * A collection of actions (buttons) to include in the attachment.
@@ -267,19 +267,19 @@ class Attachment
      */
     public function getImageUrl()
     {
-        return $this->image_url;
+        return $this->imageUrl;
     }
 
     /**
      * Set the optional image to appear within the attachment.
      *
-     * @param string $image_url
+     * @param string $imageUrl
      *
      * @return $this
      */
-    public function setImageUrl($image_url)
+    public function setImageUrl($imageUrl)
     {
-        $this->image_url = $image_url;
+        $this->imageUrl = $imageUrl;
 
         return $this;
     }
@@ -291,19 +291,19 @@ class Attachment
      */
     public function getThumbUrl()
     {
-        return $this->thumb_url;
+        return $this->thumbUrl;
     }
 
     /**
      * Set the optional thumbnail to appear within the attachment.
      *
-     * @param string $thumb_url
+     * @param string $thumbUrl
      *
      * @return $this
      */
-    public function setThumbUrl($thumb_url)
+    public function setThumbUrl($thumbUrl)
     {
-        $this->thumb_url = $thumb_url;
+        $this->thumbUrl = $thumbUrl;
 
         return $this;
     }
@@ -387,7 +387,7 @@ class Attachment
      */
     public function getFooterIcon()
     {
-        return $this->footer_icon;
+        return $this->footerIcon;
     }
 
     /**
@@ -399,7 +399,7 @@ class Attachment
      */
     public function setFooterIcon($footerIcon)
     {
-        $this->footer_icon = $footerIcon;
+        $this->footerIcon = $footerIcon;
 
         return $this;
     }
@@ -459,19 +459,19 @@ class Attachment
      */
     public function getTitleLink()
     {
-        return $this->title_link;
+        return $this->titleLink;
     }
 
     /**
      * Set the title link to use for the attachment.
      *
-     * @param string $title_link
+     * @param string $titleLink
      *
      * @return $this
      */
-    public function setTitleLink($title_link)
+    public function setTitleLink($titleLink)
     {
-        $this->title_link = $title_link;
+        $this->titleLink = $titleLink;
 
         return $this;
     }
@@ -483,19 +483,19 @@ class Attachment
      */
     public function getAuthorName()
     {
-        return $this->author_name;
+        return $this->authorName;
     }
 
     /**
      * Set the author name to use for the attachment.
      *
-     * @param string $author_name
+     * @param string $authorName
      *
      * @return $this
      */
-    public function setAuthorName($author_name)
+    public function setAuthorName($authorName)
     {
-        $this->author_name = $author_name;
+        $this->authorName = $authorName;
 
         return $this;
     }
@@ -507,19 +507,19 @@ class Attachment
      */
     public function getAuthorLink()
     {
-        return $this->author_link;
+        return $this->authorLink;
     }
 
     /**
      * Set the auhtor link to use for the attachment.
      *
-     * @param string $author_link
+     * @param string $authorLink
      *
      * @return $this
      */
-    public function setAuthorLink($author_link)
+    public function setAuthorLink($authorLink)
     {
-        $this->author_link = $author_link;
+        $this->authorLink = $authorLink;
 
         return $this;
     }
@@ -531,19 +531,19 @@ class Attachment
      */
     public function getAuthorIcon()
     {
-        return $this->author_icon;
+        return $this->authorIcon;
     }
 
     /**
      * Set the author icon to use for the attachment.
      *
-     * @param string $author_icon
+     * @param string $authorIcon
      *
      * @return $this
      */
-    public function setAuthorIcon($author_icon)
+    public function setAuthorIcon($authorIcon)
     {
-        $this->author_icon = $author_icon;
+        $this->authorIcon = $authorIcon;
 
         return $this;
     }
@@ -630,7 +630,7 @@ class Attachment
      */
     public function getMarkdownFields()
     {
-        return $this->markdown_fields;
+        return $this->markdownFields;
     }
 
     /**
@@ -643,7 +643,7 @@ class Attachment
      */
     public function setMarkdownFields(array $fields)
     {
-        $this->markdown_fields = $fields;
+        $this->markdownFields = $fields;
 
         return $this;
     }
