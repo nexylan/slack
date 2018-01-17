@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Nexy\Slack;
 
+/**
+ * @author Sullivan Senechal <soullivaneuh@gmail.com>
+ */
 class AttachmentAction
 {
     const TYPE_BUTTON = 'button';

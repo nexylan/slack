@@ -23,6 +23,9 @@ use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @author Sullivan Senechal <soullivaneuh@gmail.com>
+ */
 class Client
 {
     /**

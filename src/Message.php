@@ -15,6 +15,9 @@ namespace Nexy\Slack;
 
 use InvalidArgumentException;
 
+/**
+ * @author Sullivan Senechal <soullivaneuh@gmail.com>
+ */
 class Message
 {
     /**
