@@ -151,16 +151,6 @@ class Client
     }
 
     /**
-     * Set the Slack endpoint.
-     *
-     * @param string $endpoint
-     */
-    public function setEndpoint($endpoint): void
-    {
-        $this->endpoint = $endpoint;
-    }
-
-    /**
      * Get the default channel messages will be created for.
      *
      * @return string
