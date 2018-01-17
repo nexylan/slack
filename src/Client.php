@@ -83,20 +83,6 @@ final class Client
     }
 
     /**
-     * Pass any unhandled methods through to a new Message
-     * instance.
-     *
-     * @param string $name      The name of the method
-     * @param array  $arguments The method arguments
-     *
-     * @return \Nexy\Slack\Message
-     */
-    public function __call($name, $arguments)
-    {
-        return \call_user_func_array([$this->createMessage(), $name], $arguments);
-    }
-
-    /**
      * Create a new message with defaults.
      *
      * @return \Nexy\Slack\Message
