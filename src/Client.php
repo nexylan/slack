@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Nexy\Slack;
 
-use GuzzleHttp\Client as Guzzle;
+use Http\Client\Common\HttpMethodsClient;
+use Http\Client\Common\Plugin\BaseUriPlugin;
+use Http\Client\Common\PluginClient;
+use Http\Client\Exception;
+use Http\Client\HttpClient;
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\MessageFactoryDiscovery;
+use Http\Discovery\UriFactoryDiscovery;
 
 class Client
 {
-    /**
-     * The Slack incoming webhook endpoint.
-     *
-     * @var string
-     */
-    private $endpoint;
-
     /**
      * The default channel to send messages to.
      *
@@ -75,22 +75,19 @@ class Client
     private $markdown_in_attachments = [];
 
     /**
-     * The Guzzle HTTP client instance.
-     *
-     * @var \GuzzleHttp\Client
+     * @var HttpMethodsClient
      */
-    private $guzzle;
+    private $httpClient;
 
     /**
      * Instantiate a new Client.
      *
-     * @param string $endpoint
-     * @param array  $attributes
+     * @param string          $endpoint
+     * @param array           $attributes
+     * @param HttpClient|null $httpClient
      */
-    public function __construct($endpoint, array $attributes = [], Guzzle $guzzle = null)
+    public function __construct($endpoint, array $attributes = [], HttpClient $httpClient = null)
     {
-        $this->endpoint = $endpoint;
-
         if (isset($attributes['channel'])) {
             $this->setDefaultChannel($attributes['channel']);
         }
@@ -123,7 +120,17 @@ class Client
             $this->setMarkdownInAttachments($attributes['markdown_in_attachments']);
         }
 
-        $this->guzzle = $guzzle ?: new Guzzle();
+        $this->httpClient = new HttpMethodsClient(
+            new PluginClient(
+                $httpClient ?: HttpClientDiscovery::find(),
+                [
+                    new BaseUriPlugin(
+                        UriFactoryDiscovery::find()->createUri($endpoint)
+                    ),
+                ]
+            ),
+            MessageFactoryDiscovery::find()
+        );
     }
 
     /**
@@ -138,16 +145,6 @@ class Client
     public function __call($name, $arguments)
     {
         return \call_user_func_array([$this->createMessage(), $name], $arguments);
-    }
-
-    /**
-     * Get the Slack endpoint.
-     *
-     * @return string
-     */
-    public function getEndpoint()
-    {
-        return $this->endpoint;
     }
 
     /**
@@ -342,6 +339,8 @@ class Client
      * Send a message.
      *
      * @param \Nexy\Slack\Message $message
+     *
+     * @throws Exception
      */
     public function sendMessage(Message $message): void
     {
@@ -353,7 +352,7 @@ class Client
             throw new \RuntimeException(\sprintf('JSON encoding error %s: %s', \json_last_error(), \json_last_error_msg()));
         }
 
-        $this->guzzle->post($this->endpoint, ['body' => $encoded]);
+        $this->httpClient->post('', [], $encoded);
     }
 
     /**

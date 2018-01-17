@@ -7,11 +7,9 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
 {
     public function testInstantiationWithNoDefaults(): void
     {
-        $client = new Client('http://fake.endpoint');
+        $client = new Client('http://fake.endpoint', [], new \Http\Mock\Client());
 
         $this->assertInstanceOf('Nexy\Slack\Client', $client);
-
-        $this->assertSame('http://fake.endpoint', $client->getEndpoint());
     }
 
     public function testInstantiationWithDefaults(): void
@@ -27,7 +25,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
             'markdown_in_attachments' => ['text'],
         ];
 
-        $client = new Client('http://fake.endpoint', $defaults);
+        $client = new Client('http://fake.endpoint', $defaults, new \Http\Mock\Client());
 
         $this->assertSame($defaults['channel'], $client->getDefaultChannel());
 
@@ -54,7 +52,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
             'icon' => ':ghost:',
         ];
 
-        $client = new Client('http://fake.endpoint', $defaults);
+        $client = new Client('http://fake.endpoint', $defaults, new \Http\Mock\Client());
 
         $message = $client->createMessage();
 
@@ -69,7 +67,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
 
     public function testWildcardCallToMessage(): void
     {
-        $client = new Client('http://fake.endpoint');
+        $client = new Client('http://fake.endpoint', [], new \Http\Mock\Client());
 
         $message = $client->to('@regan');
 
