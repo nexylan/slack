@@ -37,6 +37,9 @@ return \PhpCsFixer\Config::create()
         'general_phpdoc_annotation_remove' => [
             'covers',
         ],
+        'header_comment' => [
+            'header' => $header,
+        ],
         'linebreak_after_opening_tag' => true,
         'modernize_types_casting' => true,
         'native_function_invocation' => true,
