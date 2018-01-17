@@ -19,7 +19,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'attachments' => [],
         ];
 
-        $client = new Client('http://fake.endpoint');
+        $client = new Client('http://fake.endpoint', [], new \Http\Mock\Client());
 
         $message = $client->to('@regan')->from('Archer')->setText('Message');
 
@@ -55,7 +55,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $client = new Client('http://fake.endpoint', [
             'username' => 'Test',
             'channel' => '#general',
-        ]);
+        ], new \Http\Mock\Client());
 
         $message = $client->createMessage()->setText('Message');
 
@@ -169,7 +169,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $client = new Client('http://fake.endpoint', [
             'username' => 'Test',
             'channel' => '#general',
-        ]);
+        ], new \Http\Mock\Client());
 
         $message = $client->createMessage()->setText('Message');
 
@@ -294,7 +294,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $client = new Client('http://fake.endpoint', [
             'username' => 'Test',
             'channel' => '#general',
-        ]);
+        ], new \Http\Mock\Client());
 
         $message = $client->createMessage()->setText('Message');
 
@@ -316,26 +316,5 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         ];
 
         $this->assertSame($expectedHttpData, $payload);
-    }
-
-    public function testBadEncodingThrowsException(): void
-    {
-        $client = $this->getNetworkStubbedClient();
-
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('JSON encoding error');
-
-        // Force encoding to ISO-8859-1 so we know we're providing malformed
-        // encoding to json_encode
-        $client->send(\mb_convert_encoding('æøå', 'ISO-8859-1', 'UTF-8'));
-    }
-
-    protected function getNetworkStubbedClient()
-    {
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-
-        $guzzle->shouldReceive('post');
-
-        return new Client('http://fake.endpoint', [], $guzzle);
     }
 }
