@@ -83,6 +83,24 @@ final class Client
     }
 
     /**
+     * @param string $channel
+     * @return Message
+     */
+    public function to(string $channel): Message
+    {
+        return $this->createMessage()->to($channel);
+    }
+
+    /**
+     * @param null|string $text
+     * @return Message
+     */
+    public function send(?string $text = null): Message
+    {
+        return $this->createMessage()->send($text);
+    }
+
+    /**
      * Create a new message with defaults.
      *
      * @return \Nexy\Slack\Message
