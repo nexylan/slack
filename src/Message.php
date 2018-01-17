@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Nexy\Slack;
 
-use InvalidArgumentException;
-
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
@@ -31,35 +29,35 @@ final class Message
     /**
      * The text to send with the message.
      *
-     * @var string
+     * @var string|null
      */
     private $text;
 
     /**
      * The channel the message should be sent to.
      *
-     * @var string
+     * @var string|null
      */
     private $channel;
 
     /**
      * The username the message should be sent as.
      *
-     * @var string
+     * @var string|null
      */
     private $username;
 
     /**
      * The URL to the icon to use.
      *
-     * @var string
+     * @var string|null
      */
     private $icon;
 
     /**
      * The type of icon we are using.
      *
-     * @var enum
+     * @var string|null
      */
     private $iconType;
 
@@ -107,11 +105,9 @@ final class Message
     }
 
     /**
-     * Get the message text.
-     *
-     * @return string
+     * @return string|null
      */
-    public function getText()
+    public function getText(): ?string
     {
         return $this->text;
     }
@@ -131,11 +127,9 @@ final class Message
     }
 
     /**
-     * Get the channel we will post to.
-     *
-     * @return string
+     * @return string|null
      */
-    public function getChannel()
+    public function getChannel(): ?string
     {
         return $this->channel;
     }
@@ -155,11 +149,9 @@ final class Message
     }
 
     /**
-     * Get the username we will post as.
-     *
      * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -179,11 +171,9 @@ final class Message
     }
 
     /**
-     * Get the icon (either URL or emoji) we will post as.
-     *
-     * @return string
+     * @return string|null
      */
-    public function getIcon()
+    public function getIcon(): ?string
     {
         return $this->icon;
     }
@@ -215,22 +205,17 @@ final class Message
     }
 
     /**
-     * Get the icon type being used, if an icon is set.
-     *
-     * @return string
+     * @return string|null
      */
-    public function getIconType()
+    public function getIconType(): ?string
     {
         return $this->iconType;
     }
 
     /**
-     * Get whether message text should be formatted with
-     * Slack's Markdown-like language.
-     *
      * @return bool
      */
-    public function getAllowMarkdown()
+    public function getAllowMarkdown(): bool
     {
         return $this->allowMarkdown;
     }
@@ -240,6 +225,8 @@ final class Message
      * Slack's Markdown-like language.
      *
      * @param bool $value
+     *
+     * @return Message
      */
     public function setAllowMarkdown($value)
     {
@@ -248,33 +235,20 @@ final class Message
         return $this;
     }
 
-    /**
-     * Enable Markdown formatting for the message.
-     */
     public function enableMarkdown()
     {
-        $this->setAllowMarkdown(true);
-
-        return $this;
+        return $this->setAllowMarkdown(true);
     }
 
-    /**
-     * Disable Markdown formatting for the message.
-     */
     public function disableMarkdown()
     {
-        $this->setAllowMarkdown(false);
-
-        return $this;
+        return $this->setAllowMarkdown(false);
     }
 
     /**
-     * Get the attachment fields which should be formatted
-     * in Slack's Markdown-like language.
-     *
      * @return array
      */
-    public function getMarkdownInAttachments()
+    public function getMarkdownInAttachments(): array
     {
         return $this->markdownInAttachments;
     }
@@ -284,6 +258,8 @@ final class Message
      * in Slack's Markdown-like language.
      *
      * @param array $fields
+     *
+     * @return Message
      */
     public function setMarkdownInAttachments(array $fields)
     {
@@ -301,9 +277,7 @@ final class Message
      */
     public function from($username)
     {
-        $this->setUsername($username);
-
-        return $this;
+        return $this->setUsername($username);
     }
 
     /**
@@ -315,9 +289,7 @@ final class Message
      */
     public function to($channel)
     {
-        $this->setChannel($channel);
-
-        return $this;
+        return $this->setChannel($channel);
     }
 
     /**
@@ -329,45 +301,27 @@ final class Message
      */
     public function withIcon($icon)
     {
-        $this->setIcon($icon);
-
-        return $this;
+        return $this->setIcon($icon);
     }
 
     /**
      * Add an attachment to the message.
      *
-     * @param mixed $attachment
+     * @param Attachment $attachment
      *
      * @return $this
      */
-    public function attach($attachment)
+    public function attach(Attachment $attachment)
     {
-        if ($attachment instanceof Attachment) {
-            $this->attachments[] = $attachment;
+        $this->attachments[] = $attachment;
 
-            return $this;
-        } elseif (\is_array($attachment)) {
-            $attachmentObject = new Attachment($attachment);
-
-            if (!isset($attachment['mrkdwn_in'])) {
-                $attachmentObject->setMarkdownFields($this->getMarkdownInAttachments());
-            }
-
-            $this->attachments[] = $attachmentObject;
-
-            return $this;
-        }
-
-        throw new InvalidArgumentException('Attachment must be an instance of Maknz\\Slack\\Attachment or a keyed array');
+        return $this;
     }
 
     /**
-     * Get the attachments for the message.
-     *
-     * @return array
+     * @return Attachment[]
      */
-    public function getAttachments()
+    public function getAttachments(): array
     {
         return $this->attachments;
     }
@@ -405,9 +359,11 @@ final class Message
     /**
      * Send the message.
      *
-     * @param string $text The text to send
+     * @param string|null $text The text to send
+     *
+     * @return Message
      */
-    public function send($text = null)
+    public function send(?string $text = null)
     {
         if ($text) {
             $this->setText($text);

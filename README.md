@@ -116,45 +116,41 @@ $client->to('#accounting')->withIcon('http://example.com/accounting.png')->send(
 #### Send an attachment ([preview](https://goo.gl/fp3iaY))
 
 ```php
-$client->to('#operations')->attach([
-	'fallback' => 'Server health: good',
-	'text' => 'Server health: good',
-	'color' => 'danger',
-])->send('New alert from the monitoring system'); // no message, but can be provided if you'd like
+$client->to('#operations')->attach((new \Nexy\Slack\Attachment())
+    ->setFallback('Server health: good')
+    ->setText('Server health: good')
+    ->setColor('danger')
+)->send('New alert from the monitoring system'); // no message, but can be provided if you'd like
 ```
 
 #### Send an attachment with fields ([preview](https://goo.gl/264mhU))
 
 ```php
-$client->to('#operations')->attach([
-	'fallback' => 'Current server stats',
-	'text' => 'Current server stats',
-	'color' => 'danger',
-	'fields' => [
-		[
-			'title' => 'CPU usage',
-			'value' => '90%',
-			'short' => true // whether the field is short enough to sit side-by-side other fields, defaults to false
-		],
-		[
-			'title' => 'RAM usage',
-			'value' => '2.5GB of 4GB',
-			'short' => true
-		]
-	]
-])->send('New alert from the monitoring system'); // no message, but can be provided if you'd like
+$client->to('#operations')->attach((new \Nexy\Slack\Attachment())
+    ->setFallback('Current server stats')
+    ->setText('Current server stats')
+    ->setColor('danger')
+    ->setFields([
+        new \Nexy\Slack\AttachmentField(
+            'Cpu usage',
+            '90%',
+            true // whether the field is short enough to sit side-by-side other fields, defaults to false
+        ),
+        new \Nexy\Slack\AttachmentField('RAM usage', '2.5GB of 4GB', true),
+    ])
+)->send('New alert from the monitoring system'); // no message, but can be provided if you'd like
 ```
 
 #### Send an attachment with an author ([preview](https://goo.gl/CKd1zJ))
 
 ```php
-$client->to('@regan')->attach([
-	'fallback' => 'Keep up the great work! I really love how the app works.',
-	'text' => 'Keep up the great work! I really love how the app works.',
-	'author_name' => 'Jane Appleseed',
-	'author_link' => 'https://yourapp.com/feedback/5874601',
-	'author_icon' => 'https://static.pexels.com/photos/61120/pexels-photo-61120-large.jpeg'
-])->send('New user feedback');
+$client->to('@regan')->attach((new \Nexy\Slack\Attachment())
+    ->setFallback('Keep up the great work! I really love how the app works.')
+    ->setText('Keep up the great work! I really love how the app works.')
+    ->setAuthorName('Jan Appleseed')
+    ->setAuthorLink('https://yourapp.com/feedback/5874601')
+    ->setAuthorIcon('https://static.pexels.com/photos/61120/pexels-photo-61120-large.jpeg')
+)->send('New user feedback');
 ```
 
 ## Advanced usage
@@ -174,13 +170,13 @@ $client->to('#general')->enableMarkdown()->send('Enable _markdown_ just for this
 #### Send an attachment specifying which fields should have Markdown enabled
 
 ```php
-$client->to('#operations')->attach([
-	'fallback' => 'It is all broken, man',
-	'text' => 'It is _all_ broken, man',
-	'pretext' => 'From user: *JimBob*',
-	'color' => 'danger',
-	'mrkdwn_in' => ['pretext', 'text']
-])->send('New alert from the monitoring system');
+$client->to('#operations')->attach((new \Nexy\Slack\Attachment())
+    ->setFallback('It is all broken, man')
+    ->setText('It is _all_ broken, man')
+    ->setPretext('From user: *JimBob*')
+    ->setColor('danger')
+    ->setMarkdownFields(['pretext', 'text'])
+)->send('New alert from the monitoring system');
 ```
 
 ### Explicit message creation
@@ -204,10 +200,10 @@ $message->send();
 When using attachments, the easiest way is to provide an array of data as shown in the examples, which is actually converted to an Attachment object under the hood. You can also attach an Attachment object to the message:
 
 ```php
-$attachment = new Attachment([
-	'fallback' => 'Some fallback text',
-	'text' => 'The attachment text'
-]);
+$attachment = (new Attachment())
+    ->setFallback('Some fallback text')
+    ->setText('The attachment text')
+;
 
 // Explicitly create a message from the client
 // rather than using the magic passthrough methods
@@ -218,22 +214,6 @@ $message->attach($attachment);
 // Explicitly set the message text rather than
 // implicitly through the send method
 $message->setText('Hello world')->send();
-```
-
-Each attachment field is also an object, an AttachmentField. They can be used as well instead of their data in array form:
-
-```php
-$attachment = new Attachment([
-	'fallback' => 'Some fallback text',
-	'text' => 'The attachment text',
-	'fields' => [
-		new AttachmentField([
-			'title' => 'A title',
-			'value' => 'A value',
-			'short' => true
-		])
-	]
-]);
 ```
 
 You can also set the attachments and fields directly if you have a whole lot of them:
@@ -247,7 +227,7 @@ $client->createMessage()->setAttachments($bigArrayOfAttachments);
 ```
 
 ```php
-$attachment = new Attachment([]);
+$attachment = new Attachment();
 
 $attachment->setFields($bigArrayOfFields);
 ```

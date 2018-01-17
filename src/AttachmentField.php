@@ -38,100 +38,42 @@ final class AttachmentField
      *
      * @var bool
      */
-    private $short = false;
+    private $short;
 
     /**
-     * Instantiate a new AttachmentField.
-     *
-     * @param array $attributes
+     * @param string $title
+     * @param string $value
+     * @param bool   $short
      */
-    public function __construct(array $attributes)
+    public function __construct(string $title, string $value, bool $short = false)
     {
-        if (isset($attributes['title'])) {
-            $this->setTitle($attributes['title']);
-        }
-
-        if (isset($attributes['value'])) {
-            $this->setValue($attributes['value']);
-        }
-
-        if (isset($attributes['short'])) {
-            $this->setShort($attributes['short']);
-        }
+        $this->title = $title;
+        $this->value = $value;
+        $this->short = $short;
     }
 
     /**
-     * Get the title of the field.
-     *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * Set the title of the field.
-     *
-     * @param string $title
-     *
-     * @return $this
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of the field.
-     *
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
 
     /**
-     * Set the value of the field.
-     *
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    /**
-     * Get whether this field is short enough for displaying
-     * side-by-side with other fields.
-     *
      * @return bool
      */
-    public function getShort()
+    public function isShort(): bool
     {
         return $this->short;
-    }
-
-    /**
-     * Set whether this field is short enough for displaying
-     * side-by-side with other fields.
-     *
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function setShort($value)
-    {
-        $this->short = (bool) $value;
-
-        return $this;
     }
 
     /**
@@ -142,9 +84,9 @@ final class AttachmentField
     public function toArray()
     {
         return [
-            'title' => $this->getTitle(),
-            'value' => $this->getValue(),
-            'short' => $this->getShort(),
+            'title' => $this->title,
+            'value' => $this->value,
+            'short' => $this->short,
         ];
     }
 }

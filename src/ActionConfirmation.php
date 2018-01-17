@@ -35,95 +35,57 @@ final class ActionConfirmation
     /**
      * The text label for the OK button.
      *
-     * @var string
+     * @var string|null
      */
     private $okText;
 
     /**
      * The text label for the Cancel button.
      *
-     * @var string
+     * @var string|null
      */
     private $dismissText;
 
     /**
-     * Instantiate a new ActionConfirmation.
-     *
-     * @param array $attributes
+     * @param string $title
+     * @param string $text
      */
-    public function __construct(array $attributes)
+    public function __construct(string $title, string $text)
     {
-        if (isset($attributes['title'])) {
-            $this->setTitle($attributes['title']);
-        }
-
-        if (isset($attributes['text'])) {
-            $this->setText($attributes['text']);
-        }
-
-        if (isset($attributes['ok_text'])) {
-            $this->setOkText($attributes['ok_text']);
-        }
-
-        if (isset($attributes['dismiss_text'])) {
-            $this->setDismissText($attributes['dismiss_text']);
-        }
+        $this->title = $title;
+        $this->text = $text;
     }
 
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * @param string $title
-     *
-     * @return ActionConfirmation
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
     /**
-     * @param string $text
-     *
-     * @return ActionConfirmation
+     * @return string|null
      */
-    public function setText($text)
-    {
-        $this->text = $text;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOkText()
+    public function getOkText(): ?string
     {
         return $this->okText;
     }
 
     /**
-     * @param string $okText
+     * @param string|null $okText
      *
      * @return ActionConfirmation
      */
-    public function setOkText($okText)
+    public function setOkText(?string $okText)
     {
         $this->okText = $okText;
 
@@ -131,19 +93,19 @@ final class ActionConfirmation
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDismissText()
+    public function getDismissText(): ?string
     {
         return $this->dismissText;
     }
 
     /**
-     * @param string $dismissText
+     * @param string|null $dismissText
      *
      * @return ActionConfirmation
      */
-    public function setDismissText($dismissText)
+    public function setDismissText(?string $dismissText)
     {
         $this->dismissText = $dismissText;
 
@@ -158,10 +120,10 @@ final class ActionConfirmation
     public function toArray()
     {
         return [
-            'title' => $this->getTitle(),
-            'text' => $this->getText(),
-            'ok_text' => $this->getOkText(),
-            'dismiss_text' => $this->getDismissText(),
+            'title' => $this->title,
+            'text' => $this->text,
+            'ok_text' => $this->okText,
+            'dismiss_text' => $this->dismissText,
         ];
     }
 }
