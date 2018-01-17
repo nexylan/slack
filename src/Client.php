@@ -21,67 +21,14 @@ use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Client
 {
     /**
-     * The default channel to send messages to.
-     *
-     * @var string
-     */
-    private $channel;
-
-    /**
-     * The default username to send messages as.
-     *
-     * @var string
-     */
-    private $username;
-
-    /**
-     * The default icon to send messages with.
-     *
-     * @var string
-     */
-    private $icon;
-
-    /**
-     * Whether to link names like @regan or leave
-     * them as plain text.
-     *
-     * @var bool
-     */
-    private $link_names = false;
-
-    /**
-     * Whether Slack should unfurl text-based URLs.
-     *
-     * @var bool
-     */
-    private $unfurl_links = false;
-
-    /**
-     * Whether Slack should unfurl media URLs.
-     *
-     * @var bool
-     */
-    private $unfurl_media = true;
-
-    /**
-     * Whether message text should be formatted with Slack's
-     * Markdown-like language.
-     *
-     * @var bool
-     */
-    private $allow_markdown = true;
-
-    /**
-     * The attachment fields which should be formatted with
-     * Slack's Markdown-like language.
-     *
      * @var array
      */
-    private $markdown_in_attachments = [];
+    private $options;
 
     /**
      * @var HttpMethodsClient
@@ -92,42 +39,32 @@ class Client
      * Instantiate a new Client.
      *
      * @param string          $endpoint
-     * @param array           $attributes
+     * @param array           $options
      * @param HttpClient|null $httpClient
      */
-    public function __construct($endpoint, array $attributes = [], HttpClient $httpClient = null)
+    public function __construct($endpoint, array $options = [], HttpClient $httpClient = null)
     {
-        if (isset($attributes['channel'])) {
-            $this->setDefaultChannel($attributes['channel']);
-        }
-
-        if (isset($attributes['username'])) {
-            $this->setDefaultUsername($attributes['username']);
-        }
-
-        if (isset($attributes['icon'])) {
-            $this->setDefaultIcon($attributes['icon']);
-        }
-
-        if (isset($attributes['link_names'])) {
-            $this->setLinkNames($attributes['link_names']);
-        }
-
-        if (isset($attributes['unfurl_links'])) {
-            $this->setUnfurlLinks($attributes['unfurl_links']);
-        }
-
-        if (isset($attributes['unfurl_media'])) {
-            $this->setUnfurlMedia($attributes['unfurl_media']);
-        }
-
-        if (isset($attributes['allow_markdown'])) {
-            $this->setAllowMarkdown($attributes['allow_markdown']);
-        }
-
-        if (isset($attributes['markdown_in_attachments'])) {
-            $this->setMarkdownInAttachments($attributes['markdown_in_attachments']);
-        }
+        $resolver = (new OptionsResolver())
+            ->setDefaults([
+                'channel' => null,
+                'username' => null,
+                'icon' => null,
+                'link_names' => false,
+                'unfurl_links' => false,
+                'unfurl_media' => true,
+                'allow_markdown' => true,
+                'markdown_in_attachments' => [],
+            ])
+            ->setAllowedTypes('channel', ['string', 'null'])
+            ->setAllowedTypes('username', ['string', 'null'])
+            ->setAllowedTypes('icon', ['string', 'null'])
+            ->setAllowedTypes('link_names', 'bool')
+            ->setAllowedTypes('unfurl_links', 'bool')
+            ->setAllowedTypes('unfurl_media', 'bool')
+            ->setAllowedTypes('allow_markdown', 'bool')
+            ->setAllowedTypes('markdown_in_attachments', 'array')
+        ;
+        $this->options = $resolver->resolve($options);
 
         $this->httpClient = new HttpMethodsClient(
             new PluginClient(
@@ -157,172 +94,6 @@ class Client
     }
 
     /**
-     * Get the default channel messages will be created for.
-     *
-     * @return string
-     */
-    public function getDefaultChannel()
-    {
-        return $this->channel;
-    }
-
-    /**
-     * Set the default channel messages will be created for.
-     *
-     * @param string $channel
-     */
-    public function setDefaultChannel($channel): void
-    {
-        $this->channel = $channel;
-    }
-
-    /**
-     * Get the default username messages will be created for.
-     *
-     * @return string
-     */
-    public function getDefaultUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set the default username messages will be created for.
-     *
-     * @param string $username
-     */
-    public function setDefaultUsername($username): void
-    {
-        $this->username = $username;
-    }
-
-    /**
-     * Get the default icon messages will be created with.
-     *
-     * @return string
-     */
-    public function getDefaultIcon()
-    {
-        return $this->icon;
-    }
-
-    /**
-     * Set the default icon messages will be created with.
-     *
-     * @param string $icon
-     */
-    public function setDefaultIcon($icon): void
-    {
-        $this->icon = $icon;
-    }
-
-    /**
-     * Get whether messages sent will have names (like @regan)
-     * will be converted into links.
-     *
-     * @return bool
-     */
-    public function getLinkNames()
-    {
-        return $this->link_names;
-    }
-
-    /**
-     * Set whether messages sent will have names (like @regan)
-     * will be converted into links.
-     *
-     * @param bool $value
-     */
-    public function setLinkNames($value): void
-    {
-        $this->link_names = (bool) $value;
-    }
-
-    /**
-     * Get whether text links should be unfurled.
-     *
-     * @return bool
-     */
-    public function getUnfurlLinks()
-    {
-        return $this->unfurl_links;
-    }
-
-    /**
-     * Set whether text links should be unfurled.
-     *
-     * @param bool $value
-     */
-    public function setUnfurlLinks($value): void
-    {
-        $this->unfurl_links = (bool) $value;
-    }
-
-    /**
-     * Get whether media links should be unfurled.
-     *
-     * @return bool
-     */
-    public function getUnfurlMedia()
-    {
-        return $this->unfurl_media;
-    }
-
-    /**
-     * Set whether media links should be unfurled.
-     *
-     * @param bool $value
-     */
-    public function setUnfurlMedia($value): void
-    {
-        $this->unfurl_media = (bool) $value;
-    }
-
-    /**
-     * Get whether message text should be formatted with
-     * Slack's Markdown-like language.
-     *
-     * @return bool
-     */
-    public function getAllowMarkdown()
-    {
-        return $this->allow_markdown;
-    }
-
-    /**
-     * Set whether message text should be formatted with
-     * Slack's Markdown-like language.
-     *
-     * @param bool $value
-     */
-    public function setAllowMarkdown($value): void
-    {
-        $this->allow_markdown = (bool) $value;
-    }
-
-    /**
-     * Get the attachment fields which should be formatted
-     * in Slack's Markdown-like language.
-     *
-     * @return array
-     */
-    public function getMarkdownInAttachments()
-    {
-        return $this->markdown_in_attachments;
-    }
-
-    /**
-     * Set the attachment fields which should be formatted
-     * in Slack's Markdown-like language.
-     *
-     * @param array $fields
-     */
-    public function setMarkdownInAttachments(array $fields): void
-    {
-        $this->markdown_in_attachments = $fields;
-    }
-
-    /**
      * Create a new message with defaults.
      *
      * @return \Nexy\Slack\Message
@@ -331,15 +102,15 @@ class Client
     {
         $message = new Message($this);
 
-        $message->setChannel($this->getDefaultChannel());
+        $message->setChannel($this->options['channel']);
 
-        $message->setUsername($this->getDefaultUsername());
+        $message->setUsername($this->options['username']);
 
-        $message->setIcon($this->getDefaultIcon());
+        $message->setIcon($this->options['icon']);
 
-        $message->setAllowMarkdown($this->getAllowMarkdown());
+        $message->setAllowMarkdown($this->options['allow_markdown']);
 
-        $message->setMarkdownInAttachments($this->getMarkdownInAttachments());
+        $message->setMarkdownInAttachments($this->options['markdown_in_attachments']);
 
         return $message;
     }
@@ -377,10 +148,10 @@ class Client
             'text' => $message->getText(),
             'channel' => $message->getChannel(),
             'username' => $message->getUsername(),
-            'link_names' => $this->getLinkNames() ? 1 : 0,
-            'unfurl_links' => $this->getUnfurlLinks(),
-            'unfurl_media' => $this->getUnfurlMedia(),
-            'mrkdwn' => $message->getAllowMarkdown(),
+            'link_names' => $this->options['link_names'] ? 1 : 0,
+            'unfurl_links' => $this->options['unfurl_links'],
+            'unfurl_media' => $this->options['unfurl_media'],
+            'mrkdwn' => $this->options['allow_markdown'],
         ];
 
         if ($icon = $message->getIcon()) {
