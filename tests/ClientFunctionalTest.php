@@ -38,7 +38,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 
         $client = new Client('http://fake.endpoint', [], $this->mockHttpClient);
 
-        $message = $client->createMessage()->to('@regan')->from('Archer')->setText('Message');
+        $message = $client->to('@regan')->from('Archer')->setText('Message');
 
         $client->sendMessage($message);
 
