@@ -18,7 +18,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 {
     private $mockHttpClient;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->mockHttpClient = new \Http\Mock\Client();
     }
