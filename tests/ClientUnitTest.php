@@ -37,21 +37,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
 
         $client = new Client('http://fake.endpoint', $defaults, new \Http\Mock\Client());
 
-        $this->assertSame($defaults['channel'], $client->getDefaultChannel());
-
-        $this->assertSame($defaults['username'], $client->getDefaultUsername());
-
-        $this->assertSame($defaults['icon'], $client->getDefaultIcon());
-
-        $this->assertTrue($client->getLinkNames());
-
-        $this->assertTrue($client->getUnfurlLinks());
-
-        $this->assertFalse($client->getUnfurlMedia());
-
-        $this->assertSame($defaults['allow_markdown'], $client->getAllowMarkdown());
-
-        $this->assertSame($defaults['markdown_in_attachments'], $client->getMarkdownInAttachments());
+        $this->assertAttributeSame($defaults, 'options', $client);
     }
 
     public function testCreateMessage(): void
@@ -60,6 +46,11 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
             'channel' => '#random',
             'username' => 'Archer',
             'icon' => ':ghost:',
+            'link_names' => false,
+            'unfurl_links' => false,
+            'unfurl_media' => true,
+            'allow_markdown' => true,
+            'markdown_in_attachments' => [],
         ];
 
         $client = new Client('http://fake.endpoint', $defaults, new \Http\Mock\Client());
@@ -68,11 +59,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
 
         $this->assertInstanceOf('Nexy\Slack\Message', $message);
 
-        $this->assertSame($client->getDefaultChannel(), $message->getChannel());
-
-        $this->assertSame($client->getDefaultUsername(), $message->getUsername());
-
-        $this->assertSame($client->getDefaultIcon(), $message->getIcon());
+        $this->assertAttributeSame($defaults, 'options', $client);
     }
 
     public function testWildcardCallToMessage(): void
