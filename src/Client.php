@@ -45,7 +45,7 @@ final class Client
      * @param array           $options
      * @param HttpClient|null $httpClient
      */
-    public function __construct($endpoint, array $options = [], HttpClient $httpClient = null)
+    public function __construct(string $endpoint, array $options = [], HttpClient $httpClient = null)
     {
         $resolver = (new OptionsResolver())
             ->setDefaults([
@@ -91,7 +91,7 @@ final class Client
      *
      * @return \Nexy\Slack\Message
      */
-    public function __call($name, $arguments): Message
+    public function __call(string $name, array $arguments): Message
     {
         return \call_user_func_array([$this->createMessage(), $name], $arguments);
     }

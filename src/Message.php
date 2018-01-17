@@ -115,11 +115,11 @@ final class Message
     /**
      * Set the message text.
      *
-     * @param string $text
+     * @param string|null $text
      *
      * @return $this
      */
-    public function setText($text): self
+    public function setText(?string $text): self
     {
         $this->text = $text;
 
@@ -137,11 +137,11 @@ final class Message
     /**
      * Set the channel we will post to.
      *
-     * @param string $channel
+     * @param string|null $channel
      *
      * @return $this
      */
-    public function setChannel($channel): self
+    public function setChannel(?string $channel): self
     {
         $this->channel = $channel;
 
@@ -149,9 +149,9 @@ final class Message
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -159,11 +159,11 @@ final class Message
     /**
      * Set the username we will post as.
      *
-     * @param string $username
+     * @param string|null $username
      *
      * @return $this
      */
-    public function setUsername($username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 
@@ -181,11 +181,11 @@ final class Message
     /**
      * Set the icon (either URL or emoji) we will post as.
      *
-     * @param string $icon
+     * @param string|null $icon
      *
      * @return $this
      */
-    public function setIcon($icon): self
+    public function setIcon(?string $icon): self
     {
         if (null === $icon) {
             $this->icon = $this->iconType = null;
@@ -228,9 +228,9 @@ final class Message
      *
      * @return Message
      */
-    public function setAllowMarkdown($value): self
+    public function setAllowMarkdown(bool $value): self
     {
-        $this->allowMarkdown = (bool) $value;
+        $this->allowMarkdown = $value;
 
         return $this;
     }
@@ -275,7 +275,7 @@ final class Message
      *
      * @return $this
      */
-    public function from($username): self
+    public function from(string $username): self
     {
         return $this->setUsername($username);
     }
@@ -287,7 +287,7 @@ final class Message
      *
      * @return $this
      */
-    public function to($channel): self
+    public function to(string $channel): self
     {
         return $this->setChannel($channel);
     }
@@ -299,7 +299,7 @@ final class Message
      *
      * @return $this
      */
-    public function withIcon($icon): self
+    public function withIcon(string $icon): self
     {
         return $this->setIcon($icon);
     }

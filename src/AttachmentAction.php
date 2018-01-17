@@ -163,7 +163,7 @@ final class AttachmentAction
     /**
      * @param ActionConfirmation $confirm
      *
-     * @return AttachmentAction|null
+     * @return AttachmentAction
      */
     public function setConfirm(?ActionConfirmation $confirm): self
     {
