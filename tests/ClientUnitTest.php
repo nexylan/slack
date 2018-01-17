@@ -66,7 +66,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
     {
         $client = new Client('http://fake.endpoint', [], new \Http\Mock\Client());
 
-        $message = $client->to('@regan');
+        $message = $client->createMessage()->to('@regan');
 
         $this->assertInstanceOf('Nexy\Slack\Message', $message);
 
