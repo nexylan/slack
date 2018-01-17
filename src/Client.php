@@ -103,19 +103,13 @@ final class Client
      */
     public function createMessage()
     {
-        $message = new Message($this);
-
-        $message->setChannel($this->options['channel']);
-
-        $message->setUsername($this->options['username']);
-
-        $message->setIcon($this->options['icon']);
-
-        $message->setAllowMarkdown($this->options['allow_markdown']);
-
-        $message->setMarkdownInAttachments($this->options['markdown_in_attachments']);
-
-        return $message;
+        return (new Message($this))
+            ->setChannel($this->options['channel'])
+            ->setUsername($this->options['username'])
+            ->setIcon($this->options['icon'])
+            ->setAllowMarkdown($this->options['allow_markdown'])
+            ->setMarkdownInAttachments($this->options['markdown_in_attachments'])
+        ;
     }
 
     /**
