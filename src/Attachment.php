@@ -16,7 +16,7 @@ namespace Nexy\Slack;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-class Attachment
+final class Attachment
 {
     /**
      * The fallback text to use for clients that don't support attachments.

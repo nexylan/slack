@@ -16,7 +16,7 @@ namespace Nexy\Slack;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-class AttachmentField
+final class AttachmentField
 {
     /**
      * The required title field of the field.

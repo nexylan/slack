@@ -26,7 +26,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-class Client
+final class Client
 {
     /**
      * @var array

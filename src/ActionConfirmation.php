@@ -16,7 +16,7 @@ namespace Nexy\Slack;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-class ActionConfirmation
+final class ActionConfirmation
 {
     /**
      * The required title for the pop up window.
