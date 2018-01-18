@@ -36,8 +36,10 @@ The next releases will be under the MIT license. See the current [LICENSE](LICEN
 You can install the package using the [Composer](https://getcomposer.org/) package manager. You can install it by running this command in your project root:
 
 ```sh
-composer require nexylan/slack
+composer require nexylan/slack php-http/guzzle6-adapter
 ```
+
+Why `php-http/guzzle6-adapter`? We are decoupled from any HTTP messaging client thanks to [HTTPlug](http://httplug.io/).
 
 Then [create an incoming webhook](https://my.slack.com/services/new/incoming-webhook) on your Slack account for the package to use.
 You'll need the webhook URL to instantiate the client (or for the configuration file if using Laravel).
