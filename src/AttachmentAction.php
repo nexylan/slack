@@ -58,6 +58,14 @@ final class AttachmentAction
      * @var string|null
      */
     private $value;
+ 
+    /**
+     * Optional url. It will be sent to any external URL.
+     * Not compatible with confirm action on button
+     *
+     * @var string|null
+     */
+    private $url;
 
     /**
      * Confirmation field.
@@ -65,7 +73,7 @@ final class AttachmentAction
      * @var ActionConfirmation|null
      */
     private $confirm;
-
+    
     /**
      * @param string $name
      * @param string $text
@@ -150,6 +158,23 @@ final class AttachmentAction
         $this->value = $value;
 
         return $this;
+    }
+    
+    /**
+     * @param string $url
+     *
+     * @return AttachmentAction
+     */    
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    public function getUrl(): string
+    {
+        return $this->url;
     }
 
     /**
