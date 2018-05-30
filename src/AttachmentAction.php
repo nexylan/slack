@@ -73,7 +73,7 @@ final class AttachmentAction
      * @var ActionConfirmation|null
      */
     private $confirm;
-    
+
     /**
      * @param string $name
      * @param string $text
@@ -210,6 +210,7 @@ final class AttachmentAction
             'style' => $this->style,
             'type' => $this->type,
             'value' => $this->value,
+            'url' => $this->url,
             'confirm' => $this->confirm ? $this->confirm->toArray() : null,
         ];
     }
