@@ -26,7 +26,8 @@
         "guzzlehttp/psr7": "^1.4",
         "mockery/mockery": "^1.0",
         "php-http/message": "^1.6",
-        "php-http/mock-client": "^1.2"
+        "php-http/mock-client": "^1.2",
+        "phpunit/phpunit": "^7.0"
     },
     "suggest": {
         "nexylan/slack-bundle": "Required for Symfony bundle support"
