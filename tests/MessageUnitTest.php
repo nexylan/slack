@@ -82,7 +82,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
 
         $attachments = $message->getAttachments();
 
-        $this->assertSame(1, \count($attachments));
+        $this->assertCount(1, $attachments);
 
         $remoteObj = $attachments[0];
 
@@ -107,7 +107,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
 
         $attachments = $message->getAttachments();
 
-        $this->assertSame(2, \count($attachments));
+        $this->assertCount(2, $attachments);
 
         $remote1 = $attachments[0];
 
@@ -134,14 +134,14 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
 
         $message->attach($obj1)->attach($obj2);
 
-        $this->assertSame(2, \count($message->getAttachments()));
+        $this->assertCount(2, $message->getAttachments());
 
         $message->setAttachments([(new Attachment())
             ->setFallback('a')
             ->setText('b'),
         ]);
 
-        $this->assertSame(1, \count($message->getAttachments()));
+        $this->assertCount(1, $message->getAttachments());
 
         $this->assertSame('a', $message->getAttachments()[0]->getFallback());
     }

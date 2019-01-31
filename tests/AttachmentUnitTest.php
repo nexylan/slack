@@ -198,7 +198,7 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
 
         $actions = $a->getActions();
 
-        $this->assertSame(1, \count($actions));
+        $this->assertCount(1, $actions);
 
         $this->assertSame('Text 1', $actions[0]->getText());
     }
@@ -216,7 +216,7 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
 
         $fields = $a->getFields();
 
-        $this->assertSame(1, \count($fields));
+        $this->assertCount(1, $fields);
 
         $this->assertSame($f, $fields[0]);
     }
@@ -233,10 +233,10 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
             ->addField(new AttachmentField('Title 2', 'Value 2', true))
         ;
 
-        $this->assertSame(2, \count($a->getFields()));
+        $this->assertCount(2, $a->getFields());
 
         $a->setFields([]);
 
-        $this->assertSame(0, \count($a->getFields()));
+        $this->assertCount(0, $a->getFields());
     }
 }
