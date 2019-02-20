@@ -26,6 +26,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
     {
         $defaults = [
             'channel' => '#random',
+            'sticky_channel' => false,
             'username' => 'Archer',
             'icon' => ':ghost:',
             'link_names' => true,
@@ -37,13 +38,14 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
 
         $client = new Client('http://fake.endpoint', $defaults, new \Http\Mock\Client());
 
-        $this->assertAttributeSame($defaults, 'options', $client);
+        $this->assertSame($defaults, $client->getOptions());
     }
 
     public function testCreateMessage(): void
     {
         $defaults = [
             'channel' => '#random',
+            'sticky_channel' => false,
             'username' => 'Archer',
             'icon' => ':ghost:',
             'link_names' => false,
@@ -59,7 +61,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
 
         $this->assertInstanceOf('Nexy\Slack\Message', $message);
 
-        $this->assertAttributeSame($defaults, 'options', $client);
+        $this->assertSame($defaults, $client->getOptions());
     }
 
     public function testWildcardCallToMessage(): void

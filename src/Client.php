@@ -50,6 +50,7 @@ final class Client
         $resolver = (new OptionsResolver())
             ->setDefaults([
                 'channel' => null,
+                'sticky_channel' => false,
                 'username' => null,
                 'icon' => null,
                 'link_names' => false,
@@ -59,6 +60,7 @@ final class Client
                 'markdown_in_attachments' => [],
             ])
             ->setAllowedTypes('channel', ['string', 'null'])
+            ->setAllowedTypes('sticky_channel', ['bool'])
             ->setAllowedTypes('username', ['string', 'null'])
             ->setAllowedTypes('icon', ['string', 'null'])
             ->setAllowedTypes('link_names', 'bool')
@@ -97,6 +99,14 @@ final class Client
     }
 
     /**
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    /**
      * Create a new message with defaults.
      *
      * @return \Nexy\Slack\Message
@@ -121,6 +131,11 @@ final class Client
      */
     public function sendMessage(Message $message): void
     {
+        // Ensure the message will always be sent to the default channel if asked for.
+        if ($this->options['sticky_channel']) {
+            $message->setChannel($this->options['channel']);
+        }
+
         $payload = $this->preparePayload($message);
 
         $encoded = \json_encode($payload, JSON_UNESCAPED_UNICODE);

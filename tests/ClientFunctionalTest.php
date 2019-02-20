@@ -51,6 +51,34 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         );
     }
 
+    public function testStickyChannel(): void
+    {
+        $expectedHttpData = [
+            'text' => 'Message',
+            'channel' => '#default',
+            'username' => 'Archer',
+            'link_names' => 0,
+            'unfurl_links' => false,
+            'unfurl_media' => true,
+            'mrkdwn' => true,
+            'attachments' => [],
+        ];
+
+        $client = new Client('http://fake.endpoint', [
+            'channel' => '#default',
+            'sticky_channel' => true,
+        ], $this->mockHttpClient);
+
+        $message = $client->to('@regan')->from('Archer')->setText('Message');
+
+        $client->sendMessage($message);
+
+        $this->assertSame(
+            $expectedHttpData,
+            \json_decode($this->mockHttpClient->getLastRequest()->getBody()->getContents(), true)
+        );
+    }
+
     public function testMessageWithAttachments(): void
     {
         $now = new DateTime();
