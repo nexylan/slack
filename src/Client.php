@@ -144,7 +144,11 @@ final class Client
             throw new \RuntimeException(\sprintf('JSON encoding error %s: %s', \json_last_error(), \json_last_error_msg()));
         }
 
-        $this->httpClient->post('', [], $encoded);
+        $response = $this->httpClient->post('', [], $encoded);
+        $statusCode = $response->getStatusCode();
+        if ($statusCode !== 200) {
+           throw new SlackApiException($response->getReasonPhrase(), $statusCode);
+        }
     }
 
     /**
