@@ -67,7 +67,7 @@ class ErrorResponseHandler
 
         if (isset(self::ERROR_TO_EXCEPTION_MAPPING[$code][$phrase][$body])) {
             $exceptionClass = self::ERROR_TO_EXCEPTION_MAPPING[$code][$phrase][$body];
-            throw new $exceptionClass;
+            throw new $exceptionClass($body);
         }
     }
 }
