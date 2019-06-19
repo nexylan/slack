@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Nexy\Slack;
+namespace Nexy\Slack\Exception;
 
-class SlackApiException extends \Exception
+abstract class SlackApiException extends \Exception
 {
 }
 
