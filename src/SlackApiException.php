@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Nexy\Slack;
 
-use Exception;
-
-class SlackApiException extends Exception
+class SlackApiException extends \Exception
 {
 }
 
