@@ -63,7 +63,7 @@ class ErrorResponseHandler
     {
         $code = $response->getStatusCode();
         $phrase = $response->getReasonPhrase();
-        $body = $response->getBody();
+        $body = $response->getBody()->__toString();
 
         if (isset(self::ERROR_TO_EXCEPTION_MAPPING[$code][$phrase][$body])) {
             $exceptionClass = self::ERROR_TO_EXCEPTION_MAPPING[$code][$phrase][$body];

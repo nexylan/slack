@@ -33,9 +33,14 @@ class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
             ->once()
             ->andReturn($phrase);
 
-        $responseMock->shouldReceive('getBody')
+        $streamMock = Mockery::mock('\Psr\Http\Message\StreamInterface');
+        $streamMock->shouldReceive('__toString')
             ->once()
             ->andReturn($body);
+
+        $responseMock->shouldReceive('getBody')
+            ->once()
+            ->andReturn($streamMock);
 
         return $responseMock;
     }
