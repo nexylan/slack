@@ -17,7 +17,12 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
 {
     public function testInstantiationWithNoDefaults(): void
     {
-        $client = new Client('http://fake.endpoint', [], new \Http\Mock\Client());
+        $client = new Client(
+            Mockery::mock('Nexy\Slack\ErrorResponseHandler'),
+            'http://fake.endpoint',
+            [],
+            new \Http\Mock\Client()
+        );
 
         $this->assertInstanceOf('Nexy\Slack\Client', $client);
     }
@@ -36,7 +41,12 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
             'markdown_in_attachments' => ['text'],
         ];
 
-        $client = new Client('http://fake.endpoint', $defaults, new \Http\Mock\Client());
+        $client = new Client(
+            Mockery::mock('Nexy\Slack\ErrorResponseHandler'),
+            'http://fake.endpoint',
+            $defaults,
+            new \Http\Mock\Client()
+        );
 
         $this->assertSame($defaults, $client->getOptions());
     }
@@ -55,7 +65,12 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
             'markdown_in_attachments' => [],
         ];
 
-        $client = new Client('http://fake.endpoint', $defaults, new \Http\Mock\Client());
+        $client = new Client(
+            Mockery::mock('Nexy\Slack\ErrorResponseHandler'),
+            'http://fake.endpoint',
+            $defaults,
+            new \Http\Mock\Client()
+        );
 
         $message = $client->createMessage();
 
@@ -66,7 +81,12 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
 
     public function testWildcardCallToMessage(): void
     {
-        $client = new Client('http://fake.endpoint', [], new \Http\Mock\Client());
+        $client = new Client(
+            Mockery::mock('Nexy\Slack\ErrorResponseHandler'),
+            'http://fake.endpoint',
+            [],
+            new \Http\Mock\Client()
+        );
 
         $message = $client->to('@regan');
 

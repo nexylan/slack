@@ -170,6 +170,13 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
 
     protected function getMessage()
     {
-        return new Message(new Client('http://fake.com', [], new \Http\Mock\Client()));
+        return new Message(
+            new Client(
+                Mockery::mock('Nexy\Slack\ErrorResponseHandler'),
+                'http://fake.com',
+                [],
+                new \Http\Mock\Client()
+            )
+        );
     }
 }
