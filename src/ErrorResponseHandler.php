@@ -23,7 +23,7 @@ use Nexy\Slack\Exception\UserNotFoundException;
 
 use Psr\Http\Message\ResponseInterface;
 
-final class ErrorResponseHandler
+class ErrorResponseHandler
 {
     // Mapping based on: "https://api.slack.com/changelog/2016-05-17-changes-to-errors-for-incoming-webhooks"
     private const ERROR_TO_EXCEPTION_MAPPING = [
