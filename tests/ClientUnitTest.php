@@ -12,19 +12,20 @@ declare(strict_types=1);
  */
 
 use Nexy\Slack\Client;
+use Nexy\Slack\ErrorResponseHandler;
 
 class ClientUnitTest extends PHPUnit\Framework\TestCase
 {
     public function testInstantiationWithNoDefaults(): void
     {
         $client = new Client(
-            Mockery::mock('Nexy\Slack\ErrorResponseHandler'),
+            Mockery::mock(ErrorResponseHandler::class),
             'http://fake.endpoint',
             [],
             new \Http\Mock\Client()
         );
 
-        $this->assertInstanceOf('Nexy\Slack\Client', $client);
+        $this->assertInstanceOf(Client::class, $client);
     }
 
     public function testInstantiationWithDefaults(): void
@@ -42,7 +43,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
         ];
 
         $client = new Client(
-            Mockery::mock('Nexy\Slack\ErrorResponseHandler'),
+            Mockery::mock(ErrorResponseHandler::class),
             'http://fake.endpoint',
             $defaults,
             new \Http\Mock\Client()
@@ -66,7 +67,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
         ];
 
         $client = new Client(
-            Mockery::mock('Nexy\Slack\ErrorResponseHandler'),
+            Mockery::mock(ErrorResponseHandler::class),
             'http://fake.endpoint',
             $defaults,
             new \Http\Mock\Client()
@@ -82,7 +83,7 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
     public function testWildcardCallToMessage(): void
     {
         $client = new Client(
-            Mockery::mock('Nexy\Slack\ErrorResponseHandler'),
+            Mockery::mock(ErrorResponseHandler::class),
             'http://fake.endpoint',
             [],
             new \Http\Mock\Client()
