@@ -56,6 +56,8 @@ class ErrorResponseHandler
     ];
 
     /**
+     * Throw exception if there is an API error, do nothing otherwise
+     *
      * @param ResponseInterface $response
      * @throws SlackApiException
      */

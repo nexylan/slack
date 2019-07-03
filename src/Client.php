@@ -162,7 +162,6 @@ final class Client
 
         $response = $this->httpClient->post('', [], $encoded);
 
-        // Throw exception if there is an API error, do nothing otherwise
         $this->errorResponseHandler->handleResponse($response);
     }
 
