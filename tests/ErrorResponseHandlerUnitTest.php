@@ -18,12 +18,14 @@ use Nexy\Slack\Exception\ActionProhibitedException;
 use Nexy\Slack\Exception\ChannelNotFoundException;
 use Nexy\Slack\Exception\ChannelIsArchivedException;
 use Nexy\Slack\Exception\RollupErrorException;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
 {
-    private function getResponseMock(int $code, string $phrase, string $body): \Psr\Http\Message\ResponseInterface
+    private function getResponseMock(int $code, string $phrase, string $body): ResponseInterface
     {
-        $responseMock = Mockery::mock(\Psr\Http\Message\ResponseInterface::class);
+        $responseMock = Mockery::mock(ResponseInterface::class);
 
         $responseMock->shouldReceive('getStatusCode')
             ->once()
@@ -33,7 +35,7 @@ class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
             ->once()
             ->andReturn($phrase);
 
-        $streamMock = Mockery::mock('\Psr\Http\Message\StreamInterface');
+        $streamMock = Mockery::mock(StreamInterface::class);
         $streamMock->shouldReceive('__toString')
             ->once()
             ->andReturn($body);
