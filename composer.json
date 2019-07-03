@@ -1,4 +1,4 @@
-    {
+{
     "name": "nexylan/slack",
     "description": "A simple PHP package for sending messages to Slack, with a focus on ease of use and elegant syntax.",
     "type": "library",
