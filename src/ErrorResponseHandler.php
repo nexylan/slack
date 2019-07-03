@@ -20,7 +20,6 @@ use Nexy\Slack\Exception\InvalidPayloadException;
 use Nexy\Slack\Exception\RollupErrorException;
 use Nexy\Slack\Exception\SlackApiException;
 use Nexy\Slack\Exception\UserNotFoundException;
-
 use Psr\Http\Message\ResponseInterface;
 
 class ErrorResponseHandler
