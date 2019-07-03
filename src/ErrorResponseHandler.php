@@ -25,7 +25,6 @@ use Psr\Http\Message\ResponseInterface;
 class ErrorResponseHandler
 {
     /**
-     * Mapping based on:
      * @see https://api.slack.com/changelog/2016-05-17-changes-to-errors-for-incoming-webhooks
      */
     private const ERROR_TO_EXCEPTION_MAPPING = [
