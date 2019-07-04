@@ -16,7 +16,6 @@ use Nexy\Slack\Attachment;
 use Nexy\Slack\AttachmentAction;
 use Nexy\Slack\AttachmentField;
 use Nexy\Slack\Client;
-use Nexy\Slack\ErrorResponseHandler;
 
 class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 {

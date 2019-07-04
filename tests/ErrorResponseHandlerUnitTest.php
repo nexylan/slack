@@ -12,12 +12,12 @@ declare(strict_types=1);
  */
 
 use Nexy\Slack\ErrorResponseHandler;
-use Nexy\Slack\Exception\InvalidPayloadException;
-use Nexy\Slack\Exception\UserNotFoundException;
 use Nexy\Slack\Exception\ActionProhibitedException;
-use Nexy\Slack\Exception\ChannelNotFoundException;
 use Nexy\Slack\Exception\ChannelIsArchivedException;
+use Nexy\Slack\Exception\ChannelNotFoundException;
+use Nexy\Slack\Exception\InvalidPayloadException;
 use Nexy\Slack\Exception\RollupErrorException;
+use Nexy\Slack\Exception\UserNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
@@ -49,7 +49,7 @@ class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
 
     public function testInstantiation(): ErrorResponseHandler
     {
-        $handler = new ErrorResponseHandler;
+        $handler = new ErrorResponseHandler();
 
         $this->assertInstanceOf('Nexy\Slack\ErrorResponseHandler', $handler);
 

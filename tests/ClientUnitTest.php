@@ -12,7 +12,6 @@ declare(strict_types=1);
  */
 
 use Nexy\Slack\Client;
-use Nexy\Slack\ErrorResponseHandler;
 
 class ClientUnitTest extends PHPUnit\Framework\TestCase
 {
