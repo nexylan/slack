@@ -55,7 +55,7 @@ final class Client
         array $options = [],
         HttpClient $httpClient = null
     ) {
-        $this->errorResponseHandler = new ErrorResponseHandler;
+        $this->errorResponseHandler = new ErrorResponseHandler();
 
         $resolver = (new OptionsResolver())
             ->setDefaults([
@@ -156,7 +156,6 @@ final class Client
         if (false === $encoded) {
             throw new \RuntimeException(\sprintf('JSON encoding error %s: %s', \json_last_error(), \json_last_error_msg()));
         }
-
 
         $response = $this->httpClient->post('', [], $encoded);
 

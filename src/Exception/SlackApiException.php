@@ -16,4 +16,3 @@ namespace Nexy\Slack\Exception;
 abstract class SlackApiException extends \Exception
 {
 }
-

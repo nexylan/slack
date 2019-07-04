@@ -32,34 +32,35 @@ class ErrorResponseHandler
             'Bad Request' => [
                 'invalid_payload' => InvalidPayloadException::class,
                 'user_not_found' => UserNotFoundException::class,
-            ]
+            ],
         ],
         403 => [
             'Forbidden' => [
-                'action_prohibited' => ActionProhibitedException::class
-            ]
+                'action_prohibited' => ActionProhibitedException::class,
+            ],
         ],
         404 => [
             'Not Found' => [
-                'channel_not_found' => ChannelNotFoundException::class
-            ]
+                'channel_not_found' => ChannelNotFoundException::class,
+            ],
         ],
         410 => [
             'Gone' => [
-                'channel_is_archived' => ChannelIsArchivedException::class
-            ]
+                'channel_is_archived' => ChannelIsArchivedException::class,
+            ],
         ],
         500 => [
             'Server Error' => [
-                'rollup_error' => RollupErrorException::class
-            ]
-        ]
+                'rollup_error' => RollupErrorException::class,
+            ],
+        ],
     ];
 
     /**
      * Throw exception if there is an API error, do nothing otherwise
      *
      * @param ResponseInterface $response
+     *
      * @throws SlackApiException
      */
     public function handleResponse(ResponseInterface $response): void
