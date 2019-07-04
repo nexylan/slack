@@ -172,7 +172,6 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
     {
         return new Message(
             new Client(
-                Mockery::mock('Nexy\Slack\ErrorResponseHandler'),
                 'http://fake.com',
                 [],
                 new \Http\Mock\Client()

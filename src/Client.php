@@ -16,7 +16,6 @@ namespace Nexy\Slack;
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Common\Plugin\BaseUriPlugin;
 use Http\Client\Common\PluginClient;
-use Http\Client\Exception;
 use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
@@ -47,18 +46,16 @@ final class Client
     /**
      * Instantiate a new Client.
      *
-     * @param ErrorResponseHandler $errorResponseHandler
      * @param string               $endpoint
      * @param array                $options
      * @param HttpClient|null      $httpClient
      */
     public function __construct(
-        ErrorResponseHandler $errorResponseHandler,
         string $endpoint,
         array $options = [],
         HttpClient $httpClient = null
     ) {
-        $this->errorResponseHandler = $errorResponseHandler;
+        $this->errorResponseHandler = new ErrorResponseHandler;
 
         $resolver = (new OptionsResolver())
             ->setDefaults([
@@ -143,6 +140,7 @@ final class Client
      * @throws \RuntimeException
      * @throws \Psr\Http\Client\Exception
      * @throws SlackApiException
+     * @throws \Http\Client\Exception
      */
     public function sendMessage(Message $message): void
     {

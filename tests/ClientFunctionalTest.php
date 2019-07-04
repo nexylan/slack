@@ -40,7 +40,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'attachments' => [],
         ];
 
-        $client = new Client(new ErrorResponseHandler, 'http://fake.endpoint', [], $this->mockHttpClient);
+        $client = new Client('http://fake.endpoint', [], $this->mockHttpClient);
 
         $message = $client->to('@regan')->from('Archer')->setText('Message');
 
@@ -65,7 +65,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'attachments' => [],
         ];
 
-        $client = new Client(new ErrorResponseHandler, 'http://fake.endpoint', [
+        $client = new Client('http://fake.endpoint', [
             'channel' => '#default',
             'sticky_channel' => true,
         ], $this->mockHttpClient);
@@ -99,7 +99,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             ->setAuthorIcon('http://fake.host/image.png')
         ;
 
-        $client = new Client(new ErrorResponseHandler, 'http://fake.endpoint', [
+        $client = new Client('http://fake.endpoint', [
             'username' => 'Test',
             'channel' => '#general',
         ], $this->mockHttpClient);
@@ -205,7 +205,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'actions' => [],
         ];
 
-        $client = new Client(new ErrorResponseHandler, 'http://fake.endpoint', [
+        $client = new Client('http://fake.endpoint', [
             'username' => 'Test',
             'channel' => '#general',
         ], $this->mockHttpClient);
@@ -320,7 +320,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             ],
         ];
 
-        $client = new Client(new ErrorResponseHandler,'http://fake.endpoint', [
+        $client = new Client('http://fake.endpoint', [
             'username' => 'Test',
             'channel' => '#general',
         ], $this->mockHttpClient);
