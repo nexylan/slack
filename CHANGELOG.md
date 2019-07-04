@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - The `Client::sendMessage()` method will now throw exceptions that match
 API errors
 
+## [2.3.0]
+### Added
+- Add support for link buttons
+
 ## [2.2.0]
 ### Added
 - Add `sticky_channel` option for dev/test environments
