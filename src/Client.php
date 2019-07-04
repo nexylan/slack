@@ -46,9 +46,9 @@ final class Client
     /**
      * Instantiate a new Client.
      *
-     * @param string               $endpoint
-     * @param array                $options
-     * @param HttpClient|null      $httpClient
+     * @param string          $endpoint
+     * @param array           $options
+     * @param HttpClient|null $httpClient
      */
     public function __construct(
         string $endpoint,
