@@ -268,6 +268,10 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
                             ->setOkText('OK Text 2')
                             ->setDismissText('Dismiss Text 2')
                         ),
+                    (new AttachmentAction('Button Name 1', 'Button Label 1'))
+                        ->setStyle('default')
+                        ->setType('button')
+                        ->setUrl('https://www.google.com'),
                 ]
             )
         ;
@@ -291,10 +295,10 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'fields' => [],
             'actions' => [
                 [
-                    'name' => 'Name 1',
                     'text' => 'Text 1',
                     'style' => 'default',
                     'type' => 'button',
+                    'name' => 'Name 1',
                     'value' => 'Value 1',
                     'confirm' => [
                         'title' => 'Title 1',
@@ -304,10 +308,10 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
                     ],
                 ],
                 [
-                    'name' => 'Name 2',
                     'text' => 'Text 2',
                     'style' => 'default',
                     'type' => 'button',
+                    'name' => 'Name 2',
                     'value' => 'Value 2',
                     'confirm' => [
                         'title' => 'Title 2',
@@ -315,6 +319,12 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
                         'ok_text' => 'OK Text 2',
                         'dismiss_text' => 'Dismiss Text 2',
                     ],
+                ],
+                [
+                    'text' => 'Button Label 1',
+                    'style' => 'default',
+                    'type' => 'button',
+                    'url' => 'https://www.google.com',
                 ],
             ],
         ];

@@ -60,6 +60,13 @@ final class AttachmentAction
     private $value;
 
     /**
+     * Optional value. It can be used to create link buttons.
+     *
+     * @var string|null
+     */
+    private $url;
+
+    /**
      * Confirmation field.
      *
      * @var ActionConfirmation|null
@@ -141,13 +148,33 @@ final class AttachmentAction
     }
 
     /**
-     * @param string $value
+     * @param string|null $value
      *
      * @return AttachmentAction
      */
     public function setValue(?string $value): self
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string|null $url
+     *
+     * @return AttachmentAction
+     */
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }
@@ -179,13 +206,22 @@ final class AttachmentAction
      */
     public function toArray(): array
     {
-        return [
-            'name' => $this->name,
+        $array = [
             'text' => $this->text,
             'style' => $this->style,
             'type' => $this->type,
-            'value' => $this->value,
-            'confirm' => $this->confirm ? $this->confirm->toArray() : null,
         ];
+
+        // Link buttons do not require "name", "value" and "confirm" attributes.
+        // @see https://api.slack.com/docs/message-attachments#link_buttons
+        if (null !== $this->url) {
+            $array['url'] = $this->url;
+        } else {
+            $array['name'] = $this->name;
+            $array['value'] = $this->value;
+            $array['confirm'] = $this->confirm ? $this->confirm->toArray() : null;
+        }
+
+        return $array;
     }
 }
