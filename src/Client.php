@@ -199,7 +199,6 @@ final class Client
         return $attachments;
     }
 
-
     /**
      * Get the attachments in array form.
      *
@@ -217,7 +216,4 @@ final class Client
 
         return $blocks;
     }
-
-
-
 }
