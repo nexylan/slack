@@ -71,6 +71,11 @@ final class Client
         ;
         $this->options = $resolver->resolve($options);
 
+        $this->setEndpoint($endpoint, $httpClient);
+    }
+
+    public function setEndpoint($endpoint, HttpClient $httpClient = null)
+    {
         $this->httpClient = new HttpMethodsClient(
             new PluginClient(
                 $httpClient ?: HttpClientDiscovery::find(),
@@ -171,6 +176,7 @@ final class Client
         }
 
         $payload['attachments'] = $this->getAttachmentsAsArrays($message);
+        $payload['blocks'] = $this->getBlocksAsArrays($message);
 
         return $payload;
     }
@@ -192,4 +198,26 @@ final class Client
 
         return $attachments;
     }
+
+
+    /**
+     * Get the attachments in array form.
+     *
+     * @param \Nexy\Slack\Message $message
+     *
+     * @return array
+     */
+    private function getBlocksAsArrays(Message $message): array
+    {
+        $blocks = [];
+
+        foreach ($message->getBlocks() as $block) {
+            $blocks[] = $block->toArray();
+        }
+
+        return $blocks;
+    }
+
+
+
 }

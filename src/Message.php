@@ -85,6 +85,13 @@ final class Message
     private $attachments = [];
 
     /**
+     * An array of blocks to send.
+     *
+     * @var array
+     */
+    private $blocks = [];
+
+    /**
      * @var string
      */
     const ICON_TYPE_URL = 'icon_url';
@@ -352,6 +359,58 @@ final class Message
     public function clearAttachments(): self
     {
         $this->attachments = [];
+
+        return $this;
+    }
+
+    /**
+     * Add an block to the message.
+     *
+     * @param Block $block
+     *
+     * @return $this
+     */
+    public function addBlock(Block $block): self
+    {
+        $this->blocks[] = $block;
+
+        return $this;
+    }
+
+    /**
+     * @return Block[]
+     */
+    public function getBlocks(): array
+    {
+        return $this->blocks;
+    }
+
+    /**
+     * Set the blocks for the message.
+     *
+     * @param array $blocks
+     *
+     * @return $this
+     */
+    public function setBlocks(array $blocks): self
+    {
+        $this->clearBlocks();
+
+        foreach ($blocks as $block) {
+            $this->addBlock($block);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove all blocks for the message.
+     *
+     * @return $this
+     */
+    public function clearBlocks(): self
+    {
+        $this->blocks = [];
 
         return $this;
     }
