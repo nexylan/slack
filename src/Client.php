@@ -15,13 +15,16 @@ namespace Nexy\Slack;
 
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Common\Plugin\BaseUriPlugin;
+use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use Http\Client\Common\PluginClient;
 use Http\Client\Exception;
 use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
+use Nexy\Slack\Exception\SlackErrorException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
@@ -58,6 +61,7 @@ final class Client
                 'unfurl_media' => true,
                 'allow_markdown' => true,
                 'markdown_in_attachments' => [],
+                'oauth_token' => null
             ])
             ->setAllowedTypes('channel', ['string', 'null'])
             ->setAllowedTypes('sticky_channel', ['bool'])
@@ -68,6 +72,7 @@ final class Client
             ->setAllowedTypes('unfurl_media', 'bool')
             ->setAllowedTypes('allow_markdown', 'bool')
             ->setAllowedTypes('markdown_in_attachments', 'array')
+            ->setAllowedTypes('oauth_token', ['string', 'null'])
         ;
         $this->options = $resolver->resolve($options);
 
@@ -76,14 +81,23 @@ final class Client
 
     public function setEndpoint($endpoint, HttpClient $httpClient = null)
     {
+        $plugins = [
+            new BaseUriPlugin(
+                UriFactoryDiscovery::find()->createUri($endpoint)
+            ),
+        ];
+
+        if ($this->options['oauth_token']) {
+            $plugins[] = new HeaderAppendPlugin([
+                'Authorization' => 'Bearer ' . $this->options['oauth_token'],
+                'Content-Type' => 'application/json'
+            ]);
+        }
+
         $this->httpClient = new HttpMethodsClient(
             new PluginClient(
                 $httpClient ?: HttpClientDiscovery::find(),
-                [
-                    new BaseUriPlugin(
-                        UriFactoryDiscovery::find()->createUri($endpoint)
-                    ),
-                ]
+                $plugins
             ),
             MessageFactoryDiscovery::find()
         );
@@ -149,7 +163,19 @@ final class Client
             throw new \RuntimeException(\sprintf('JSON encoding error %s: %s', \json_last_error(), \json_last_error_msg()));
         }
 
-        $this->httpClient->post('', [], $encoded);
+        $response = $this->httpClient->post('', [], $encoded);
+
+        if ($this->isErrorResponse($response)) {
+            throw new SlackErrorException($response);
+        }
+    }
+
+    protected function isErrorResponse(ResponseInterface $response)
+    {
+        $data = json_decode($response->getBody()->getContents(), true);
+        $response->getBody()->rewind();
+
+        return $response->getStatusCode() !== 200 || !$data['ok'];
     }
 
     /**
