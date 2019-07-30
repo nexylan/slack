@@ -31,6 +31,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class Client
 {
+    const SLACK_POST_MESSAGE_URL = 'https://slack.com/api/chat.postMessage';
+
     /**
      * @var array
      */
@@ -41,6 +43,8 @@ final class Client
      */
     private $httpClient;
 
+    private $optionsResolver;
+
     /**
      * Instantiate a new Client.
      *
@@ -48,9 +52,9 @@ final class Client
      * @param array           $options
      * @param HttpClient|null $httpClient
      */
-    public function __construct(string $endpoint, array $options = [], HttpClient $httpClient = null)
+    public function __construct(string $endpoint = self::SLACK_POST_MESSAGE_URL, array $options = [], HttpClient $httpClient = null)
     {
-        $resolver = (new OptionsResolver())
+        $this->optionsResolver = (new OptionsResolver())
             ->setDefaults([
                 'channel' => null,
                 'sticky_channel' => false,
@@ -74,12 +78,11 @@ final class Client
             ->setAllowedTypes('markdown_in_attachments', 'array')
             ->setAllowedTypes('oauth_token', ['string', 'null'])
         ;
-        $this->options = $resolver->resolve($options);
 
-        $this->setEndpoint($endpoint, $httpClient);
+        $this->setOptions($options, $endpoint, $httpClient);
     }
 
-    public function setEndpoint($endpoint, HttpClient $httpClient = null)
+    public function setEndpoint($endpoint, HttpClient $httpClient = null): self
     {
         $plugins = [
             new BaseUriPlugin(
@@ -101,6 +104,14 @@ final class Client
             ),
             MessageFactoryDiscovery::find()
         );
+        return $this;
+    }
+
+    public function setOptions(array $options, string $endpoint = self::SLACK_POST_MESSAGE_URL, HttpClient $httpClient = null): self
+    {
+        $this->options = $this->optionsResolver->resolve($options);
+        $this->setEndpoint($endpoint, $httpClient);
+        return $this;
     }
 
     /**

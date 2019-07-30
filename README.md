@@ -48,6 +48,18 @@ You'll need the webhook URL to instantiate the client (or for the configuration 
 
 ### Instantiate the client
 
+Using Slack's [OAuth token](https://api.slack.com/messaging/sending) method:
+
+```php
+$client = (new Nexy\Slack\Client())
+    ->setOptions([
+        'username' => 'Cyril',
+        'oauth_token' => 'xoxp-3845764387563....'
+    ]);
+```
+
+To use Slack's deprecated Webhook functionality:
+
 ```php
 // Instantiate without defaults
 $client = new Nexy\Slack\Client('https://hooks.slack.com/...');
@@ -229,6 +241,27 @@ $client->createMessage()->setAttachments($bigArrayOfAttachments);
 $attachment = new Attachment();
 
 $attachment->setFields($bigArrayOfFields);
+```
+
+### Blocks
+
+Slack has deprecated message attachments in favour of Blocks. You can read about it in the [Slack Messaging Reference](https://api.slack.com/reference/messaging/block-elements).
+
+An example of sending a message with Blocks:
+
+```php
+$message = $this->slackClient->createMessage()
+            ->setText('This is the fallback text')
+            ->addBlock
+            (
+                (new SectionBlock())
+                ->setMarkdown(':smiley: Hi! :wave:')
+            )
+            ->addBlock
+            (
+                (new ButtonBlock())
+                ->setPlainText('Wave back?')
+            );
 ```
 
 ## Contributing
