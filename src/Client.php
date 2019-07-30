@@ -15,19 +15,24 @@ namespace Nexy\Slack;
 
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Common\Plugin\BaseUriPlugin;
+use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use Http\Client\Common\PluginClient;
 use Http\Client\Exception;
 use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
+use Nexy\Slack\Exception\SlackErrorException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
 final class Client
 {
+    const SLACK_POST_MESSAGE_URL = 'https://slack.com/api/chat.postMessage';
+
     /**
      * @var array
      */
@@ -38,6 +43,8 @@ final class Client
      */
     private $httpClient;
 
+    private $optionsResolver;
+
     /**
      * Instantiate a new Client.
      *
@@ -45,9 +52,9 @@ final class Client
      * @param array           $options
      * @param HttpClient|null $httpClient
      */
-    public function __construct(string $endpoint, array $options = [], HttpClient $httpClient = null)
+    public function __construct(string $endpoint = self::SLACK_POST_MESSAGE_URL, array $options = [], HttpClient $httpClient = null)
     {
-        $resolver = (new OptionsResolver())
+        $this->optionsResolver = (new OptionsResolver())
             ->setDefaults([
                 'channel' => null,
                 'sticky_channel' => false,
@@ -58,6 +65,7 @@ final class Client
                 'unfurl_media' => true,
                 'allow_markdown' => true,
                 'markdown_in_attachments' => [],
+                'oauth_token' => null
             ])
             ->setAllowedTypes('channel', ['string', 'null'])
             ->setAllowedTypes('sticky_channel', ['bool'])
@@ -68,20 +76,42 @@ final class Client
             ->setAllowedTypes('unfurl_media', 'bool')
             ->setAllowedTypes('allow_markdown', 'bool')
             ->setAllowedTypes('markdown_in_attachments', 'array')
+            ->setAllowedTypes('oauth_token', ['string', 'null'])
         ;
-        $this->options = $resolver->resolve($options);
+
+        $this->setOptions($options, $endpoint, $httpClient);
+    }
+
+    public function setEndpoint($endpoint, HttpClient $httpClient = null): self
+    {
+        $plugins = [
+            new BaseUriPlugin(
+                UriFactoryDiscovery::find()->createUri($endpoint)
+            ),
+        ];
+
+        if ($this->options['oauth_token']) {
+            $plugins[] = new HeaderAppendPlugin([
+                'Authorization' => 'Bearer ' . $this->options['oauth_token'],
+                'Content-Type' => 'application/json'
+            ]);
+        }
 
         $this->httpClient = new HttpMethodsClient(
             new PluginClient(
                 $httpClient ?: HttpClientDiscovery::find(),
-                [
-                    new BaseUriPlugin(
-                        UriFactoryDiscovery::find()->createUri($endpoint)
-                    ),
-                ]
+                $plugins
             ),
             MessageFactoryDiscovery::find()
         );
+        return $this;
+    }
+
+    public function setOptions(array $options, string $endpoint = self::SLACK_POST_MESSAGE_URL, HttpClient $httpClient = null): self
+    {
+        $this->options = $this->optionsResolver->resolve($options);
+        $this->setEndpoint($endpoint, $httpClient);
+        return $this;
     }
 
     /**
@@ -144,7 +174,19 @@ final class Client
             throw new \RuntimeException(\sprintf('JSON encoding error %s: %s', \json_last_error(), \json_last_error_msg()));
         }
 
-        $this->httpClient->post('', [], $encoded);
+        $response = $this->httpClient->post('', [], $encoded);
+
+        if ($this->isErrorResponse($response)) {
+            throw new SlackErrorException($response);
+        }
+    }
+
+    protected function isErrorResponse(ResponseInterface $response)
+    {
+        $data = json_decode($response->getBody()->getContents(), true);
+        $response->getBody()->rewind();
+
+        return $response->getStatusCode() !== 200 || !$data['ok'];
     }
 
     /**
@@ -171,6 +213,7 @@ final class Client
         }
 
         $payload['attachments'] = $this->getAttachmentsAsArrays($message);
+        $payload['blocks'] = $this->getBlocksAsArrays($message);
 
         return $payload;
     }
@@ -191,5 +234,23 @@ final class Client
         }
 
         return $attachments;
+    }
+
+    /**
+     * Get the attachments in array form.
+     *
+     * @param \Nexy\Slack\Message $message
+     *
+     * @return array
+     */
+    private function getBlocksAsArrays(Message $message): array
+    {
+        $blocks = [];
+
+        foreach ($message->getBlocks() as $block) {
+            $blocks[] = $block->toArray();
+        }
+
+        return $blocks;
     }
 }

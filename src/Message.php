@@ -70,6 +70,15 @@ final class Message
     private $allowMarkdown = true;
 
     /**
+     * Any messages published via `response_url` will leave the source message untouched. You can however use
+     * `response_url` to update the source message of an interaction by including an attribute `replace_original` and
+     * set it to true.
+     *
+     * @var bool|null
+     */
+    private $replaceOriginal;
+
+    /**
      * The attachment fields which should be formatted with
      * Slack's Markdown-like language.
      *
@@ -83,6 +92,13 @@ final class Message
      * @var array
      */
     private $attachments = [];
+
+    /**
+     * An array of blocks to send.
+     *
+     * @var array
+     */
+    private $blocks = [];
 
     /**
      * @var string
@@ -246,6 +262,30 @@ final class Message
     }
 
     /**
+     * @return bool
+     */
+    public function getReplaceOriginal():? bool
+    {
+        return $this->replaceOriginal;
+    }
+
+    /**
+     * @param bool $value
+     * @return Message
+     */
+    public function setReplaceOriginal(bool $value): self
+    {
+        $this->replaceOriginal = $value;
+
+        return $this;
+    }
+
+    public function enableReplaceOriginal(): self
+    {
+        return $this->setReplaceOriginal(true);
+    }
+
+    /**
      * @return array
      */
     public function getMarkdownInAttachments(): array
@@ -352,6 +392,58 @@ final class Message
     public function clearAttachments(): self
     {
         $this->attachments = [];
+
+        return $this;
+    }
+
+    /**
+     * Add an block to the message.
+     *
+     * @param Block $block
+     *
+     * @return $this
+     */
+    public function addBlock(Block $block): self
+    {
+        $this->blocks[] = $block;
+
+        return $this;
+    }
+
+    /**
+     * @return Block[]
+     */
+    public function getBlocks(): array
+    {
+        return $this->blocks;
+    }
+
+    /**
+     * Set the blocks for the message.
+     *
+     * @param array $blocks
+     *
+     * @return $this
+     */
+    public function setBlocks(array $blocks): self
+    {
+        $this->clearBlocks();
+
+        foreach ($blocks as $block) {
+            $this->addBlock($block);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove all blocks for the message.
+     *
+     * @return $this
+     */
+    public function clearBlocks(): self
+    {
+        $this->blocks = [];
 
         return $this;
     }
