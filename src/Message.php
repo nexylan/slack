@@ -70,6 +70,15 @@ final class Message
     private $allowMarkdown = true;
 
     /**
+     * Any messages published via `response_url` will leave the source message untouched. You can however use
+     * `response_url` to update the source message of an interaction by including an attribute `replace_original` and
+     * set it to true.
+     *
+     * @var bool|null
+     */
+    private $replaceOriginal;
+
+    /**
      * The attachment fields which should be formatted with
      * Slack's Markdown-like language.
      *
@@ -250,6 +259,30 @@ final class Message
     public function disableMarkdown(): self
     {
         return $this->setAllowMarkdown(false);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getReplaceOriginal():? bool
+    {
+        return $this->replaceOriginal;
+    }
+
+    /**
+     * @param bool $value
+     * @return Message
+     */
+    public function setReplaceOriginal(bool $value): self
+    {
+        $this->replaceOriginal = $value;
+
+        return $this;
+    }
+
+    public function enableReplaceOriginal(): self
+    {
+        return $this->setReplaceOriginal(true);
     }
 
     /**
