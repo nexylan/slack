@@ -13,14 +13,10 @@ declare(strict_types=1);
 
 namespace Nexy\Slack;
 
-use Http\Client\Common\HttpMethodsClient;
-use Http\Client\Common\Plugin\BaseUriPlugin;
-use Http\Client\Common\PluginClient;
-use Http\Client\HttpClient;
-use Http\Discovery\HttpClientDiscovery;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Discovery\UriFactoryDiscovery;
 use Nexy\Slack\Exception\SlackApiException;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -34,28 +30,44 @@ final class Client
     private $errorResponseHandler;
 
     /**
+     * @var string
+     */
+    private $endpoint;
+
+    /**
      * @var array
      */
     private $options;
 
     /**
-     * @var HttpMethodsClient
+     * @var ClientInterface
      */
     private $httpClient;
 
     /**
-     * Instantiate a new Client.
-     *
-     * @param string          $endpoint
-     * @param array           $options
-     * @param HttpClient|null $httpClient
+     * @var RequestFactoryInterface
+     */
+    private $requestFactory;
+
+    /**
+     * @var StreamFactoryInterface
+     */
+    private $streamFactory;
+
+    /**
+     * @param mixed[] $options
      */
     public function __construct(
+        ClientInterface $httpClient,
+        RequestFactoryInterface $requestFactory,
+        StreamFactoryInterface $streamFactory,
         string $endpoint,
-        array $options = [],
-        HttpClient $httpClient = null
+        array $options = []
     ) {
-        $this->errorResponseHandler = new ErrorResponseHandler();
+        $this->httpClient = $httpClient;
+        $this->requestFactory = $requestFactory;
+        $this->streamFactory = $streamFactory;
+        $this->endpoint = $endpoint;
 
         $resolver = (new OptionsResolver())
             ->setDefaults([
@@ -81,17 +93,7 @@ final class Client
         ;
         $this->options = $resolver->resolve($options);
 
-        $this->httpClient = new HttpMethodsClient(
-            new PluginClient(
-                $httpClient ?: HttpClientDiscovery::find(),
-                [
-                    new BaseUriPlugin(
-                        UriFactoryDiscovery::find()->createUri($endpoint)
-                    ),
-                ]
-            ),
-            MessageFactoryDiscovery::find()
-        );
+        $this->errorResponseHandler = new ErrorResponseHandler();
     }
 
     /**
@@ -157,7 +159,11 @@ final class Client
             throw new \RuntimeException(\sprintf('JSON encoding error %s: %s', \json_last_error(), \json_last_error_msg()));
         }
 
-        $response = $this->httpClient->post('', [], $encoded);
+        $response = $this->httpClient->sendRequest(
+            $this->requestFactory->createRequest('POST', $this->endpoint)->withBody(
+                $this->streamFactory->createStream($encoded)
+            )
+        );
 
         $this->errorResponseHandler->handleResponse($response);
     }
