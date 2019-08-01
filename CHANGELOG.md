@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - The `Client::sendMessage()` method will now throw exceptions that match API errors
 - The `Client` instance does not depend to HTTPlug anymore thanks to PSR-17 and PSR-18 specifications
 
+### Removed
+- PHP 7.1 to 7.2 support
+
 ## [2.3.0]
 ### Added
 - Add support for link buttons
