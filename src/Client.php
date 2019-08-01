@@ -16,11 +16,11 @@ namespace Nexy\Slack;
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Common\Plugin\BaseUriPlugin;
 use Http\Client\Common\PluginClient;
-use Http\Client\Exception;
 use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
+use Nexy\Slack\Exception\SlackApiException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -28,6 +28,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class Client
 {
+    /**
+     * @var ErrorResponseHandler
+     */
+    private $errorResponseHandler;
+
     /**
      * @var array
      */
@@ -45,8 +50,13 @@ final class Client
      * @param array           $options
      * @param HttpClient|null $httpClient
      */
-    public function __construct(string $endpoint, array $options = [], HttpClient $httpClient = null)
-    {
+    public function __construct(
+        string $endpoint,
+        array $options = [],
+        HttpClient $httpClient = null
+    ) {
+        $this->errorResponseHandler = new ErrorResponseHandler();
+
         $resolver = (new OptionsResolver())
             ->setDefaults([
                 'channel' => null,
@@ -127,7 +137,10 @@ final class Client
      *
      * @param \Nexy\Slack\Message $message
      *
-     * @throws Exception
+     * @throws \RuntimeException
+     * @throws \Psr\Http\Client\Exception
+     * @throws SlackApiException
+     * @throws \Http\Client\Exception
      */
     public function sendMessage(Message $message): void
     {
@@ -144,7 +157,9 @@ final class Client
             throw new \RuntimeException(\sprintf('JSON encoding error %s: %s', \json_last_error(), \json_last_error_msg()));
         }
 
-        $this->httpClient->post('', [], $encoded);
+        $response = $this->httpClient->post('', [], $encoded);
+
+        $this->errorResponseHandler->handleResponse($response);
     }
 
     /**

@@ -33,7 +33,7 @@ cache:
     - $HOME/.composer/cache/files
 
 before_install:
-  - composer global require satooshi/php-coveralls:@stable sllh/composer-lint:@stable --no-update
+  - composer global require satooshi/php-coveralls:@stable sllh/composer-lint:@stable phpunit/phpunit:@stable --no-update
 
 install:
   - wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar --output-document php-cs-fixer.phar
