@@ -11,6 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use Http\Discovery\Psr17FactoryDiscovery;
 use Nexy\Slack\ActionConfirmation;
 use Nexy\Slack\Attachment;
 use Nexy\Slack\AttachmentAction;
@@ -19,6 +20,9 @@ use Nexy\Slack\Client;
 
 class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 {
+    /**
+     * @var \Http\Mock\Client
+     */
     private $mockHttpClient;
 
     protected function setUp(): void
@@ -39,7 +43,13 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'attachments' => [],
         ];
 
-        $client = new Client('http://fake.endpoint', [], $this->mockHttpClient);
+        $client = new Client(
+            $this->mockHttpClient,
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
+            'http://fake.endpoint',
+            []
+        );
 
         $message = $client->to('@regan')->from('Archer')->setText('Message');
 
@@ -47,7 +57,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 
         $this->assertSame(
             $expectedHttpData,
-            \json_decode($this->mockHttpClient->getLastRequest()->getBody()->getContents(), true)
+            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true)
         );
     }
 
@@ -64,10 +74,16 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'attachments' => [],
         ];
 
-        $client = new Client('http://fake.endpoint', [
-            'channel' => '#default',
-            'sticky_channel' => true,
-        ], $this->mockHttpClient);
+        $client = new Client(
+            $this->mockHttpClient,
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
+            'http://fake.endpoint',
+            [
+                'channel' => '#default',
+                'sticky_channel' => true,
+            ]
+        );
 
         $message = $client->to('@regan')->from('Archer')->setText('Message');
 
@@ -75,7 +91,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 
         $this->assertSame(
             $expectedHttpData,
-            \json_decode($this->mockHttpClient->getLastRequest()->getBody()->getContents(), true)
+            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true)
         );
     }
 
@@ -95,13 +111,18 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             ->setThumbUrl('http://fake.host/image.png')
             ->setAuthorName('Joe Bloggs')
             ->setAuthorLink('http://fake.host/')
-            ->setAuthorIcon('http://fake.host/image.png')
-        ;
+            ->setAuthorIcon('http://fake.host/image.png');
 
-        $client = new Client('http://fake.endpoint', [
-            'username' => 'Test',
-            'channel' => '#general',
-        ], $this->mockHttpClient);
+        $client = new Client(
+            $this->mockHttpClient,
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
+            'http://fake.endpoint',
+            [
+                'username' => 'Test',
+                'channel' => '#general',
+            ]
+        );
 
         $message = $client->createMessage()->setText('Message');
 
@@ -143,7 +164,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 
         $this->assertSame(
             $expectedHttpData,
-            \json_decode($this->mockHttpClient->getLastRequest()->getBody()->getContents(), true)
+            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true)
         );
     }
 
@@ -170,8 +191,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
                     (new AttachmentField('Field 1', 'Value 1')),
                     (new AttachmentField('Field 2', 'Value 2')),
                 ]
-            )
-        ;
+            );
 
         $attachmentOutput = [
             'fallback' => 'Some fallback text',
@@ -190,24 +210,30 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'author_link' => 'http://fake.host/',
             'author_icon' => 'http://fake.host/image.png',
             'fields' => [
-              [
-                'title' => 'Field 1',
-                'value' => 'Value 1',
-                'short' => false,
-              ],
-              [
-                'title' => 'Field 2',
-                'value' => 'Value 2',
-                'short' => false,
-              ],
+                [
+                    'title' => 'Field 1',
+                    'value' => 'Value 1',
+                    'short' => false,
+                ],
+                [
+                    'title' => 'Field 2',
+                    'value' => 'Value 2',
+                    'short' => false,
+                ],
             ],
             'actions' => [],
         ];
 
-        $client = new Client('http://fake.endpoint', [
-            'username' => 'Test',
-            'channel' => '#general',
-        ], $this->mockHttpClient);
+        $client = new Client(
+            $this->mockHttpClient,
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
+            'http://fake.endpoint',
+            [
+                'username' => 'Test',
+                'channel' => '#general',
+            ]
+        );
 
         $message = $client->createMessage()->setText('Message');
 
@@ -228,7 +254,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 
         $this->assertSame(
             $expectedHttpData,
-            \json_decode($this->mockHttpClient->getLastRequest()->getBody()->getContents(), true)
+            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true)
         );
     }
 
@@ -273,8 +299,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
                         ->setType('button')
                         ->setUrl('https://www.google.com'),
                 ]
-            )
-        ;
+            );
 
         $attachmentOutput = [
             'fallback' => 'Some fallback text',
@@ -329,10 +354,16 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             ],
         ];
 
-        $client = new Client('http://fake.endpoint', [
-            'username' => 'Test',
-            'channel' => '#general',
-        ], $this->mockHttpClient);
+        $client = new Client(
+            $this->mockHttpClient,
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
+            'http://fake.endpoint',
+            [
+                'username' => 'Test',
+                'channel' => '#general',
+            ]
+        );
 
         $message = $client->createMessage()->setText('Message');
 
@@ -353,7 +384,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 
         $this->assertSame(
             $expectedHttpData,
-            \json_decode($this->mockHttpClient->getLastRequest()->getBody()->getContents(), true)
+            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true)
         );
     }
 }

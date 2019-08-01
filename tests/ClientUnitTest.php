@@ -11,6 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use Http\Discovery\Psr17FactoryDiscovery;
 use Nexy\Slack\Client;
 
 class ClientUnitTest extends PHPUnit\Framework\TestCase
@@ -18,9 +19,11 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
     public function testInstantiationWithNoDefaults(): void
     {
         $client = new Client(
+            new \Http\Mock\Client(),
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
             'http://fake.endpoint',
-            [],
-            new \Http\Mock\Client()
+            []
         );
 
         $this->assertInstanceOf(Client::class, $client);
@@ -41,9 +44,11 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
         ];
 
         $client = new Client(
+            new \Http\Mock\Client(),
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
             'http://fake.endpoint',
-            $defaults,
-            new \Http\Mock\Client()
+            $defaults
         );
 
         $this->assertSame($defaults, $client->getOptions());
@@ -64,9 +69,11 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
         ];
 
         $client = new Client(
+            new \Http\Mock\Client(),
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
             'http://fake.endpoint',
-            $defaults,
-            new \Http\Mock\Client()
+            $defaults
         );
 
         $message = $client->createMessage();
@@ -79,9 +86,11 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
     public function testWildcardCallToMessage(): void
     {
         $client = new Client(
+            new \Http\Mock\Client(),
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
             'http://fake.endpoint',
-            [],
-            new \Http\Mock\Client()
+            []
         );
 
         $message = $client->to('@regan');

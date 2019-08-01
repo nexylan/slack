@@ -36,10 +36,17 @@ The next releases will be under the MIT license. See the current [LICENSE](LICEN
 You can install the package using the [Composer](https://getcomposer.org/) package manager. You can install it by running this command in your project root:
 
 ```sh
-composer require nexylan/slack php-http/guzzle6-adapter
+composer require nexylan/slack
 ```
 
-Why `php-http/guzzle6-adapter`? We are decoupled from any HTTP messaging client thanks to [HTTPlug](http://httplug.io/).
+We also follow
+[PSR-7](https://www.php-fig.org/psr/psr-7/),
+[PSR-17](https://www.php-fig.org/psr/psr-17/) and
+[PSR-18](https://www.php-fig.org/psr/psr-18/) standards for HTTP messaging.
+It allows you to use any HTTP client following this convention and make the library maintenability better for us.
+
+So you need to install an HTTP client following those standards.
+We recommand to use the popular [HTTPlug](http://httplug.io/) project, but you are free to choose the more convinient one for you.
 
 Then [create an incoming webhook](https://my.slack.com/services/new/incoming-webhook) on your Slack account for the package to use.
 You'll need the webhook URL to instantiate the client (or for the configuration file if using Laravel).
@@ -48,21 +55,28 @@ You'll need the webhook URL to instantiate the client (or for the configuration 
 
 ### Instantiate the client
 
+In this example, we use the [HTTPlug discovery component](http://docs.php-http.org/en/latest/discovery.html) to bring the needed PSR tools.
+
 ```php
-// Instantiate without defaults
-$client = new Nexy\Slack\Client('https://hooks.slack.com/...');
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 
-// Instantiate with defaults, so all messages created
-// will be sent from 'Cyril' and to the #accounting channel
-// by default. Any names like @regan or #channel will also be linked.
-$settings = [
-	'username' => 'Cyril',
-	'channel' => '#accounting',
-	'link_names' => true
-];
+use Nexy\Slack\Client;
 
-$client = new Nexy\Slack\Client('https://hooks.slack.com/...', $settings);
+$client = new Client(
+    Psr18ClientDiscovery::find(),
+    Psr17FactoryDiscovery::findRequestFactory(),
+    Psr17FactoryDiscovery::findStreamFactory(),
+    'https://hooks.slack.com/...',
+    [
+        'username' => 'Cyril', // Default messages are sent from 'Cyril'
+        'channel' => '#accounting', // Default messages are sent to '#accounting'
+        'link_names' => true
+    ]
+);
 ```
+
+Note: The `$options` last parameter is optional.
 
 #### Settings
 
