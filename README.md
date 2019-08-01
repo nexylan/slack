@@ -41,8 +41,8 @@ composer require nexylan/slack php-http/guzzle6-adapter
 
 Why `php-http/guzzle6-adapter`? We are decoupled from any HTTP messaging client thanks to [HTTPlug](http://httplug.io/).
 
-Then [create an incoming webhook](https://my.slack.com/services/new/incoming-webhook) on your Slack account for the package to use.
-You'll need the webhook URL to instantiate the client (or for the configuration file if using Laravel).
+Then [create an app](https://api.slack.com/slack-apps) on your Slack account for the package to use.
+You'll need to need to enable the [chat:write:bot](https://api.slack.com/scopes/chat:write:bot) [scope](https://api.slack.com/docs/oauth-scopes) for your app and get the "OAuth Access Token".
 
 ## Basic Usage
 
@@ -245,7 +245,11 @@ $attachment->setFields($bigArrayOfFields);
 
 ### Blocks
 
-Slack has deprecated message attachments in favour of Blocks. You can read about it in the [Slack Messaging Reference](https://api.slack.com/reference/messaging/block-elements).
+Slack has deprecated message attachments in favour of Blocks. Blocks give you a lot more control over the layout of your message and allow you to create interactive messages like this.
+
+![Interactive Slack message](doc/interactive-message.png?raw=true "EcomHQ")
+
+You can read about it in the [Slack Messaging Reference](https://api.slack.com/reference/messaging/block-elements).
 
 An example of sending a message with Blocks:
 
