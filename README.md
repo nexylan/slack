@@ -48,7 +48,7 @@ You'll need the webhook URL to instantiate the client (or for the configuration 
 
 ### Instantiate the client
 
-Using Slack's [OAuth token](https://api.slack.com/messaging/sending) method:
+Using Slack's [OAuth token](https://api.slack.com/docs/oauth) method:
 
 ```php
 $client = (new Nexy\Slack\Client())
