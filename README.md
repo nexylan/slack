@@ -251,17 +251,17 @@ An example of sending a message with Blocks:
 
 ```php
 $message = $this->slackClient->createMessage()
-            ->setText('This is the fallback text')
-            ->addBlock
-            (
-                (new SectionBlock())
-                ->setMarkdown(':smiley: Hi! :wave:')
-            )
-            ->addBlock
-            (
-                (new ButtonBlock())
-                ->setPlainText('Wave back?')
-            );
+    ->setText('This is the fallback text')
+    ->addBlock
+    (
+        (new SectionBlock())
+        ->setMarkdown(':smiley: Hi! :wave:')
+    )
+    ->addBlock
+    (
+        (new ButtonBlock())
+        ->setPlainText('Wave back?')
+    );
 ```
 
 ## Contributing
