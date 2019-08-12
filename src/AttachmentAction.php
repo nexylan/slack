@@ -16,7 +16,7 @@ namespace Nexy\Slack;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class AttachmentAction
+final class AttachmentAction implements AttachmentActionInterface
 {
     const TYPE_BUTTON = 'button';
 
@@ -69,7 +69,7 @@ final class AttachmentAction
     /**
      * Confirmation field.
      *
-     * @var ActionConfirmation|null
+     * @var ActionConfirmationInterface|null
      */
     private $confirm;
 
@@ -110,9 +110,9 @@ final class AttachmentAction
     /**
      * @param string $style
      *
-     * @return AttachmentAction
+     * @return AttachmentActionInterface
      */
-    public function setStyle(string $style): self
+    public function setStyle(string $style): AttachmentActionInterface
     {
         $this->style = $style;
 
@@ -130,9 +130,9 @@ final class AttachmentAction
     /**
      * @param string $type
      *
-     * @return AttachmentAction
+     * @return AttachmentActionInterface
      */
-    public function setType(string $type): self
+    public function setType(string $type): AttachmentActionInterface
     {
         $this->type = $type;
 
@@ -150,9 +150,9 @@ final class AttachmentAction
     /**
      * @param string|null $value
      *
-     * @return AttachmentAction
+     * @return AttachmentActionInterface
      */
-    public function setValue(?string $value): self
+    public function setValue(?string $value): AttachmentActionInterface
     {
         $this->value = $value;
 
@@ -170,9 +170,9 @@ final class AttachmentAction
     /**
      * @param string|null $url
      *
-     * @return AttachmentAction
+     * @return AttachmentActionInterface
      */
-    public function setUrl(?string $url): self
+    public function setUrl(?string $url): AttachmentActionInterface
     {
         $this->url = $url;
 
@@ -180,19 +180,19 @@ final class AttachmentAction
     }
 
     /**
-     * @return ActionConfirmation|null
+     * @return ActionConfirmationInterface|null
      */
-    public function getConfirm(): ?ActionConfirmation
+    public function getConfirm(): ?ActionConfirmationInterface
     {
         return $this->confirm;
     }
 
     /**
-     * @param ActionConfirmation $confirm
+     * @param ActionConfirmationInterface $confirm
      *
-     * @return AttachmentAction
+     * @return AttachmentActionInterface
      */
-    public function setConfirm(?ActionConfirmation $confirm): self
+    public function setConfirm(?ActionConfirmationInterface $confirm): AttachmentActionInterface
     {
         $this->confirm = $confirm;
 

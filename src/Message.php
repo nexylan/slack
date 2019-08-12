@@ -16,13 +16,13 @@ namespace Nexy\Slack;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class Message
+final class Message implements MessageInterface
 {
     /**
      * Reference to the Slack client responsible for sending
      * the message.
      *
-     * @var \Nexy\Slack\Client
+     * @var ClientInterface
      */
     private $client;
 
@@ -73,14 +73,14 @@ final class Message
      * The attachment fields which should be formatted with
      * Slack's Markdown-like language.
      *
-     * @var array
+     * @var AttachmentFieldInterface[]
      */
     private $markdownInAttachments = [];
 
     /**
      * An array of attachments to send.
      *
-     * @var array
+     * @var AttachmentInterface[]
      */
     private $attachments = [];
 
@@ -97,9 +97,9 @@ final class Message
     /**
      * Instantiate a new Message.
      *
-     * @param \Nexy\Slack\Client $client
+     * @param ClientInterface $client
      */
-    public function __construct(Client $client)
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
@@ -117,9 +117,9 @@ final class Message
      *
      * @param string|null $text
      *
-     * @return $this
+     * @return MessageInterface
      */
-    public function setText(?string $text): self
+    public function setText(?string $text): MessageInterface
     {
         $this->text = $text;
 
@@ -139,9 +139,9 @@ final class Message
      *
      * @param string|null $channel
      *
-     * @return $this
+     * @return MessageInterface
      */
-    public function setChannel(?string $channel): self
+    public function setChannel(?string $channel): MessageInterface
     {
         $this->channel = $channel;
 
@@ -161,9 +161,9 @@ final class Message
      *
      * @param string|null $username
      *
-     * @return $this
+     * @return MessageInterface
      */
-    public function setUsername(?string $username): self
+    public function setUsername(?string $username): MessageInterface
     {
         $this->username = $username;
 
@@ -183,9 +183,9 @@ final class Message
      *
      * @param string|null $icon
      *
-     * @return $this
+     * @return MessageInterface
      */
-    public function setIcon(?string $icon): self
+    public function setIcon(?string $icon): MessageInterface
     {
         if (null === $icon) {
             $this->icon = $this->iconType = null;
@@ -226,27 +226,27 @@ final class Message
      *
      * @param bool $value
      *
-     * @return Message
+     * @return MessageInterface
      */
-    public function setAllowMarkdown(bool $value): self
+    public function setAllowMarkdown(bool $value): MessageInterface
     {
         $this->allowMarkdown = $value;
 
         return $this;
     }
 
-    public function enableMarkdown(): self
+    public function enableMarkdown(): MessageInterface
     {
         return $this->setAllowMarkdown(true);
     }
 
-    public function disableMarkdown(): self
+    public function disableMarkdown(): MessageInterface
     {
         return $this->setAllowMarkdown(false);
     }
 
     /**
-     * @return array
+     * @return AttachmentFieldInterface[]
      */
     public function getMarkdownInAttachments(): array
     {
@@ -257,11 +257,11 @@ final class Message
      * Set the attachment fields which should be formatted
      * in Slack's Markdown-like language.
      *
-     * @param array $fields
+     * @param AttachmentFieldInterface[] $fields
      *
-     * @return Message
+     * @return MessageInterface
      */
-    public function setMarkdownInAttachments(array $fields): self
+    public function setMarkdownInAttachments(array $fields): MessageInterface
     {
         $this->markdownInAttachments = $fields;
 
@@ -273,9 +273,9 @@ final class Message
      *
      * @param string $username
      *
-     * @return $this
+     * @return MessageInterface
      */
-    public function from(string $username): self
+    public function from(string $username): MessageInterface
     {
         return $this->setUsername($username);
     }
@@ -285,9 +285,9 @@ final class Message
      *
      * @param string $channel
      *
-     * @return $this
+     * @return MessageInterface
      */
-    public function to(string $channel): self
+    public function to(string $channel): MessageInterface
     {
         return $this->setChannel($channel);
     }
@@ -297,9 +297,9 @@ final class Message
      *
      * @param string $icon
      *
-     * @return $this
+     * @return MessageInterface
      */
-    public function withIcon(string $icon): self
+    public function withIcon(string $icon): MessageInterface
     {
         return $this->setIcon($icon);
     }
@@ -307,11 +307,11 @@ final class Message
     /**
      * Add an attachment to the message.
      *
-     * @param Attachment $attachment
+     * @param AttachmentInterface $attachment
      *
-     * @return $this
+     * @return MessageInterface
      */
-    public function attach(Attachment $attachment): self
+    public function attach(AttachmentInterface $attachment): MessageInterface
     {
         $this->attachments[] = $attachment;
 
@@ -319,7 +319,7 @@ final class Message
     }
 
     /**
-     * @return Attachment[]
+     * @return AttachmentInterface[]
      */
     public function getAttachments(): array
     {
@@ -329,11 +329,11 @@ final class Message
     /**
      * Set the attachments for the message.
      *
-     * @param array $attachments
+     * @param AttachmentInterface[] $attachments
      *
-     * @return $this
+     * @return MessageInterface
      */
-    public function setAttachments(array $attachments): self
+    public function setAttachments(array $attachments): MessageInterface
     {
         $this->clearAttachments();
 
@@ -347,9 +347,9 @@ final class Message
     /**
      * Remove all attachments for the message.
      *
-     * @return $this
+     * @return MessageInterface
      */
-    public function clearAttachments(): self
+    public function clearAttachments(): MessageInterface
     {
         $this->attachments = [];
 
@@ -361,9 +361,9 @@ final class Message
      *
      * @param string|null $text The text to send
      *
-     * @return Message
+     * @return MessageInterface
      */
-    public function send(?string $text = null): self
+    public function send(?string $text = null): MessageInterface
     {
         if ($text) {
             $this->setText($text);

@@ -16,7 +16,7 @@ namespace Nexy\Slack;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class Attachment
+final class Attachment implements AttachmentInterface
 {
     /**
      * The fallback text to use for clients that don't support attachments.
@@ -119,7 +119,7 @@ final class Attachment
     /**
      * The fields of the attachment.
      *
-     * @var array
+     * @var AttachmentFieldInterface[]
      */
     private $fields = [];
 
@@ -135,7 +135,7 @@ final class Attachment
      * A collection of actions (buttons) to include in the attachment.
      * A maximum of 5 actions may be provided.
      *
-     * @var array
+     * @var AttachmentActionInterface[]
      */
     private $actions = [];
 
@@ -152,9 +152,9 @@ final class Attachment
      *
      * @param string $fallback
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setFallback(string $fallback): self
+    public function setFallback(string $fallback): AttachmentInterface
     {
         $this->fallback = $fallback;
 
@@ -174,9 +174,9 @@ final class Attachment
      *
      * @param string $text
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setText(string $text): self
+    public function setText(string $text): AttachmentInterface
     {
         $this->text = $text;
 
@@ -196,9 +196,9 @@ final class Attachment
      *
      * @param string|null $imageUrl
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setImageUrl(?string $imageUrl): self
+    public function setImageUrl(?string $imageUrl): AttachmentInterface
     {
         $this->imageUrl = $imageUrl;
 
@@ -220,7 +220,7 @@ final class Attachment
      *
      * @return $this
      */
-    public function setThumbUrl(?string $thumbUrl): self
+    public function setThumbUrl(?string $thumbUrl): AttachmentInterface
     {
         $this->thumbUrl = $thumbUrl;
 
@@ -240,9 +240,9 @@ final class Attachment
      *
      * @param string|null $pretext
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setPretext(?string $pretext): self
+    public function setPretext(?string $pretext): AttachmentInterface
     {
         $this->pretext = $pretext;
 
@@ -262,9 +262,9 @@ final class Attachment
      *
      * @param string|null $color
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setColor(?string $color): self
+    public function setColor(?string $color): AttachmentInterface
     {
         $this->color = $color;
 
@@ -284,9 +284,9 @@ final class Attachment
      *
      * @param string|null $footer
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setFooter(?string $footer): self
+    public function setFooter(?string $footer): AttachmentInterface
     {
         $this->footer = $footer;
 
@@ -306,9 +306,9 @@ final class Attachment
      *
      * @param string|null $footerIcon
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setFooterIcon(?string $footerIcon): self
+    public function setFooterIcon(?string $footerIcon): AttachmentInterface
     {
         $this->footerIcon = $footerIcon;
 
@@ -328,9 +328,9 @@ final class Attachment
      *
      * @param \DateTime|null $timestamp
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setTimestamp(?\DateTime $timestamp): self
+    public function setTimestamp(?\DateTime $timestamp): AttachmentInterface
     {
         $this->timestamp = $timestamp;
 
@@ -350,9 +350,9 @@ final class Attachment
      *
      * @param string|null $title
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setTitle(?string $title): self
+    public function setTitle(?string $title): AttachmentInterface
     {
         $this->title = $title;
 
@@ -372,9 +372,9 @@ final class Attachment
      *
      * @param string|null $titleLink
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setTitleLink(?string $titleLink): self
+    public function setTitleLink(?string $titleLink): AttachmentInterface
     {
         $this->titleLink = $titleLink;
 
@@ -394,9 +394,9 @@ final class Attachment
      *
      * @param string|null $authorName
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setAuthorName(?string $authorName): self
+    public function setAuthorName(?string $authorName): AttachmentInterface
     {
         $this->authorName = $authorName;
 
@@ -416,9 +416,9 @@ final class Attachment
      *
      * @param string|null $authorLink
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setAuthorLink(?string $authorLink): self
+    public function setAuthorLink(?string $authorLink): AttachmentInterface
     {
         $this->authorLink = $authorLink;
 
@@ -438,9 +438,9 @@ final class Attachment
      *
      * @param string|null $authorIcon
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setAuthorIcon(?string $authorIcon): self
+    public function setAuthorIcon(?string $authorIcon): AttachmentInterface
     {
         $this->authorIcon = $authorIcon;
 
@@ -448,7 +448,7 @@ final class Attachment
     }
 
     /**
-     * @return array
+     * @return AttachmentFieldInterface[]
      */
     public function getFields(): array
     {
@@ -458,11 +458,11 @@ final class Attachment
     /**
      * Set the fields for the attachment.
      *
-     * @param array $fields
+     * @param AttachmentFieldInterface[] $fields
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setFields(array $fields): self
+    public function setFields(array $fields): AttachmentInterface
     {
         $this->clearFields();
 
@@ -476,11 +476,11 @@ final class Attachment
     /**
      * Add a field to the attachment.
      *
-     * @param AttachmentField $field
+     * @param AttachmentFieldInterface $field
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function addField(AttachmentField $field): self
+    public function addField(AttachmentFieldInterface $field): AttachmentInterface
     {
         $this->fields[] = $field;
 
@@ -490,9 +490,9 @@ final class Attachment
     /**
      * Clear the fields for the attachment.
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function clearFields(): self
+    public function clearFields(): AttachmentInterface
     {
         $this->fields = [];
 
@@ -513,9 +513,9 @@ final class Attachment
      *
      * @param array $fields
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function setMarkdownFields(array $fields): self
+    public function setMarkdownFields(array $fields): AttachmentInterface
     {
         $this->markdownFields = $fields;
 
@@ -523,7 +523,7 @@ final class Attachment
     }
 
     /**
-     * @return array
+     * @return AttachmentActionInterface[]
      */
     public function getActions(): array
     {
@@ -535,9 +535,9 @@ final class Attachment
      *
      * @param array $actions
      *
-     * @return Attachment
+     * @return AttachmentInterface
      */
-    public function setActions($actions): self
+    public function setActions($actions): AttachmentInterface
     {
         $this->clearActions();
 
@@ -551,11 +551,11 @@ final class Attachment
     /**
      * Add an action to the attachment.
      *
-     * @param AttachmentAction $action
+     * @param AttachmentActionInterface $action
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function addAction(AttachmentAction $action): self
+    public function addAction(AttachmentActionInterface $action): AttachmentInterface
     {
         $this->actions[] = $action;
 
@@ -565,9 +565,9 @@ final class Attachment
     /**
      * Clear the actions for the attachment.
      *
-     * @return $this
+     * @return AttachmentInterface
      */
-    public function clearActions(): self
+    public function clearActions(): AttachmentInterface
     {
         $this->actions = [];
 

@@ -16,7 +16,7 @@ namespace Nexy\Slack;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class ActionConfirmation
+final class ActionConfirmation implements ActionConfirmationInterface
 {
     /**
      * The required title for the pop up window.
@@ -83,9 +83,9 @@ final class ActionConfirmation
     /**
      * @param string|null $okText
      *
-     * @return ActionConfirmation
+     * @return ActionConfirmationInterface
      */
-    public function setOkText(?string $okText): self
+    public function setOkText(?string $okText): ActionConfirmationInterface
     {
         $this->okText = $okText;
 
@@ -103,9 +103,9 @@ final class ActionConfirmation
     /**
      * @param string|null $dismissText
      *
-     * @return ActionConfirmation
+     * @return ActionConfirmationInterface
      */
-    public function setDismissText(?string $dismissText): self
+    public function setDismissText(?string $dismissText): ActionConfirmationInterface
     {
         $this->dismissText = $dismissText;
 

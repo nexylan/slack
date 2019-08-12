@@ -16,7 +16,7 @@ namespace Nexy\Slack;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class AttachmentField
+final class AttachmentField implements AttachmentFieldInterface
 {
     /**
      * The required title field of the field.
