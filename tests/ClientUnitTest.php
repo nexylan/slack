@@ -11,15 +11,22 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use Http\Discovery\Psr17FactoryDiscovery;
 use Nexy\Slack\Client;
 
 class ClientUnitTest extends PHPUnit\Framework\TestCase
 {
     public function testInstantiationWithNoDefaults(): void
     {
-        $client = new Client('http://fake.endpoint', [], new \Http\Mock\Client());
+        $client = new Client(
+            new \Http\Mock\Client(),
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
+            'http://fake.endpoint',
+            []
+        );
 
-        $this->assertInstanceOf('Nexy\Slack\Client', $client);
+        $this->assertInstanceOf(Client::class, $client);
     }
 
     public function testInstantiationWithDefaults(): void
@@ -36,7 +43,13 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
             'markdown_in_attachments' => ['text'],
         ];
 
-        $client = new Client('http://fake.endpoint', $defaults, new \Http\Mock\Client());
+        $client = new Client(
+            new \Http\Mock\Client(),
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
+            'http://fake.endpoint',
+            $defaults
+        );
 
         $this->assertSame($defaults, $client->getOptions());
     }
@@ -55,7 +68,13 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
             'markdown_in_attachments' => [],
         ];
 
-        $client = new Client('http://fake.endpoint', $defaults, new \Http\Mock\Client());
+        $client = new Client(
+            new \Http\Mock\Client(),
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
+            'http://fake.endpoint',
+            $defaults
+        );
 
         $message = $client->createMessage();
 
@@ -66,7 +85,13 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
 
     public function testWildcardCallToMessage(): void
     {
-        $client = new Client('http://fake.endpoint', [], new \Http\Mock\Client());
+        $client = new Client(
+            new \Http\Mock\Client(),
+            Psr17FactoryDiscovery::findRequestFactory(),
+            Psr17FactoryDiscovery::findStreamFactory(),
+            'http://fake.endpoint',
+            []
+        );
 
         $message = $client->to('@regan');
 

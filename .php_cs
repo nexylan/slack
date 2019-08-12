@@ -24,6 +24,7 @@ return \PhpCsFixer\Config::create()
         '@PHP70Migration:risky' => true,
         '@PHP71Migration' => true,
         '@PHP71Migration:risky' => true,
+        '@PHP73Migration' => true,
         '@PHPUnit57Migration:risky' => true,
         '@PHPUnit60Migration:risky' => true,
         '@Symfony' => true,

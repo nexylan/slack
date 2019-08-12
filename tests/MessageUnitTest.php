@@ -11,6 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use Http\Discovery\Psr17FactoryDiscovery;
 use Nexy\Slack\Attachment;
 use Nexy\Slack\Client;
 use Nexy\Slack\Message;
@@ -170,6 +171,14 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
 
     protected function getMessage()
     {
-        return new Message(new Client('http://fake.com', [], new \Http\Mock\Client()));
+        return new Message(
+            new Client(
+                new \Http\Mock\Client(),
+                Psr17FactoryDiscovery::findRequestFactory(),
+                Psr17FactoryDiscovery::findStreamFactory(),
+                'http://fake.com',
+                []
+            )
+        );
     }
 }
