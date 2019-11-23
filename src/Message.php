@@ -104,9 +104,6 @@ final class Message
         $this->client = $client;
     }
 
-    /**
-     * @return string|null
-     */
     public function getText(): ?string
     {
         return $this->text;
@@ -114,8 +111,6 @@ final class Message
 
     /**
      * Set the message text.
-     *
-     * @param string|null $text
      *
      * @return $this
      */
@@ -126,9 +121,6 @@ final class Message
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getChannel(): ?string
     {
         return $this->channel;
@@ -136,8 +128,6 @@ final class Message
 
     /**
      * Set the channel we will post to.
-     *
-     * @param string|null $channel
      *
      * @return $this
      */
@@ -148,9 +138,6 @@ final class Message
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getUsername(): ?string
     {
         return $this->username;
@@ -158,8 +145,6 @@ final class Message
 
     /**
      * Set the username we will post as.
-     *
-     * @param string|null $username
      *
      * @return $this
      */
@@ -170,9 +155,6 @@ final class Message
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getIcon(): ?string
     {
         return $this->icon;
@@ -180,8 +162,6 @@ final class Message
 
     /**
      * Set the icon (either URL or emoji) we will post as.
-     *
-     * @param string|null $icon
      *
      * @return $this
      */
@@ -204,17 +184,11 @@ final class Message
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getIconType(): ?string
     {
         return $this->iconType;
     }
 
-    /**
-     * @return bool
-     */
     public function getAllowMarkdown(): bool
     {
         return $this->allowMarkdown;
@@ -223,8 +197,6 @@ final class Message
     /**
      * Set whether message text should be formatted with
      * Slack's Markdown-like language.
-     *
-     * @param bool $value
      *
      * @return Message
      */
@@ -245,9 +217,6 @@ final class Message
         return $this->setAllowMarkdown(false);
     }
 
-    /**
-     * @return array
-     */
     public function getMarkdownInAttachments(): array
     {
         return $this->markdownInAttachments;
@@ -256,8 +225,6 @@ final class Message
     /**
      * Set the attachment fields which should be formatted
      * in Slack's Markdown-like language.
-     *
-     * @param array $fields
      *
      * @return Message
      */
@@ -271,8 +238,6 @@ final class Message
     /**
      * Change the name of the user the post will be made as.
      *
-     * @param string $username
-     *
      * @return $this
      */
     public function from(string $username): self
@@ -282,8 +247,6 @@ final class Message
 
     /**
      * Change the channel the post will be made to.
-     *
-     * @param string $channel
      *
      * @return $this
      */
@@ -295,8 +258,6 @@ final class Message
     /**
      * Chainable method for setting the icon.
      *
-     * @param string $icon
-     *
      * @return $this
      */
     public function withIcon(string $icon): self
@@ -306,8 +267,6 @@ final class Message
 
     /**
      * Add an attachment to the message.
-     *
-     * @param Attachment $attachment
      *
      * @return $this
      */
@@ -328,8 +287,6 @@ final class Message
 
     /**
      * Set the attachments for the message.
-     *
-     * @param array $attachments
      *
      * @return $this
      */
