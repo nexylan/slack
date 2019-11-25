@@ -57,7 +57,6 @@ class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param ErrorResponseHandler $handler
      * @depends testInstantiation
      */
     public function testDoesNotThrowWithGoodResponse(ErrorResponseHandler $handler): void
@@ -70,7 +69,6 @@ class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param ErrorResponseHandler $handler
      * @depends testInstantiation
      */
     public function testThrowsInvalidPayloadException(ErrorResponseHandler $handler): void
@@ -83,7 +81,6 @@ class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param ErrorResponseHandler $handler
      * @depends testInstantiation
      */
     public function testThrowsUserNotFoundException(ErrorResponseHandler $handler): void
@@ -96,7 +93,6 @@ class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param ErrorResponseHandler $handler
      * @depends testInstantiation
      */
     public function testThrowsActionProhibitedException(ErrorResponseHandler $handler): void
@@ -109,7 +105,6 @@ class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param ErrorResponseHandler $handler
      * @depends testInstantiation
      */
     public function testThrowsChannelNotFoundException(ErrorResponseHandler $handler): void
@@ -122,7 +117,6 @@ class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param ErrorResponseHandler $handler
      * @depends testInstantiation
      */
     public function testThrowsChannelIsArchivedException(ErrorResponseHandler $handler): void
@@ -135,7 +129,6 @@ class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param ErrorResponseHandler $handler
      * @depends testInstantiation
      */
     public function testThrowsRollupErrorException(ErrorResponseHandler $handler): void

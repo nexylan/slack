@@ -46,43 +46,28 @@ final class ActionConfirmation
      */
     private $dismissText;
 
-    /**
-     * @param string $title
-     * @param string $text
-     */
     public function __construct(string $title, string $text)
     {
         $this->title = $title;
         $this->text = $text;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @return string
-     */
     public function getText(): string
     {
         return $this->text;
     }
 
-    /**
-     * @return string|null
-     */
     public function getOkText(): ?string
     {
         return $this->okText;
     }
 
     /**
-     * @param string|null $okText
-     *
      * @return ActionConfirmation
      */
     public function setOkText(?string $okText): self
@@ -92,17 +77,12 @@ final class ActionConfirmation
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDismissText(): ?string
     {
         return $this->dismissText;
     }
 
     /**
-     * @param string|null $dismissText
-     *
      * @return ActionConfirmation
      */
     public function setDismissText(?string $dismissText): self
@@ -114,8 +94,6 @@ final class ActionConfirmation
 
     /**
      * Get the array representation of this action confirmation.
-     *
-     * @return array
      */
     public function toArray(): array
     {

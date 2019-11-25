@@ -110,9 +110,6 @@ final class Client
         return \call_user_func_array([$this->createMessage(), $name], $arguments);
     }
 
-    /**
-     * @return array
-     */
     public function getOptions(): array
     {
         return $this->options;
@@ -172,8 +169,6 @@ final class Client
      * Prepares the payload to be sent to the webhook.
      *
      * @param \Nexy\Slack\Message $message The message to send
-     *
-     * @return array
      */
     private function preparePayload(Message $message): array
     {
@@ -200,8 +195,6 @@ final class Client
      * Get the attachments in array form.
      *
      * @param \Nexy\Slack\Message $message
-     *
-     * @return array
      */
     private function getAttachmentsAsArrays(Message $message): array
     {
