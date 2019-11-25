@@ -40,11 +40,6 @@ final class AttachmentField
      */
     private $short;
 
-    /**
-     * @param string $title
-     * @param string $value
-     * @param bool   $short
-     */
     public function __construct(string $title, string $value, bool $short = false)
     {
         $this->title = $title;
@@ -52,25 +47,16 @@ final class AttachmentField
         $this->short = $short;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @return bool
-     */
     public function isShort(): bool
     {
         return $this->short;
@@ -78,8 +64,6 @@ final class AttachmentField
 
     /**
      * Get the array representation of this attachment field.
-     *
-     * @return array
      */
     public function toArray(): array
     {

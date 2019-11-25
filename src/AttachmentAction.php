@@ -73,43 +73,28 @@ final class AttachmentAction
      */
     private $confirm;
 
-    /**
-     * @param string $name
-     * @param string $text
-     */
     public function __construct(string $name, string $text)
     {
         $this->name = $name;
         $this->text = $text;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getText(): string
     {
         return $this->text;
     }
 
-    /**
-     * @return string
-     */
     public function getStyle(): string
     {
         return $this->style;
     }
 
     /**
-     * @param string $style
-     *
      * @return AttachmentAction
      */
     public function setStyle(string $style): self
@@ -119,17 +104,12 @@ final class AttachmentAction
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
     /**
-     * @param string $type
-     *
      * @return AttachmentAction
      */
     public function setType(string $type): self
@@ -139,17 +119,12 @@ final class AttachmentAction
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getValue(): ?string
     {
         return $this->value;
     }
 
     /**
-     * @param string|null $value
-     *
      * @return AttachmentAction
      */
     public function setValue(?string $value): self
@@ -159,17 +134,12 @@ final class AttachmentAction
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getUrl(): ?string
     {
         return $this->url;
     }
 
     /**
-     * @param string|null $url
-     *
      * @return AttachmentAction
      */
     public function setUrl(?string $url): self
@@ -179,9 +149,6 @@ final class AttachmentAction
         return $this;
     }
 
-    /**
-     * @return ActionConfirmation|null
-     */
     public function getConfirm(): ?ActionConfirmation
     {
         return $this->confirm;
@@ -201,8 +168,6 @@ final class AttachmentAction
 
     /**
      * Get the array representation of this attachment action.
-     *
-     * @return array
      */
     public function toArray(): array
     {

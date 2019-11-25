@@ -139,9 +139,6 @@ final class Attachment
      */
     private $actions = [];
 
-    /**
-     * @return string
-     */
     public function getFallback(): string
     {
         return $this->fallback;
@@ -149,8 +146,6 @@ final class Attachment
 
     /**
      * Set the fallback text.
-     *
-     * @param string $fallback
      *
      * @return $this
      */
@@ -161,9 +156,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getText(): string
     {
         return $this->text;
@@ -171,8 +163,6 @@ final class Attachment
 
     /**
      * Set the optional text to appear within the attachment.
-     *
-     * @param string $text
      *
      * @return $this
      */
@@ -183,9 +173,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getImageUrl(): ?string
     {
         return $this->imageUrl;
@@ -193,8 +180,6 @@ final class Attachment
 
     /**
      * Set the optional image to appear within the attachment.
-     *
-     * @param string|null $imageUrl
      *
      * @return $this
      */
@@ -205,9 +190,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getThumbUrl(): ?string
     {
         return $this->thumbUrl;
@@ -215,8 +197,6 @@ final class Attachment
 
     /**
      * Set the optional thumbnail to appear within the attachment.
-     *
-     * @param string|null $thumbUrl
      *
      * @return $this
      */
@@ -227,9 +207,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPretext(): ?string
     {
         return $this->pretext;
@@ -237,8 +214,6 @@ final class Attachment
 
     /**
      * Set the text that should appear above the formatted data.
-     *
-     * @param string|null $pretext
      *
      * @return $this
      */
@@ -249,9 +224,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getColor(): ?string
     {
         return $this->color;
@@ -259,8 +231,6 @@ final class Attachment
 
     /**
      * Set the color to use for the attachment.
-     *
-     * @param string|null $color
      *
      * @return $this
      */
@@ -271,9 +241,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFooter(): ?string
     {
         return $this->footer;
@@ -281,8 +248,6 @@ final class Attachment
 
     /**
      * Set the footer text to use for the attachment.
-     *
-     * @param string|null $footer
      *
      * @return $this
      */
@@ -293,9 +258,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFooterIcon(): ?string
     {
         return $this->footerIcon;
@@ -303,8 +265,6 @@ final class Attachment
 
     /**
      * Set the footer icon to use for the attachment.
-     *
-     * @param string|null $footerIcon
      *
      * @return $this
      */
@@ -315,9 +275,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getTimestamp(): ?\DateTime
     {
         return $this->timestamp;
@@ -325,8 +282,6 @@ final class Attachment
 
     /**
      * Set the timestamp to use for the attachment.
-     *
-     * @param \DateTime|null $timestamp
      *
      * @return $this
      */
@@ -337,9 +292,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTitle(): ?string
     {
         return $this->title;
@@ -347,8 +299,6 @@ final class Attachment
 
     /**
      * Set the title to use for the attachment.
-     *
-     * @param string|null $title
      *
      * @return $this
      */
@@ -359,9 +309,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTitleLink(): ?string
     {
         return $this->titleLink;
@@ -369,8 +316,6 @@ final class Attachment
 
     /**
      * Set the title link to use for the attachment.
-     *
-     * @param string|null $titleLink
      *
      * @return $this
      */
@@ -381,9 +326,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAuthorName(): ?string
     {
         return $this->authorName;
@@ -391,8 +333,6 @@ final class Attachment
 
     /**
      * Set the author name to use for the attachment.
-     *
-     * @param string|null $authorName
      *
      * @return $this
      */
@@ -403,9 +343,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAuthorLink(): ?string
     {
         return $this->authorLink;
@@ -413,8 +350,6 @@ final class Attachment
 
     /**
      * Set the author link to use for the attachment.
-     *
-     * @param string|null $authorLink
      *
      * @return $this
      */
@@ -425,9 +360,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAuthorIcon(): ?string
     {
         return $this->authorIcon;
@@ -435,8 +367,6 @@ final class Attachment
 
     /**
      * Set the author icon to use for the attachment.
-     *
-     * @param string|null $authorIcon
      *
      * @return $this
      */
@@ -447,9 +377,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getFields(): array
     {
         return $this->fields;
@@ -457,8 +384,6 @@ final class Attachment
 
     /**
      * Set the fields for the attachment.
-     *
-     * @param array $fields
      *
      * @return $this
      */
@@ -475,8 +400,6 @@ final class Attachment
 
     /**
      * Add a field to the attachment.
-     *
-     * @param AttachmentField $field
      *
      * @return $this
      */
@@ -499,9 +422,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getMarkdownFields(): array
     {
         return $this->markdownFields;
@@ -510,8 +430,6 @@ final class Attachment
     /**
      * Set the fields Slack should interpret in its
      * Markdown-like language.
-     *
-     * @param array $fields
      *
      * @return $this
      */
@@ -522,9 +440,6 @@ final class Attachment
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getActions(): array
     {
         return $this->actions;
@@ -551,8 +466,6 @@ final class Attachment
     /**
      * Add an action to the attachment.
      *
-     * @param AttachmentAction $action
-     *
      * @return $this
      */
     public function addAction(AttachmentAction $action): self
@@ -576,8 +489,6 @@ final class Attachment
 
     /**
      * Convert this attachment to its array representation.
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -608,8 +519,6 @@ final class Attachment
     /**
      * Iterates over all fields in this attachment and returns
      * them in their array form.
-     *
-     * @return array
      */
     private function getFieldsAsArrays(): array
     {
@@ -625,8 +534,6 @@ final class Attachment
     /**
      * Iterates over all actions in this attachment and returns
      * them in their array form.
-     *
-     * @return array
      */
     private function getActionsAsArrays(): array
     {
