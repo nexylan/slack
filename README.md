@@ -29,7 +29,7 @@ The next releases will be under the MIT license. See the current [LICENSE](LICEN
 
 ## Requirements
 
-* PHP 7.1+
+* PHP 7.3+
 
 ## Installation
 
