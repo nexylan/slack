@@ -118,9 +118,9 @@ final class Client implements ClientInterface
     /**
      * Create a new message with defaults.
      *
-     * @return \Nexy\Slack\Message
+     * @return \Nexy\Slack\MessageInterface
      */
-    public function createMessage(): Message
+    public function createMessage(): MessageInterface
     {
         return (new Message($this))
             ->setChannel($this->options['channel'])
@@ -134,14 +134,14 @@ final class Client implements ClientInterface
     /**
      * Send a message.
      *
-     * @param \Nexy\Slack\Message $message
+     * @param \Nexy\Slack\MessageInterface $message
      *
      * @throws \RuntimeException
      * @throws \Psr\Http\Client\Exception
      * @throws SlackApiException
      * @throws \Http\Client\Exception
      */
-    public function sendMessage(Message $message): void
+    public function sendMessage(MessageInterface $message): void
     {
         // Ensure the message will always be sent to the default channel if asked for.
         if ($this->options['sticky_channel']) {
