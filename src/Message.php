@@ -16,7 +16,7 @@ namespace Nexy\Slack;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class Message
+final class Message implements MessageInterface
 {
     /**
      * Reference to the Slack client responsible for sending
@@ -114,7 +114,7 @@ final class Message
      *
      * @return $this
      */
-    public function setText(?string $text): self
+    public function setText(?string $text): MessageInterface
     {
         $this->text = $text;
 
@@ -131,7 +131,7 @@ final class Message
      *
      * @return $this
      */
-    public function setChannel(?string $channel): self
+    public function setChannel(?string $channel): MessageInterface
     {
         $this->channel = $channel;
 
@@ -148,7 +148,7 @@ final class Message
      *
      * @return $this
      */
-    public function setUsername(?string $username): self
+    public function setUsername(?string $username): MessageInterface
     {
         $this->username = $username;
 
@@ -165,7 +165,7 @@ final class Message
      *
      * @return $this
      */
-    public function setIcon(?string $icon): self
+    public function setIcon(?string $icon): MessageInterface
     {
         if (null === $icon) {
             $this->icon = $this->iconType = null;
@@ -200,19 +200,19 @@ final class Message
      *
      * @return Message
      */
-    public function setAllowMarkdown(bool $value): self
+    public function setAllowMarkdown(bool $value): MessageInterface
     {
         $this->allowMarkdown = $value;
 
         return $this;
     }
 
-    public function enableMarkdown(): self
+    public function enableMarkdown(): MessageInterface
     {
         return $this->setAllowMarkdown(true);
     }
 
-    public function disableMarkdown(): self
+    public function disableMarkdown(): MessageInterface
     {
         return $this->setAllowMarkdown(false);
     }
@@ -228,7 +228,7 @@ final class Message
      *
      * @return Message
      */
-    public function setMarkdownInAttachments(array $fields): self
+    public function setMarkdownInAttachments(array $fields): MessageInterface
     {
         $this->markdownInAttachments = $fields;
 
@@ -240,7 +240,7 @@ final class Message
      *
      * @return $this
      */
-    public function from(string $username): self
+    public function from(string $username): MessageInterface
     {
         return $this->setUsername($username);
     }
@@ -250,7 +250,7 @@ final class Message
      *
      * @return $this
      */
-    public function to(string $channel): self
+    public function to(string $channel): MessageInterface
     {
         return $this->setChannel($channel);
     }
@@ -260,7 +260,7 @@ final class Message
      *
      * @return $this
      */
-    public function withIcon(string $icon): self
+    public function withIcon(string $icon): MessageInterface
     {
         return $this->setIcon($icon);
     }
@@ -270,7 +270,7 @@ final class Message
      *
      * @return $this
      */
-    public function attach(Attachment $attachment): self
+    public function attach(Attachment $attachment): MessageInterface
     {
         $this->attachments[] = $attachment;
 
@@ -290,7 +290,7 @@ final class Message
      *
      * @return $this
      */
-    public function setAttachments(array $attachments): self
+    public function setAttachments(array $attachments): MessageInterface
     {
         $this->clearAttachments();
 
@@ -306,7 +306,7 @@ final class Message
      *
      * @return $this
      */
-    public function clearAttachments(): self
+    public function clearAttachments(): MessageInterface
     {
         $this->attachments = [];
 
@@ -320,7 +320,7 @@ final class Message
      *
      * @return Message
      */
-    public function send(?string $text = null): self
+    public function send(?string $text = null): MessageInterface
     {
         if ($text) {
             $this->setText($text);
