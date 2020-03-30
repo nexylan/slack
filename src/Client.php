@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Nexy\Slack;
 
 use Nexy\Slack\Exception\SlackApiException;
-use Psr\Http\Client\ClientInterface;
+use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class Client
+final class Client implements ClientInterface
 {
     /**
      * @var ErrorResponseHandler
@@ -40,7 +40,7 @@ final class Client
     private $options;
 
     /**
-     * @var ClientInterface
+     * @var HttpClientInterface
      */
     private $httpClient;
 
@@ -58,7 +58,7 @@ final class Client
      * @param mixed[] $options
      */
     public function __construct(
-        ClientInterface $httpClient,
+        HttpClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory,
         string $endpoint,
