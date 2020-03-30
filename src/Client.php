@@ -103,9 +103,9 @@ final class Client implements ClientInterface
      * @param string $name      The name of the method
      * @param array  $arguments The method arguments
      *
-     * @return \Nexy\Slack\Message
+     * @return \Nexy\Slack\MessageInterface
      */
-    public function __call(string $name, array $arguments): Message
+    public function __call(string $name, array $arguments): MessageInterface
     {
         return \call_user_func_array([$this->createMessage(), $name], $arguments);
     }
@@ -168,9 +168,9 @@ final class Client implements ClientInterface
     /**
      * Prepares the payload to be sent to the webhook.
      *
-     * @param \Nexy\Slack\Message $message The message to send
+     * @param \Nexy\Slack\MessageInterface $message The message to send
      */
-    private function preparePayload(Message $message): array
+    private function preparePayload(MessageInterface $message): array
     {
         $payload = [
             'text' => $message->getText(),
@@ -194,9 +194,9 @@ final class Client implements ClientInterface
     /**
      * Get the attachments in array form.
      *
-     * @param \Nexy\Slack\Message $message
+     * @param \Nexy\Slack\MessageInterface $message
      */
-    private function getAttachmentsAsArrays(Message $message): array
+    private function getAttachmentsAsArrays(MessageInterface $message): array
     {
         $attachments = [];
 
