@@ -6,6 +6,7 @@ language: php
 
 php:
   - 7.3
+  - 7.4
   - nightly
 
 env:
@@ -20,6 +21,7 @@ matrix:
     - php: 7.3
       env: LINT="1"
     - php: 7.3
+    - php: 7.4
   allow_failures:
     - php: nightly
     - env: SYMFONY_VERSION=dev-master
