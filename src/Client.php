@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Nexy\Slack;
 
 use Nexy\Slack\Exception\SlackApiException;
-use Psr\Http\Client\ClientInterface;
+use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class Client
+final class Client implements ClientInterface
 {
     /**
      * @var ErrorResponseHandler
@@ -40,7 +40,7 @@ final class Client
     private $options;
 
     /**
-     * @var ClientInterface
+     * @var HttpClientInterface
      */
     private $httpClient;
 
@@ -58,7 +58,7 @@ final class Client
      * @param mixed[] $options
      */
     public function __construct(
-        ClientInterface $httpClient,
+        HttpClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory,
         string $endpoint,
@@ -103,9 +103,9 @@ final class Client
      * @param string $name      The name of the method
      * @param array  $arguments The method arguments
      *
-     * @return \Nexy\Slack\Message
+     * @return \Nexy\Slack\MessageInterface
      */
-    public function __call(string $name, array $arguments): Message
+    public function __call(string $name, array $arguments): MessageInterface
     {
         return \call_user_func_array([$this->createMessage(), $name], $arguments);
     }
@@ -118,9 +118,9 @@ final class Client
     /**
      * Create a new message with defaults.
      *
-     * @return \Nexy\Slack\Message
+     * @return \Nexy\Slack\MessageInterface
      */
-    public function createMessage(): Message
+    public function createMessage(): MessageInterface
     {
         return (new Message($this))
             ->setChannel($this->options['channel'])
@@ -134,14 +134,14 @@ final class Client
     /**
      * Send a message.
      *
-     * @param \Nexy\Slack\Message $message
+     * @param \Nexy\Slack\MessageInterface $message
      *
      * @throws \RuntimeException
      * @throws \Psr\Http\Client\Exception
      * @throws SlackApiException
      * @throws \Http\Client\Exception
      */
-    public function sendMessage(Message $message): void
+    public function sendMessage(MessageInterface $message): void
     {
         // Ensure the message will always be sent to the default channel if asked for.
         if ($this->options['sticky_channel']) {
@@ -168,9 +168,9 @@ final class Client
     /**
      * Prepares the payload to be sent to the webhook.
      *
-     * @param \Nexy\Slack\Message $message The message to send
+     * @param \Nexy\Slack\MessageInterface $message The message to send
      */
-    private function preparePayload(Message $message): array
+    private function preparePayload(MessageInterface $message): array
     {
         $payload = [
             'text' => $message->getText(),
@@ -194,9 +194,9 @@ final class Client
     /**
      * Get the attachments in array form.
      *
-     * @param \Nexy\Slack\Message $message
+     * @param \Nexy\Slack\MessageInterface $message
      */
-    private function getAttachmentsAsArrays(Message $message): array
+    private function getAttachmentsAsArrays(MessageInterface $message): array
     {
         $attachments = [];
 
