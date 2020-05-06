@@ -16,5 +16,6 @@ namespace Nexy\Slack;
 interface ClientInterface
 {
     public function createMessage(): MessageInterface;
+
     public function sendMessage(MessageInterface $message): void;
 }
