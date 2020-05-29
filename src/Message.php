@@ -22,7 +22,7 @@ final class Message implements MessageInterface
      * Reference to the Slack client responsible for sending
      * the message.
      *
-     * @var \Nexy\Slack\Client
+     * @var \Nexy\Slack\ClientInterface
      */
     private $client;
 
@@ -97,9 +97,9 @@ final class Message implements MessageInterface
     /**
      * Instantiate a new Message.
      *
-     * @param \Nexy\Slack\Client $client
+     * @param \Nexy\Slack\ClientInterface $client
      */
-    public function __construct(Client $client)
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
