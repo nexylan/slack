@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.1] - 2020-05-29
+### Fixed
+- Missing ClientInterface usage on Message constructor
+
 ## [3.1.0] - 2020-05-06
 ### Added
 - Interfaces for Client and Message
