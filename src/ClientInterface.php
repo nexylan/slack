@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Nexy\Slack;
 
+use Zakirullin\Mess\MessInterface;
+
 interface ClientInterface
 {
     public function createMessage(): MessageInterface;
 
-    public function sendMessage(MessageInterface $message): void;
+    public function sendMessage(MessageInterface $message): MessInterface;
 }

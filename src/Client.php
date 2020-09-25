@@ -18,6 +18,8 @@ use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Zakirullin\Mess\Mess;
+use Zakirullin\Mess\MessInterface;
 
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
@@ -135,13 +137,13 @@ final class Client implements ClientInterface
      * Send a message.
      *
      * @param \Nexy\Slack\MessageInterface $message
-     *
+     * @return MessInterface
      * @throws \RuntimeException
      * @throws \Psr\Http\Client\Exception
      * @throws SlackApiException
      * @throws \Http\Client\Exception
      */
-    public function sendMessage(MessageInterface $message): void
+    public function sendMessage(MessageInterface $message): MessInterface
     {
         // Ensure the message will always be sent to the default channel if asked for.
         if ($this->options['sticky_channel']) {
@@ -163,6 +165,8 @@ final class Client implements ClientInterface
         );
 
         $this->errorResponseHandler->handleResponse($response);
+
+        return new Mess(\json_decode((string)$response->getBody(), true));
     }
 
     /**
