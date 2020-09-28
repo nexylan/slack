@@ -46,4 +46,4 @@ script:
   - if [ "$LINT" != "1" ]; then phpunit --coverage-clover build/logs/clover.xml; fi;
 
 after_script:
-  - if [ "$LINT" != "1" ]; coveralls -v; fi;
+  - if [ "$LINT" != "1" ]; then coveralls -v; fi;
