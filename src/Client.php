@@ -150,7 +150,7 @@ final class Client implements ClientInterface
 
         $payload = $this->preparePayload($message);
 
-        $encoded = \json_encode($payload, JSON_UNESCAPED_UNICODE);
+        $encoded = \json_encode($payload, \JSON_UNESCAPED_UNICODE);
 
         if (false === $encoded) {
             throw new \RuntimeException(\sprintf('JSON encoding error %s: %s', \json_last_error(), \json_last_error_msg()));
