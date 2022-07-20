@@ -22,7 +22,7 @@ final class Message implements MessageInterface
      * Reference to the Slack client responsible for sending
      * the message.
      *
-     * @var \Nexy\Slack\ClientInterface
+     * @var ClientInterface
      */
     private $client;
 
@@ -87,17 +87,17 @@ final class Message implements MessageInterface
     /**
      * @var string
      */
-    const ICON_TYPE_URL = 'icon_url';
+    public const ICON_TYPE_URL = 'icon_url';
 
     /**
      * @var string
      */
-    const ICON_TYPE_EMOJI = 'icon_emoji';
+    public const ICON_TYPE_EMOJI = 'icon_emoji';
 
     /**
      * Instantiate a new Message.
      *
-     * @param \Nexy\Slack\ClientInterface $client
+     * @param ClientInterface $client
      */
     public function __construct(ClientInterface $client)
     {

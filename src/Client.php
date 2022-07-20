@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Nexy\Slack;
 
+use Http\Client\Exception;
 use Nexy\Slack\Exception\SlackApiException;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -64,21 +65,21 @@ final class Client implements ClientInterface
         string $endpoint,
         array $options = []
     ) {
-        $this->httpClient = $httpClient;
+        $this->httpClient     = $httpClient;
         $this->requestFactory = $requestFactory;
-        $this->streamFactory = $streamFactory;
-        $this->endpoint = $endpoint;
+        $this->streamFactory  = $streamFactory;
+        $this->endpoint       = $endpoint;
 
         $resolver = (new OptionsResolver())
             ->setDefaults([
-                'channel' => null,
-                'sticky_channel' => false,
-                'username' => null,
-                'icon' => null,
-                'link_names' => false,
-                'unfurl_links' => false,
-                'unfurl_media' => true,
-                'allow_markdown' => true,
+                'channel'                 => null,
+                'sticky_channel'          => false,
+                'username'                => null,
+                'icon'                    => null,
+                'link_names'              => false,
+                'unfurl_links'            => false,
+                'unfurl_media'            => true,
+                'allow_markdown'          => true,
                 'markdown_in_attachments' => [],
             ])
             ->setAllowedTypes('channel', ['string', 'null'])
@@ -103,7 +104,7 @@ final class Client implements ClientInterface
      * @param string $name      The name of the method
      * @param array  $arguments The method arguments
      *
-     * @return \Nexy\Slack\MessageInterface
+     * @return MessageInterface
      */
     public function __call(string $name, array $arguments): MessageInterface
     {
@@ -118,7 +119,7 @@ final class Client implements ClientInterface
     /**
      * Create a new message with defaults.
      *
-     * @return \Nexy\Slack\MessageInterface
+     * @return MessageInterface
      */
     public function createMessage(): MessageInterface
     {
@@ -134,12 +135,12 @@ final class Client implements ClientInterface
     /**
      * Send a message.
      *
-     * @param \Nexy\Slack\MessageInterface $message
+     * @param MessageInterface $message
      *
      * @throws \RuntimeException
      * @throws \Psr\Http\Client\Exception
      * @throws SlackApiException
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
     public function sendMessage(MessageInterface $message): void
     {
@@ -168,18 +169,18 @@ final class Client implements ClientInterface
     /**
      * Prepares the payload to be sent to the webhook.
      *
-     * @param \Nexy\Slack\MessageInterface $message The message to send
+     * @param MessageInterface $message The message to send
      */
     private function preparePayload(MessageInterface $message): array
     {
         $payload = [
-            'text' => $message->getText(),
-            'channel' => $message->getChannel(),
-            'username' => $message->getUsername(),
-            'link_names' => $this->options['link_names'] ? 1 : 0,
+            'text'         => $message->getText(),
+            'channel'      => $message->getChannel(),
+            'username'     => $message->getUsername(),
+            'link_names'   => $this->options['link_names'] ? 1 : 0,
             'unfurl_links' => $this->options['unfurl_links'],
             'unfurl_media' => $this->options['unfurl_media'],
-            'mrkdwn' => $this->options['allow_markdown'],
+            'mrkdwn'       => $this->options['allow_markdown'],
         ];
 
         if ($icon = $message->getIcon()) {
@@ -194,7 +195,7 @@ final class Client implements ClientInterface
     /**
      * Get the attachments in array form.
      *
-     * @param \Nexy\Slack\MessageInterface $message
+     * @param MessageInterface $message
      */
     private function getAttachmentsAsArrays(MessageInterface $message): array
     {

@@ -1,6 +1,8 @@
 <?php
 
 declare(strict_types=1);
+use Mockery\LegacyMockInterface;
+use Nexy\Slack\ErrorResponseHandler;
 
 /*
  * This file is part of the Nexylan packages.
@@ -11,19 +13,19 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Nexy\Slack\ErrorResponseHandler;
 use Nexy\Slack\Exception\ActionProhibitedException;
 use Nexy\Slack\Exception\ChannelIsArchivedException;
 use Nexy\Slack\Exception\ChannelNotFoundException;
 use Nexy\Slack\Exception\InvalidPayloadException;
 use Nexy\Slack\Exception\RollupErrorException;
 use Nexy\Slack\Exception\UserNotFoundException;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
-class ErrorResponseHandlerUnitTest extends PHPUnit\Framework\TestCase
+class ErrorResponseHandlerUnitTest extends TestCase
 {
-    private function getResponseMock(int $code, string $phrase, string $body): ResponseInterface
+    private function getResponseMock(int $code, string $phrase, string $body): LegacyMockInterface
     {
         $responseMock = Mockery::mock(ResponseInterface::class);
 

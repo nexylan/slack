@@ -49,7 +49,7 @@ final class ActionConfirmation
     public function __construct(string $title, string $text)
     {
         $this->title = $title;
-        $this->text = $text;
+        $this->text  = $text;
     }
 
     public function getTitle(): string
@@ -98,9 +98,9 @@ final class ActionConfirmation
     public function toArray(): array
     {
         return [
-            'title' => $this->title,
-            'text' => $this->text,
-            'ok_text' => $this->okText,
+            'title'        => $this->title,
+            'text'         => $this->text,
+            'ok_text'      => $this->okText,
             'dismiss_text' => $this->dismissText,
         ];
     }

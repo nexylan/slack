@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use Http\Discovery\Psr17FactoryDiscovery;
 
 /*
  * This file is part of the Nexylan packages.
@@ -11,14 +12,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Http\Discovery\Psr17FactoryDiscovery;
 use Nexy\Slack\ActionConfirmation;
 use Nexy\Slack\Attachment;
 use Nexy\Slack\AttachmentAction;
 use Nexy\Slack\AttachmentField;
 use Nexy\Slack\Client;
+use PHPUnit\Framework\TestCase;
 
-class ClientFunctionalTest extends PHPUnit\Framework\TestCase
+class ClientFunctionalTest extends TestCase
 {
     /**
      * @var \Http\Mock\Client
@@ -33,14 +34,14 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
     public function testPlainMessage(): void
     {
         $expectedHttpData = [
-            'text' => 'Message',
-            'channel' => '@regan',
-            'username' => 'Archer',
-            'link_names' => 0,
+            'text'         => 'Message',
+            'channel'      => '@regan',
+            'username'     => 'Archer',
+            'link_names'   => 0,
             'unfurl_links' => false,
             'unfurl_media' => true,
-            'mrkdwn' => true,
-            'attachments' => [],
+            'mrkdwn'       => true,
+            'attachments'  => [],
         ];
 
         $client = new Client(
@@ -64,14 +65,14 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
     public function testStickyChannel(): void
     {
         $expectedHttpData = [
-            'text' => 'Message',
-            'channel' => '#default',
-            'username' => 'Archer',
-            'link_names' => 0,
+            'text'         => 'Message',
+            'channel'      => '#default',
+            'username'     => 'Archer',
+            'link_names'   => 0,
             'unfurl_links' => false,
             'unfurl_media' => true,
-            'mrkdwn' => true,
-            'attachments' => [],
+            'mrkdwn'       => true,
+            'attachments'  => [],
         ];
 
         $client = new Client(
@@ -80,7 +81,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             Psr17FactoryDiscovery::findStreamFactory(),
             'http://fake.endpoint',
             [
-                'channel' => '#default',
+                'channel'        => '#default',
                 'sticky_channel' => true,
             ]
         );
@@ -120,7 +121,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'http://fake.endpoint',
             [
                 'username' => 'Test',
-                'channel' => '#general',
+                'channel'  => '#general',
             ]
         );
 
@@ -132,34 +133,34 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
 
         // Subtle difference with timestamp
         $attachmentOutput = [
-            'fallback' => 'Some fallback text',
-            'text' => 'Some text to appear in the attachment',
-            'pretext' => null,
-            'color' => 'bad',
-            'footer' => 'Footer',
+            'fallback'    => 'Some fallback text',
+            'text'        => 'Some text to appear in the attachment',
+            'pretext'     => null,
+            'color'       => 'bad',
+            'footer'      => 'Footer',
             'footer_icon' => 'https://platform.slack-edge.com/img/default_application_icon.png',
-            'ts' => $now->getTimestamp(),
-            'mrkdwn_in' => ['pretext', 'text'],
-            'image_url' => 'http://fake.host/image.png',
-            'thumb_url' => 'http://fake.host/image.png',
-            'title' => null,
-            'title_link' => null,
+            'ts'          => $now->getTimestamp(),
+            'mrkdwn_in'   => ['pretext', 'text'],
+            'image_url'   => 'http://fake.host/image.png',
+            'thumb_url'   => 'http://fake.host/image.png',
+            'title'       => null,
+            'title_link'  => null,
             'author_name' => 'Joe Bloggs',
             'author_link' => 'http://fake.host/',
             'author_icon' => 'http://fake.host/image.png',
-            'fields' => [],
-            'actions' => [],
+            'fields'      => [],
+            'actions'     => [],
         ];
 
         $expectedHttpData = [
-            'text' => 'Message',
-            'channel' => '#general',
-            'username' => 'Test',
-            'link_names' => 0,
+            'text'         => 'Message',
+            'channel'      => '#general',
+            'username'     => 'Test',
+            'link_names'   => 0,
             'unfurl_links' => false,
             'unfurl_media' => true,
-            'mrkdwn' => true,
-            'attachments' => [$attachmentOutput],
+            'mrkdwn'       => true,
+            'attachments'  => [$attachmentOutput],
         ];
 
         $this->assertSame(
@@ -194,22 +195,22 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             );
 
         $attachmentOutput = [
-            'fallback' => 'Some fallback text',
-            'text' => 'Some text to appear in the attachment',
-            'pretext' => null,
-            'color' => 'bad',
-            'footer' => 'Footer',
+            'fallback'    => 'Some fallback text',
+            'text'        => 'Some text to appear in the attachment',
+            'pretext'     => null,
+            'color'       => 'bad',
+            'footer'      => 'Footer',
             'footer_icon' => 'https://platform.slack-edge.com/img/default_application_icon.png',
-            'ts' => $now->getTimestamp(),
-            'mrkdwn_in' => [],
-            'image_url' => 'http://fake.host/image.png',
-            'thumb_url' => 'http://fake.host/image.png',
-            'title' => 'A title',
-            'title_link' => 'http://fake.host/',
+            'ts'          => $now->getTimestamp(),
+            'mrkdwn_in'   => [],
+            'image_url'   => 'http://fake.host/image.png',
+            'thumb_url'   => 'http://fake.host/image.png',
+            'title'       => 'A title',
+            'title_link'  => 'http://fake.host/',
             'author_name' => 'Joe Bloggs',
             'author_link' => 'http://fake.host/',
             'author_icon' => 'http://fake.host/image.png',
-            'fields' => [
+            'fields'      => [
                 [
                     'title' => 'Field 1',
                     'value' => 'Value 1',
@@ -231,7 +232,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'http://fake.endpoint',
             [
                 'username' => 'Test',
-                'channel' => '#general',
+                'channel'  => '#general',
             ]
         );
 
@@ -242,14 +243,14 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $client->sendMessage($message);
 
         $expectedHttpData = [
-            'text' => 'Message',
-            'channel' => '#general',
-            'username' => 'Test',
-            'link_names' => 0,
+            'text'         => 'Message',
+            'channel'      => '#general',
+            'username'     => 'Test',
+            'link_names'   => 0,
             'unfurl_links' => false,
             'unfurl_media' => true,
-            'mrkdwn' => true,
-            'attachments' => [$attachmentOutput],
+            'mrkdwn'       => true,
+            'attachments'  => [$attachmentOutput],
         ];
 
         $this->assertSame(
@@ -282,7 +283,8 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
                         ->setStyle('default')
                         ->setType('button')
                         ->setValue('Value 1')
-                        ->setConfirm((new ActionConfirmation('Title 1', 'Text 1'))
+                        ->setConfirm(
+                            (new ActionConfirmation('Title 1', 'Text 1'))
                             ->setOkText('OK Text 1')
                             ->setDismissText('Dismiss Text 1')
                         ),
@@ -290,7 +292,8 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
                         ->setStyle('default')
                         ->setType('button')
                         ->setValue('Value 2')
-                        ->setConfirm((new ActionConfirmation('Title 2', 'Text 2'))
+                        ->setConfirm(
+                            (new ActionConfirmation('Title 2', 'Text 2'))
                             ->setOkText('OK Text 2')
                             ->setDismissText('Dismiss Text 2')
                         ),
@@ -302,54 +305,54 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             );
 
         $attachmentOutput = [
-            'fallback' => 'Some fallback text',
-            'text' => 'Some text to appear in the attachment',
-            'pretext' => null,
-            'color' => 'bad',
-            'footer' => 'Footer',
+            'fallback'    => 'Some fallback text',
+            'text'        => 'Some text to appear in the attachment',
+            'pretext'     => null,
+            'color'       => 'bad',
+            'footer'      => 'Footer',
             'footer_icon' => 'https://platform.slack-edge.com/img/default_application_icon.png',
-            'ts' => $now->getTimestamp(),
-            'mrkdwn_in' => [],
-            'image_url' => 'http://fake.host/image.png',
-            'thumb_url' => 'http://fake.host/image.png',
-            'title' => 'A title',
-            'title_link' => 'http://fake.host/',
+            'ts'          => $now->getTimestamp(),
+            'mrkdwn_in'   => [],
+            'image_url'   => 'http://fake.host/image.png',
+            'thumb_url'   => 'http://fake.host/image.png',
+            'title'       => 'A title',
+            'title_link'  => 'http://fake.host/',
             'author_name' => 'Joe Bloggs',
             'author_link' => 'http://fake.host/',
             'author_icon' => 'http://fake.host/image.png',
-            'fields' => [],
-            'actions' => [
+            'fields'      => [],
+            'actions'     => [
                 [
-                    'text' => 'Text 1',
-                    'style' => 'default',
-                    'type' => 'button',
-                    'name' => 'Name 1',
-                    'value' => 'Value 1',
+                    'text'    => 'Text 1',
+                    'style'   => 'default',
+                    'type'    => 'button',
+                    'name'    => 'Name 1',
+                    'value'   => 'Value 1',
                     'confirm' => [
-                        'title' => 'Title 1',
-                        'text' => 'Text 1',
-                        'ok_text' => 'OK Text 1',
+                        'title'        => 'Title 1',
+                        'text'         => 'Text 1',
+                        'ok_text'      => 'OK Text 1',
                         'dismiss_text' => 'Dismiss Text 1',
                     ],
                 ],
                 [
-                    'text' => 'Text 2',
-                    'style' => 'default',
-                    'type' => 'button',
-                    'name' => 'Name 2',
-                    'value' => 'Value 2',
+                    'text'    => 'Text 2',
+                    'style'   => 'default',
+                    'type'    => 'button',
+                    'name'    => 'Name 2',
+                    'value'   => 'Value 2',
                     'confirm' => [
-                        'title' => 'Title 2',
-                        'text' => 'Text 2',
-                        'ok_text' => 'OK Text 2',
+                        'title'        => 'Title 2',
+                        'text'         => 'Text 2',
+                        'ok_text'      => 'OK Text 2',
                         'dismiss_text' => 'Dismiss Text 2',
                     ],
                 ],
                 [
-                    'text' => 'Button Label 1',
+                    'text'  => 'Button Label 1',
                     'style' => 'default',
-                    'type' => 'button',
-                    'url' => 'https://www.google.com',
+                    'type'  => 'button',
+                    'url'   => 'https://www.google.com',
                 ],
             ],
         ];
@@ -361,7 +364,7 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
             'http://fake.endpoint',
             [
                 'username' => 'Test',
-                'channel' => '#general',
+                'channel'  => '#general',
             ]
         );
 
@@ -372,14 +375,14 @@ class ClientFunctionalTest extends PHPUnit\Framework\TestCase
         $client->sendMessage($message);
 
         $expectedHttpData = [
-            'text' => 'Message',
-            'channel' => '#general',
-            'username' => 'Test',
-            'link_names' => 0,
+            'text'         => 'Message',
+            'channel'      => '#general',
+            'username'     => 'Test',
+            'link_names'   => 0,
             'unfurl_links' => false,
             'unfurl_media' => true,
-            'mrkdwn' => true,
-            'attachments' => [$attachmentOutput],
+            'mrkdwn'       => true,
+            'attachments'  => [$attachmentOutput],
         ];
 
         $this->assertSame(

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use Nexy\Slack\ActionConfirmation;
 
 /*
  * This file is part of the Nexylan packages.
@@ -11,12 +12,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Nexy\Slack\ActionConfirmation;
 use Nexy\Slack\Attachment;
 use Nexy\Slack\AttachmentAction;
 use Nexy\Slack\AttachmentField;
+use PHPUnit\Framework\TestCase;
 
-class AttachmentUnitTest extends PHPUnit\Framework\TestCase
+class AttachmentUnitTest extends TestCase
 {
     public function testAttachmentCreationFromArray(): void
     {
@@ -102,7 +103,8 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
                         ->setStyle('default')
                         ->setType('button')
                         ->setValue('Value 1')
-                        ->setConfirm((new ActionConfirmation('Title 1', 'Text 1'))
+                        ->setConfirm(
+                            (new ActionConfirmation('Title 1', 'Text 1'))
                             ->setOkText('OK Text 1')
                             ->setDismissText('Dismiss Text 1')
                         ),
@@ -110,7 +112,8 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
                         ->setStyle('default')
                         ->setType('button')
                         ->setValue('Value 2')
-                        ->setConfirm((new ActionConfirmation('Title 2', 'Text 2'))
+                        ->setConfirm(
+                            (new ActionConfirmation('Title 2', 'Text 2'))
                             ->setOkText('OK Text 2')
                             ->setDismissText('Dismiss Text 2')
                         ),
@@ -124,22 +127,22 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
 
         // Sublte difference with timestamp
         $out = [
-            'fallback' => 'Fallback',
-            'text' => 'Text',
-            'pretext' => 'Pretext',
-            'color' => 'bad',
-            'footer' => 'Footer',
+            'fallback'    => 'Fallback',
+            'text'        => 'Text',
+            'pretext'     => 'Pretext',
+            'color'       => 'bad',
+            'footer'      => 'Footer',
             'footer_icon' => 'https://platform.slack-edge.com/img/default_application_icon.png',
-            'ts' => $now->getTimestamp(),
-            'mrkdwn_in' => ['pretext', 'text'],
-            'image_url' => 'http://fake.host/image.png',
-            'thumb_url' => 'http://fake.host/image.png',
-            'title' => 'A title',
-            'title_link' => 'http://fake.host/',
+            'ts'          => $now->getTimestamp(),
+            'mrkdwn_in'   => ['pretext', 'text'],
+            'image_url'   => 'http://fake.host/image.png',
+            'thumb_url'   => 'http://fake.host/image.png',
+            'title'       => 'A title',
+            'title_link'  => 'http://fake.host/',
             'author_name' => 'Joe Bloggs',
             'author_link' => 'http://fake.host/',
             'author_icon' => 'http://fake.host/image.png',
-            'fields' => [
+            'fields'      => [
               [
                 'title' => 'Title 1',
                 'value' => 'Value 1',
@@ -153,36 +156,36 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
             ],
             'actions' => [
                 [
-                    'text' => 'Text 1',
-                    'style' => 'default',
-                    'type' => 'button',
-                    'name' => 'Name 1',
-                    'value' => 'Value 1',
+                    'text'    => 'Text 1',
+                    'style'   => 'default',
+                    'type'    => 'button',
+                    'name'    => 'Name 1',
+                    'value'   => 'Value 1',
                     'confirm' => [
-                        'title' => 'Title 1',
-                        'text' => 'Text 1',
-                        'ok_text' => 'OK Text 1',
+                        'title'        => 'Title 1',
+                        'text'         => 'Text 1',
+                        'ok_text'      => 'OK Text 1',
                         'dismiss_text' => 'Dismiss Text 1',
                     ],
                 ],
                 [
-                    'text' => 'Text 2',
-                    'style' => 'default',
-                    'type' => 'button',
-                    'name' => 'Name 2',
-                    'value' => 'Value 2',
+                    'text'    => 'Text 2',
+                    'style'   => 'default',
+                    'type'    => 'button',
+                    'name'    => 'Name 2',
+                    'value'   => 'Value 2',
                     'confirm' => [
-                        'title' => 'Title 2',
-                        'text' => 'Text 2',
-                        'ok_text' => 'OK Text 2',
+                        'title'        => 'Title 2',
+                        'text'         => 'Text 2',
+                        'ok_text'      => 'OK Text 2',
                         'dismiss_text' => 'Dismiss Text 2',
                     ],
                 ],
                 [
-                    'text' => 'Button Label 1',
+                    'text'  => 'Button Label 1',
                     'style' => 'default',
-                    'type' => 'button',
-                    'url' => 'https://www.google.com',
+                    'type'  => 'button',
+                    'url'   => 'https://www.google.com',
                 ],
             ],
         ];
@@ -197,10 +200,12 @@ class AttachmentUnitTest extends PHPUnit\Framework\TestCase
             ->setText('Text')
         ;
 
-        $a->addAction((new AttachmentAction('Name 1', 'Text 1'))
+        $a->addAction(
+            (new AttachmentAction('Name 1', 'Text 1'))
             ->setStyle('default')
             ->setValue('Value 1')
-            ->setConfirm((new ActionConfirmation('Title 1', 'Text 1'))
+            ->setConfirm(
+                (new ActionConfirmation('Title 1', 'Text 1'))
                 ->setOkText('OK Text 1')
                 ->setDismissText('Dismiss Text 1')
             )

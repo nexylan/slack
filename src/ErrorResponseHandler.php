@@ -31,7 +31,7 @@ class ErrorResponseHandler
         400 => [
             'Bad Request' => [
                 'invalid_payload' => InvalidPayloadException::class,
-                'user_not_found' => UserNotFoundException::class,
+                'user_not_found'  => UserNotFoundException::class,
             ],
         ],
         403 => [
@@ -63,12 +63,13 @@ class ErrorResponseHandler
      */
     public function handleResponse(ResponseInterface $response): void
     {
-        $code = $response->getStatusCode();
+        $code   = $response->getStatusCode();
         $phrase = $response->getReasonPhrase();
-        $body = $response->getBody()->__toString();
+        $body   = $response->getBody()->__toString();
 
         if (isset(self::ERROR_TO_EXCEPTION_MAPPING[$code][$phrase][$body])) {
             $exceptionClass = self::ERROR_TO_EXCEPTION_MAPPING[$code][$phrase][$body];
+
             throw new $exceptionClass($body, $code);
         }
     }

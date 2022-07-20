@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use Http\Discovery\Psr17FactoryDiscovery;
 
 /*
  * This file is part of the Nexylan packages.
@@ -11,12 +12,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Http\Discovery\Psr17FactoryDiscovery;
 use Nexy\Slack\Attachment;
 use Nexy\Slack\Client;
 use Nexy\Slack\Message;
+use PHPUnit\Framework\TestCase;
 
-class MessageUnitTest extends PHPUnit\Framework\TestCase
+class MessageUnitTest extends TestCase
 {
     public function testInstantiation(): void
     {
@@ -169,7 +170,7 @@ class MessageUnitTest extends PHPUnit\Framework\TestCase
         $this->assertSame('http://www.fake.com/someimage.png', $message->getIcon());
     }
 
-    protected function getMessage()
+    protected function getMessage(): Message
     {
         return new Message(
             new Client(

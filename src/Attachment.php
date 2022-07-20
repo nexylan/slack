@@ -493,24 +493,24 @@ final class Attachment
     public function toArray(): array
     {
         $data = [
-            'fallback' => $this->fallback,
-            'text' => $this->text,
-            'pretext' => $this->pretext,
-            'color' => $this->color,
-            'footer' => $this->footer,
+            'fallback'    => $this->fallback,
+            'text'        => $this->text,
+            'pretext'     => $this->pretext,
+            'color'       => $this->color,
+            'footer'      => $this->footer,
             'footer_icon' => $this->footerIcon,
-            'ts' => $this->timestamp ? $this->timestamp->getTimestamp() : null,
-            'mrkdwn_in' => $this->markdownFields,
-            'image_url' => $this->imageUrl,
-            'thumb_url' => $this->thumbUrl,
-            'title' => $this->title,
-            'title_link' => $this->titleLink,
+            'ts'          => $this->timestamp !== null ? $this->timestamp->getTimestamp() : null,
+            'mrkdwn_in'   => $this->markdownFields,
+            'image_url'   => $this->imageUrl,
+            'thumb_url'   => $this->thumbUrl,
+            'title'       => $this->title,
+            'title_link'  => $this->titleLink,
             'author_name' => $this->authorName,
             'author_link' => $this->authorLink,
             'author_icon' => $this->authorIcon,
         ];
 
-        $data['fields'] = $this->getFieldsAsArrays();
+        $data['fields']  = $this->getFieldsAsArrays();
         $data['actions'] = $this->getActionsAsArrays();
 
         return $data;

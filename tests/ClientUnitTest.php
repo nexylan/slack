@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use Http\Discovery\Psr17FactoryDiscovery;
 
 /*
  * This file is part of the Nexylan packages.
@@ -11,10 +12,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Http\Discovery\Psr17FactoryDiscovery;
 use Nexy\Slack\Client;
+use PHPUnit\Framework\TestCase;
 
-class ClientUnitTest extends PHPUnit\Framework\TestCase
+class ClientUnitTest extends TestCase
 {
     public function testInstantiationWithNoDefaults(): void
     {
@@ -32,14 +33,14 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
     public function testInstantiationWithDefaults(): void
     {
         $defaults = [
-            'channel' => '#random',
-            'sticky_channel' => false,
-            'username' => 'Archer',
-            'icon' => ':ghost:',
-            'link_names' => true,
-            'unfurl_links' => true,
-            'unfurl_media' => false,
-            'allow_markdown' => false,
+            'channel'                 => '#random',
+            'sticky_channel'          => false,
+            'username'                => 'Archer',
+            'icon'                    => ':ghost:',
+            'link_names'              => true,
+            'unfurl_links'            => true,
+            'unfurl_media'            => false,
+            'allow_markdown'          => false,
             'markdown_in_attachments' => ['text'],
         ];
 
@@ -57,14 +58,14 @@ class ClientUnitTest extends PHPUnit\Framework\TestCase
     public function testCreateMessage(): void
     {
         $defaults = [
-            'channel' => '#random',
-            'sticky_channel' => false,
-            'username' => 'Archer',
-            'icon' => ':ghost:',
-            'link_names' => false,
-            'unfurl_links' => false,
-            'unfurl_media' => true,
-            'allow_markdown' => true,
+            'channel'                 => '#random',
+            'sticky_channel'          => false,
+            'username'                => 'Archer',
+            'icon'                    => ':ghost:',
+            'link_names'              => false,
+            'unfurl_links'            => false,
+            'unfurl_media'            => true,
+            'allow_markdown'          => true,
             'markdown_in_attachments' => [],
         ];
 
