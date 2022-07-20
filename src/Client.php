@@ -15,6 +15,7 @@ namespace Nexy\Slack;
 
 use Http\Client\Exception;
 use Nexy\Slack\Exception\SlackApiException;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -101,9 +102,9 @@ final class Client implements ClientInterface
      *
      *
      * @throws \RuntimeException
-     * @throws \Psr\Http\Client\Exception
      * @throws SlackApiException
      * @throws Exception
+     * @throws ClientExceptionInterface
      */
     public function sendMessage(MessageInterface $message): void
     {
@@ -146,8 +147,8 @@ final class Client implements ClientInterface
             'mrkdwn'       => $this->options['allow_markdown'],
         ];
 
-        if ($icon = $message->getIcon()) {
-            $payload[$message->getIconType()] = $icon;
+        if (!empty($icon = $message->getIcon()) && !empty($iconType = $message->getIconType())) {
+            $payload[$iconType] = $icon;
         }
 
         $payload['attachments'] = $this->getAttachmentsAsArrays($message);
