@@ -24,58 +24,40 @@ final class AttachmentAction
     public const STYLE_DANGER  = 'danger';
 
     /**
-     * The required name field of the action. The name will be returned to your Action URL.
-     *
-     * @var string
-     */
-    private $name;
-
-    /**
-     * The required label for the action.
-     *
-     * @var string
-     */
-    private $text;
-
-    /**
      * Button style.
-     *
-     * @var string
      */
-    private $style = self::STYLE_DEFAULT;
+    private string $style = self::STYLE_DEFAULT;
 
     /**
      * The required type of the action.
-     *
-     * @var string
      */
-    private $type = self::TYPE_BUTTON;
+    private string $type = self::TYPE_BUTTON;
 
     /**
      * Optional value. It will be sent to your Action URL.
-     *
-     * @var string|null
      */
-    private $value;
+    private ?string $value = null;
 
     /**
      * Optional value. It can be used to create link buttons.
-     *
-     * @var string|null
      */
-    private $url;
+    private ?string $url = null;
 
     /**
      * Confirmation field.
-     *
-     * @var ActionConfirmation|null
      */
-    private $confirm;
+    private ?ActionConfirmation $confirm = null;
 
-    public function __construct(string $name, string $text)
-    {
-        $this->name = $name;
-        $this->text = $text;
+    public function __construct(
+        /**
+         * The required name field of the action. The name will be returned to your Action URL.
+         */
+        private readonly string $name,
+        /**
+         * The required label for the action.
+         */
+        private readonly string $text
+    ) {
     }
 
     public function getName(): string
@@ -93,9 +75,6 @@ final class AttachmentAction
         return $this->style;
     }
 
-    /**
-     * @return AttachmentAction
-     */
     public function setStyle(string $style): self
     {
         $this->style = $style;
@@ -108,9 +87,6 @@ final class AttachmentAction
         return $this->type;
     }
 
-    /**
-     * @return AttachmentAction
-     */
     public function setType(string $type): self
     {
         $this->type = $type;
@@ -123,9 +99,6 @@ final class AttachmentAction
         return $this->value;
     }
 
-    /**
-     * @return AttachmentAction
-     */
     public function setValue(?string $value): self
     {
         $this->value = $value;
@@ -138,9 +111,6 @@ final class AttachmentAction
         return $this->url;
     }
 
-    /**
-     * @return AttachmentAction
-     */
     public function setUrl(?string $url): self
     {
         $this->url = $url;
@@ -155,8 +125,6 @@ final class AttachmentAction
 
     /**
      * @param ActionConfirmation $confirm
-     *
-     * @return AttachmentAction
      */
     public function setConfirm(?ActionConfirmation $confirm): self
     {

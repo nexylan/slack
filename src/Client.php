@@ -25,51 +25,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class Client implements ClientInterface
 {
-    /**
-     * @var ErrorResponseHandler
-     */
-    private $errorResponseHandler;
+    private readonly ErrorResponseHandler $errorResponseHandler;
 
-    /**
-     * @var string
-     */
-    private $endpoint;
+    private readonly array $options;
 
-    /**
-     * @var array
-     */
-    private $options;
-
-    /**
-     * @var HttpClientInterface
-     */
-    private $httpClient;
-
-    /**
-     * @var RequestFactoryInterface
-     */
-    private $requestFactory;
-
-    /**
-     * @var StreamFactoryInterface
-     */
-    private $streamFactory;
-
-    /**
-     * @param mixed[] $options
-     */
     public function __construct(
-        HttpClientInterface $httpClient,
-        RequestFactoryInterface $requestFactory,
-        StreamFactoryInterface $streamFactory,
-        string $endpoint,
+        private readonly HttpClientInterface $httpClient,
+        private readonly RequestFactoryInterface $requestFactory,
+        private readonly StreamFactoryInterface $streamFactory,
+        private readonly string $endpoint,
         array $options = []
     ) {
-        $this->httpClient     = $httpClient;
-        $this->requestFactory = $requestFactory;
-        $this->streamFactory  = $streamFactory;
-        $this->endpoint       = $endpoint;
-
         $resolver = (new OptionsResolver())
             ->setDefaults([
                 'channel'                 => null,
@@ -118,8 +84,6 @@ final class Client implements ClientInterface
 
     /**
      * Create a new message with defaults.
-     *
-     * @return MessageInterface
      */
     public function createMessage(): MessageInterface
     {
@@ -135,7 +99,6 @@ final class Client implements ClientInterface
     /**
      * Send a message.
      *
-     * @param MessageInterface $message
      *
      * @throws \RuntimeException
      * @throws \Psr\Http\Client\Exception
@@ -194,8 +157,6 @@ final class Client implements ClientInterface
 
     /**
      * Get the attachments in array form.
-     *
-     * @param MessageInterface $message
      */
     private function getAttachmentsAsArrays(MessageInterface $message): array
     {

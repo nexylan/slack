@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 use Http\Discovery\Psr17FactoryDiscovery;
+use Nexy\Slack\Client;
 
 /*
  * This file is part of the Nexylan packages.
@@ -12,7 +13,7 @@ use Http\Discovery\Psr17FactoryDiscovery;
  * file that was distributed with this source code.
  */
 
-use Nexy\Slack\Client;
+use Nexy\Slack\Message;
 use PHPUnit\Framework\TestCase;
 
 class ClientUnitTest extends TestCase
@@ -79,7 +80,7 @@ class ClientUnitTest extends TestCase
 
         $message = $client->createMessage();
 
-        $this->assertInstanceOf('Nexy\Slack\Message', $message);
+        $this->assertInstanceOf(Message::class, $message);
 
         $this->assertSame($defaults, $client->getOptions());
     }
@@ -96,7 +97,7 @@ class ClientUnitTest extends TestCase
 
         $message = $client->to('@regan');
 
-        $this->assertInstanceOf('Nexy\Slack\Message', $message);
+        $this->assertInstanceOf(Message::class, $message);
 
         $this->assertSame('@regan', $message->getChannel());
     }

@@ -18,33 +18,21 @@ namespace Nexy\Slack;
  */
 final class AttachmentField
 {
-    /**
-     * The required title field of the field.
-     *
-     * @var string
-     */
-    private $title;
-
-    /**
-     * The required value of the field.
-     *
-     * @var string
-     */
-    private $value;
-
-    /**
-     * Whether the value is short enough to fit side by side with
-     * other values.
-     *
-     * @var bool
-     */
-    private $short;
-
-    public function __construct(string $title, string $value, bool $short = false)
-    {
-        $this->title = $title;
-        $this->value = $value;
-        $this->short = $short;
+    public function __construct(
+        /**
+         * The required title field of the field.
+         */
+        private readonly string $title,
+        /**
+         * The required value of the field.
+         */
+        private readonly string $value,
+        /**
+         * Whether the value is short enough to fit side by side with
+         * other values.
+         */
+        private readonly bool $short = false
+    ) {
     }
 
     public function getTitle(): string

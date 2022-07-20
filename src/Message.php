@@ -19,70 +19,46 @@ namespace Nexy\Slack;
 final class Message implements MessageInterface
 {
     /**
-     * Reference to the Slack client responsible for sending
-     * the message.
-     *
-     * @var ClientInterface
-     */
-    private $client;
-
-    /**
      * The text to send with the message.
-     *
-     * @var string|null
      */
-    private $text;
+    private ?string $text = null;
 
     /**
      * The channel the message should be sent to.
-     *
-     * @var string|null
      */
-    private $channel;
+    private ?string $channel = null;
 
     /**
      * The username the message should be sent as.
-     *
-     * @var string|null
      */
-    private $username;
+    private ?string $username = null;
 
     /**
      * The URL to the icon to use.
-     *
-     * @var string|null
      */
-    private $icon;
+    private ?string $icon = null;
 
     /**
      * The type of icon we are using.
-     *
-     * @var string|null
      */
-    private $iconType;
+    private ?string $iconType = null;
 
     /**
      * Whether the message text should be interpreted in Slack's
      * Markdown-like language.
-     *
-     * @var bool
      */
-    private $allowMarkdown = true;
+    private bool $allowMarkdown = true;
 
     /**
      * The attachment fields which should be formatted with
      * Slack's Markdown-like language.
-     *
-     * @var array
      */
-    private $markdownInAttachments = [];
+    private array $markdownInAttachments = [];
 
     /**
      * An array of attachments to send.
-     *
-     * @var array
      */
-    private $attachments = [];
+    private array $attachments = [];
 
     /**
      * @var string
@@ -99,9 +75,8 @@ final class Message implements MessageInterface
      *
      * @param ClientInterface $client
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(private readonly ClientInterface $client)
     {
-        $this->client = $client;
     }
 
     public function getText(): ?string

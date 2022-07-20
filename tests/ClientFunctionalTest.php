@@ -21,10 +21,7 @@ use PHPUnit\Framework\TestCase;
 
 class ClientFunctionalTest extends TestCase
 {
-    /**
-     * @var \Http\Mock\Client
-     */
-    private $mockHttpClient;
+    private \Http\Mock\Client $mockHttpClient;
 
     protected function setUp(): void
     {
@@ -58,7 +55,7 @@ class ClientFunctionalTest extends TestCase
 
         $this->assertSame(
             $expectedHttpData,
-            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true)
+            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true, 512, JSON_THROW_ON_ERROR)
         );
     }
 
@@ -92,7 +89,7 @@ class ClientFunctionalTest extends TestCase
 
         $this->assertSame(
             $expectedHttpData,
-            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true)
+            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true, 512, JSON_THROW_ON_ERROR)
         );
     }
 
@@ -165,7 +162,7 @@ class ClientFunctionalTest extends TestCase
 
         $this->assertSame(
             $expectedHttpData,
-            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true)
+            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true, 512, JSON_THROW_ON_ERROR)
         );
     }
 
@@ -255,7 +252,7 @@ class ClientFunctionalTest extends TestCase
 
         $this->assertSame(
             $expectedHttpData,
-            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true)
+            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true, 512, JSON_THROW_ON_ERROR)
         );
     }
 
@@ -387,7 +384,7 @@ class ClientFunctionalTest extends TestCase
 
         $this->assertSame(
             $expectedHttpData,
-            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true)
+            \json_decode((string) $this->mockHttpClient->getLastRequest()->getBody(), true, 512, JSON_THROW_ON_ERROR)
         );
     }
 }

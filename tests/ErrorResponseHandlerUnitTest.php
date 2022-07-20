@@ -53,7 +53,7 @@ class ErrorResponseHandlerUnitTest extends TestCase
     {
         $handler = new ErrorResponseHandler();
 
-        $this->assertInstanceOf('Nexy\Slack\ErrorResponseHandler', $handler);
+        $this->assertInstanceOf(ErrorResponseHandler::class, $handler);
 
         return $handler;
     }

@@ -20,124 +20,90 @@ final class Attachment
 {
     /**
      * The fallback text to use for clients that don't support attachments.
-     *
-     * @var string
      */
-    private $fallback = ' ';
+    private string $fallback = ' ';
 
     /**
      * Optional text that should appear within the attachment.
-     *
-     * @var string
      */
-    private $text = ' ';
+    private string $text = ' ';
 
     /**
      * Optional image that should appear within the attachment.
-     *
-     * @var string|null
      */
-    private $imageUrl;
+    private ?string $imageUrl = null;
 
     /**
      * Optional thumbnail that should appear within the attachment.
-     *
-     * @var string|null
      */
-    private $thumbUrl;
+    private ?string $thumbUrl = null;
 
     /**
      * Optional text that should appear above the formatted data.
-     *
-     * @var string|null
      */
-    private $pretext;
+    private ?string $pretext = null;
 
     /**
      * Optional title for the attachment.
-     *
-     * @var string|null
      */
-    private $title;
+    private ?string $title = null;
 
     /**
      * Optional title link for the attachment.
-     *
-     * @var string|null
      */
-    private $titleLink;
+    private ?string $titleLink = null;
 
     /**
      * Optional author name for the attachment.
-     *
-     * @var string|null
      */
-    private $authorName;
+    private ?string $authorName = null;
 
     /**
      * Optional author link for the attachment.
-     *
-     * @var string|null
      */
-    private $authorLink;
+    private ?string $authorLink = null;
 
     /**
      * Optional author icon for the attachment.
-     *
-     * @var string|null
      */
-    private $authorIcon;
+    private ?string $authorIcon = null;
 
     /**
      * The color to use for the attachment.
-     *
-     * @var string|null
      */
-    private $color = 'good';
+    private ?string $color = 'good';
 
     /**
      * The text to use for the attachment footer.
-     *
-     * @var string|null
      */
-    private $footer;
+    private ?string $footer = null;
 
     /**
      * The icon to use for the attachment footer.
-     *
-     * @var string|null
      */
-    private $footerIcon;
+    private ?string $footerIcon = null;
 
     /**
      * The timestamp to use for the attachment.
-     *
-     * @var \DateTime|null
      */
-    private $timestamp;
+    private ?\DateTime $timestamp = null;
 
     /**
      * The fields of the attachment.
-     *
-     * @var array
      */
-    private $fields = [];
+    private array $fields = [];
 
     /**
      * The fields of the attachment that Slack should interpret
      * with its Markdown-like language.
-     *
-     * @var array
      */
-    private $markdownFields = [];
+    private array $markdownFields = [];
 
     /**
      * A collection of actions (buttons) to include in the attachment.
      * A maximum of 5 actions may be provided.
-     *
-     * @var array
      */
-    private $actions = [];
+    private array $actions = [];
 
     public function getFallback(): string
     {
@@ -449,8 +415,6 @@ final class Attachment
      * Set the collection of actions (buttons) to include in the attachment.
      *
      * @param array $actions
-     *
-     * @return Attachment
      */
     public function setActions($actions): self
     {

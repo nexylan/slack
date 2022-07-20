@@ -21,7 +21,7 @@ class MessageUnitTest extends TestCase
 {
     public function testInstantiation(): void
     {
-        $this->assertInstanceOf('Nexy\Slack\Message', $this->getMessage());
+        $this->assertInstanceOf(Message::class, $this->getMessage());
     }
 
     public function testSetText(): void

@@ -15,12 +15,12 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.1",
         "ext-mbstring": "*",
         "psr/http-client": "^1.0",
         "psr/http-factory": "^1.0",
         "psr/http-message": "^1.0",
-        "symfony/options-resolver": "^3.4 || ^4.0 || ^5.0 || ^6.0"
+        "symfony/options-resolver": "^6.0"
     },
     "require-dev": {
         "guzzlehttp/psr7": "^1.4",

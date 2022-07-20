@@ -19,37 +19,25 @@ namespace Nexy\Slack;
 final class ActionConfirmation
 {
     /**
-     * The required title for the pop up window.
-     *
-     * @var string
-     */
-    private $title;
-
-    /**
-     * The required description.
-     *
-     * @var string
-     */
-    private $text;
-
-    /**
      * The text label for the OK button.
-     *
-     * @var string|null
      */
-    private $okText;
+    private ?string $okText = null;
 
     /**
      * The text label for the Cancel button.
-     *
-     * @var string|null
      */
-    private $dismissText;
+    private ?string $dismissText = null;
 
-    public function __construct(string $title, string $text)
-    {
-        $this->title = $title;
-        $this->text  = $text;
+    public function __construct(
+        /**
+         * The required title for the pop up window.
+         */
+        private readonly string $title,
+        /**
+         * The required description.
+         */
+        private readonly string $text
+    ) {
     }
 
     public function getTitle(): string
@@ -67,9 +55,6 @@ final class ActionConfirmation
         return $this->okText;
     }
 
-    /**
-     * @return ActionConfirmation
-     */
     public function setOkText(?string $okText): self
     {
         $this->okText = $okText;
@@ -82,9 +67,6 @@ final class ActionConfirmation
         return $this->dismissText;
     }
 
-    /**
-     * @return ActionConfirmation
-     */
     public function setDismissText(?string $dismissText): self
     {
         $this->dismissText = $dismissText;
